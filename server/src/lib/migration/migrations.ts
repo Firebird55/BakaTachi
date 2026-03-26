@@ -1,18 +1,27 @@
 import UserFollowersMigration from "./migrations/add-following-to-users";
+import AddLockedAt from "./migrations/add-lockedat";
 import UGPTAddPreferredRanking from "./migrations/add-preferredRanking-to-ugpt";
 import UGPTRivalsMigration from "./migrations/add-rivals-to-ugpt";
+import ChunithmFixPreferredDefaultEnum from "./migrations/chunithm-fix-preferred-default-enum";
+import ChunithmLampSplit from "./migrations/chunithm-lamp-split";
 import FixUndefinedBMSData from "./migrations/fix-undefined-bms-data";
 import JoinINFCastHourCharts from "./migrations/join-inf-casthour-charts";
 import JoinINFCastHourSongs from "./migrations/join-inf-casthour-songs";
 import KtRatingToCuratorSkill from "./migrations/ktRating-to-curator-skill";
+import MaimaiDXFixLamps from "./migrations/maimaidx-fix-lamps";
 import MarkFervidexAsWithoutIntent from "./migrations/mark-fervidex-as-without-intent";
 import MarkKsHookAsWithoutIntent from "./migrations/mark-kshook-as-without-intent";
 import NullLR2HookFailedBPs from "./migrations/null-lr2hook-failed-bps";
+import OngekiV2 from "./migrations/ongeki-v2";
+import RemoveAbove100pc from "./migrations/remove-above-100pc";
 import RemoveIIDXBeginners from "./migrations/remove-iidx-beginners";
 import RemoveIIDX2dxtraBeginners from "./migrations/remove-iidx-extra-beginners";
 import RemoveMultifolderStats from "./migrations/remove-multifolder-stats";
 import RemoveRandom from "./migrations/remove-random";
 import RemoveSessionViews from "./migrations/remove-session-views";
+import RmHot from "./migrations/rm-hot";
+// import SdvxMaxxiveGoals from "./migrations/sdvx-maxxive-goals";
+// import SdvxMaxxiveLampRearrange from "./migrations/sdvx-maxxive-lamp-rearrange";
 import SessionsToScoreIDs from "./migrations/sessions-to-scoreIDs";
 import UpdateJubeatPreferredTables from "./migrations/update-jubeat-preferred-tables";
 import V3PropsMigration from "./migrations/v3-props";
@@ -50,12 +59,13 @@ const REGISTERED_MIGRATIONS: Array<Migration> =
 				SessionsToScoreIDs,
 				V3PropsMigration,
 				V3ScoresMigration,
+				AddLockedAt,
 		  ];
 
 // only apply type-specific migrations if we're not in testing
 if (Environment.nodeEnv !== "test") {
 	// kamaitachi specific migrations
-	if (TachiConfig.TYPE !== "btchi") {
+	if (TachiConfig.TYPE !== "boku") {
 		REGISTERED_MIGRATIONS.push(
 			RemoveIIDXBeginners,
 			UpdateJubeatPreferredTables,
@@ -64,13 +74,25 @@ if (Environment.nodeEnv !== "test") {
 			MarkFervidexAsWithoutIntent,
 			MarkKsHookAsWithoutIntent,
 			KtRatingToCuratorSkill,
-			RemoveIIDX2dxtraBeginners
+			RemoveIIDX2dxtraBeginners,
+			RmHot,
+			ChunithmLampSplit,
+			OngekiV2,
+			ChunithmFixPreferredDefaultEnum,
+			// SdvxMaxxiveLampRearrange,
+			// SdvxMaxxiveGoals,
+			MaimaiDXFixLamps
 		);
 	}
 
 	// bokutachi specific migrations
-	if (TachiConfig.TYPE !== "ktchi") {
-		REGISTERED_MIGRATIONS.push(NullLR2HookFailedBPs, FixUndefinedBMSData, RemoveRandom);
+	if (TachiConfig.TYPE !== "kamai") {
+		REGISTERED_MIGRATIONS.push(
+			NullLR2HookFailedBPs,
+			FixUndefinedBMSData,
+			RemoveRandom,
+			RemoveAbove100pc
+		);
 	}
 }
 

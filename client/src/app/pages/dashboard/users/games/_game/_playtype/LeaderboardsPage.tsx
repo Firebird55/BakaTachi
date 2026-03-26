@@ -1,6 +1,6 @@
 import { APIFetchV1, UnsuccessfulAPIFetchResponse } from "util/api";
 import { ChangeOpacity } from "util/color-opacity";
-import { FormatGPTProfileRating, IsNotNullish, UppercaseFirst } from "util/misc";
+import { FormatGPTProfileRating, FormatGPTProfileRatingName, IsNotNullish } from "util/misc";
 import { StrSOV } from "util/sorts";
 import ClassBadge from "components/game/ClassBadge";
 import useSetSubheader from "components/layout/header/useSetSubheader";
@@ -11,7 +11,6 @@ import LoadingWrapper from "components/util/LoadingWrapper";
 import { useProfileRatingAlg } from "components/util/useScoreRatingAlg";
 import React, { useState } from "react";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
 import {
 	COLOUR_SET,
 	FormatGame,
@@ -172,7 +171,12 @@ function LeaderboardsPageContent({
 		>
 			<MiniTable
 				className="text-center"
-				headers={["Position", "User", UppercaseFirst(alg), "Classes"]}
+				headers={[
+					"Position",
+					"User",
+					FormatGPTProfileRatingName(game, playtype, alg),
+					"Classes",
+				]}
 			>
 				<>
 					{bestNearbyUser >= 1 &&

@@ -179,7 +179,6 @@ If present, and a string, this points to the local dev server for a react app. H
 option set results in CORS being enabled for *that* specific URL. This is useful for local
 development, but should not be used in production.
 
-
 ### RATE_LIMIT
 
 - Type: Positive Integer
@@ -242,7 +241,6 @@ Where *this* server is hosted. This is used to
 provide callback URLs inside emails. You may stub
 it out if emails are unsupported.
 
-
 ### EMAIL_CONFIG
 
 - Type: EMAIL_CONFIG | undefined.
@@ -296,7 +294,7 @@ Configures what the Tachi Server instance supports, and what it's generally doin
 ```ts
 interface TACHI_CONFIG: {
 	NAME: string;
-	TYPE: "ktchi" | "btchi" | "omni";
+	TYPE: "kamai" | "boku" | "omni";
 	GAMES: Game[];
 	IMPORT_TYPES: ImportTypes[];
 }
@@ -308,7 +306,7 @@ The name of the server. This is reported at `/api/v1/status`.
 
 #### TYPE
 
-What type of tachi-server this is. `ktchi` will enable Kamaitachi Only routes, `btchi` will enable
+What type of tachi-server this is. `kamai` will enable Kamaitachi Only routes, `boku` will enable
 Bokutachi only routes, and `omni` will enable both.
 
 #### GAMES
@@ -393,7 +391,7 @@ interface CDN_CONFIG: {
 
 #### WEB_LOCATION
 
-Configures a URL to redirect users to when returning CDN contents. This could be something like `cdn.bokutachi.xyz`.
+Configures a URL to redirect users to when returning CDN contents. This could be something like `cdn.boku.tachi.ac`.
 
 #### SAVE_LOCATION
 

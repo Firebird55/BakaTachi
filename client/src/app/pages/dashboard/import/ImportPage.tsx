@@ -23,6 +23,8 @@ import {
 	UserDocument,
 } from "tachi-common";
 import Col from "react-bootstrap/Col";
+import { Alert } from "react-bootstrap";
+import Icon from "components/util/Icon";
 
 export default function ImportPage({ user }: { user: UserDocument }) {
 	useSetSubheader(["Import Scores"]);
@@ -48,7 +50,7 @@ export default function ImportPage({ user }: { user: UserDocument }) {
 				<DiscordLink>Discord</DiscordLink>.
 				<br />
 				Know how to program, and want to write a script yourself? Check out{" "}
-				<ExternalLink href="https://docs.bokutachi.xyz/codebase/batch-manual">
+				<ExternalLink href="https://docs.tachi.ac/codebase/batch-manual">
 					Batch Manual
 				</ExternalLink>
 				.
@@ -62,7 +64,7 @@ export default function ImportPage({ user }: { user: UserDocument }) {
 				value={game ?? ""}
 			>
 				<option value="">Please select a game.</option>
-				{TachiConfig.games.map((e) => (
+				{TachiConfig.GAMES.map((e) => (
 					<option value={e} key={e}>
 						{GetGameConfig(e).name}
 					</option>
@@ -142,6 +144,13 @@ function ImportInfoDisplayer({ game }: { game: Game }) {
 			/>,
 			<ImportTypeInfoCard key="api/flo-iidx" importType="api/flo-iidx" />,
 			<ImportTypeInfoCard key="api/eag-iidx" importType="api/eag-iidx" />,
+			<ImportInfoCard
+				name="IIDX CG Site Importer"
+				href="kt-cg-iidx-importer"
+				desc="Use your data from a CG instance (Dev/GAN/NAG)."
+				moreInfo="Note: All networks are reduced to their first three letters for anonymity reasons."
+				key="IIDX CG Site Importer"
+			/>,
 			<ImportTypeInfoCard key="file/solid-state-squad" importType="file/solid-state-squad" />,
 			<ImportTypeInfoCard key="file/pli-iidx-csv" importType="file/pli-iidx-csv" />
 		);
@@ -156,7 +165,7 @@ function ImportInfoDisplayer({ game }: { game: Game }) {
 			/>,
 			<ImportInfoCard
 				name="Konaste Hook"
-				href="ks-hook"
+				href="kshook"
 				desc="Automatically import scores from SDVX Konaste!"
 				moreInfo="Yep, it's that simple."
 				key="Konaste Hook"
@@ -197,7 +206,7 @@ function ImportInfoDisplayer({ game }: { game: Game }) {
 				name="CHUNITHM Site Importer"
 				href="kt-chunithm-site-importer"
 				desc="Use your data from CHUNITHM NET."
-				moreInfo="If you are currently playing on CHUNITHM International, you can import play data from it here."
+				moreInfo="If you are playing on an official CHUNITHM server, you can import play data from it here."
 				key="CHUNITHM Site Importer"
 			/>,
 			<ImportInfoCard
@@ -212,17 +221,7 @@ function ImportInfoDisplayer({ game }: { game: Game }) {
 				}
 				key="Aqua/ARTEMiS Exporter"
 			/>,
-			<ImportInfoCard
-				name="MYT Exporter"
-				href="chunithm-myt-exporter"
-				desc="Export your scores from MYT."
-				moreInfo={
-					<>
-						This is an userscript that exports scores from the MYT web interface.
-					</>
-				}
-				key="MYT Exporter"
-			/>,
+			<ImportTypeInfoCard key="api/myt-chunithm" importType="api/myt-chunithm" />,
 			<ImportInfoCard
 				name="Chunitachi"
 				href="chunitachi"
@@ -290,7 +289,7 @@ function ImportInfoDisplayer({ game }: { game: Game }) {
 			<ImportInfoCard
 				name="Silent Hook"
 				href="silent-hook"
-				desc={`Automatically upload Pop'n scores to ${TachiConfig.name}!`}
+				desc={`Automatically upload Pop'n scores to ${TachiConfig.NAME}!`}
 				moreInfo="Yep, it's that simple."
 				key="Silent Hook"
 			/>,
@@ -310,6 +309,7 @@ function ImportInfoDisplayer({ game }: { game: Game }) {
 		);
 	} else if (game === "wacca") {
 		Content.unshift(
+			<ImportTypeInfoCard key="api/myt-wacca" importType="api/myt-wacca" />,
 			<ImportInfoCard
 				name="WaccaMyPageScraper"
 				href="wacca-mypage-scraper"
@@ -324,9 +324,10 @@ function ImportInfoDisplayer({ game }: { game: Game }) {
 				name="maimai DX Site Importer"
 				href="kt-maimaidx-site-importer"
 				desc="Use your data from maimai DX NET."
-				moreInfo="If you are currently playing on maimai DX International, you can import play data from it here."
+				moreInfo="If you are playing on an official maimai DX server, you can import play data from it here."
 				key="maimai DX NET Importer"
-			/>
+			/>,
+			<ImportTypeInfoCard key="api/myt-maimaidx" importType="api/myt-maimaidx" />
 		);
 	} else if (game === "museca") {
 		Content.unshift(
@@ -343,22 +344,137 @@ function ImportInfoDisplayer({ game }: { game: Game }) {
 				key="SL-ITG"
 			/>
 		);
-	} // else if (game === "jubeat") {
-	// 	Content.unshift(
-	// 		<ImportTypeInfoCard key="api/cg-dev-jubeat" importType="api/cg-dev-jubeat" />,
-	// 		<ImportTypeInfoCard key="api/cg-prod-jubeat" importType="api/cg-prod-jubeat" />
-	// 	);
-	// }
+	} else if (game === "ongeki") {
+		Content.unshift(
+			<ImportInfoCard
+				name="Inohara"
+				href="inohara"
+				desc="Automatically import scores, whenever you get them."
+				key="Inohara"
+				moreInfo="This is the recommended way to import O.N.G.E.K.I. scores; data is submitted at the end of each play."
+			/>,
+			<ImportInfoCard
+				name="O.N.G.E.K.I. Site Importer"
+				href="kt-ongeki-site-importer"
+				desc="Use your data from O.N.G.E.K.I. NET."
+				moreInfo="If you are playing on an official Ongeki server, you can import play data from it here."
+				key="O.N.G.E.K.I. NET Importer"
+			/>,
+			<ImportInfoCard
+				name="ARTEMiS Exporter"
+				href="ongeki-artemis-exporter"
+				desc="Export your scores from an ARTEMiS instance."
+				moreInfo={
+					<>
+						This is a script that exports scores from an ARTEMiS instance. <br />
+						Note: You will need direct access to the server instance.
+					</>
+				}
+				key="ARTEMiS Exporter"
+			/>,
+			<ImportTypeInfoCard key="api/myt-ongeki" importType="api/myt-ongeki" />
+		);
+	} else if (game === "jubeat") {
+		Content.unshift(
+			<ImportTypeInfoCard key="api/cg-dev-jubeat" importType="api/cg-dev-jubeat" />,
+			<ImportTypeInfoCard key="api/cg-gan-jubeat" importType="api/cg-gan-jubeat" />,
+			<ImportTypeInfoCard key="api/cg-nag-jubeat" importType="api/cg-nag-jubeat" />
+		);
+	}
 
 	return (
 		<>
 			<div className="text-center mb-4">
 				<h1>{gameConfig.name}</h1>
 			</div>
+			<Row xs={{ cols: 1 }}>
+				<Col xs={12}>
+					<InputAlert game={game} />
+				</Col>
+			</Row>
 			<Row xs={{ cols: 1 }} lg={{ cols: 2 }}>
 				{Content}
 			</Row>
 		</>
+	);
+}
+
+function InputAlert({ game }: { game: Game }) {
+	function doit(game: Game): JSX.Element | null {
+		switch (game) {
+			case "jubeat":
+			case "maimai":
+			case "iidx":
+			case "museca":
+			case "chunithm":
+			case "gitadora":
+			case "maimaidx":
+			case "popn":
+			case "wacca":
+			case "ongeki":
+			case "ddr":
+				return (
+					<>
+						<strong>Scores must be achieved on an arcade-size controller!</strong>
+						<br />
+						Playing on other input devices (like a keyboard) will get you in trouble.
+					</>
+				);
+			case "sdvx":
+				return (
+					<>
+						<strong>Scores must be achieved on an arcade-size controller!</strong>
+						<br />
+						Playing on other input devices (like a keyboard) will get you in trouble.
+						<br />
+						<strong>
+							A Pocket-Voltex DOES NOT count as an <i>ARCADE SIZE</i> controller!
+						</strong>
+					</>
+				);
+
+			case "usc":
+				return (
+					<>
+						<strong>Please use the right leaderboard for your controller!</strong>
+						<br />
+						<br />
+						<strong>Arcade-sized controllers</strong> should go on the controller
+						leaderboards.
+						<br />
+						<strong>Keyboards and anything else</strong> go on the Keyboard/Other
+						leaderboards.
+						<br />
+						<br />
+						<strong>
+							A Pocket-Voltex DOES NOT count as an <i>ARCADE SIZE</i> controller!
+						</strong>
+					</>
+				);
+
+			case "itg":
+			case "arcaea":
+			case "bms":
+			case "pms":
+				return null;
+		}
+	}
+
+	const ct = doit(game);
+
+	if (!ct) {
+		return <></>;
+	}
+
+	return (
+		<Alert variant="warning">
+			<div className="d-flex" style={{ alignItems: "center", gap: "1rem", fontSize: "2rem" }}>
+				<div style={{ fontSize: "4rem" }}>
+					<Icon type="exclamation-triangle" />
+				</div>
+				<div className="text-body">{ct}</div>
+			</div>
+		</Alert>
 	);
 }
 
@@ -367,7 +483,7 @@ function ImportTypeInfoCard({
 }: {
 	importType: FileUploadImportTypes | APIImportTypes;
 }): JSX.Element | null {
-	if (!TachiConfig.importTypes.includes(importType)) {
+	if (!TachiConfig.IMPORT_TYPES.includes(importType)) {
 		return null;
 	}
 
@@ -512,6 +628,76 @@ function ImportTypeInfoCard({
 					key="cg-nag-museca"
 				/>
 			);
+		case "api/cg-dev-jubeat":
+			return (
+				<ImportInfoCard
+					name="CG Dev Integration"
+					href="cg-dev-jubeat"
+					desc="Pull your Jubeat scores from the CG Dev Network."
+					moreInfo="Note: All networks are reduced to their first three letters for anonymity reasons."
+					key="cg-dev-jubeat"
+				/>
+			);
+		case "api/cg-nag-jubeat":
+			return (
+				<ImportInfoCard
+					name="CG NAG Integration"
+					href="cg-nag-jubeat"
+					desc="Pull your Jubeat scores from the NAG Network."
+					moreInfo="Note: All networks are reduced to their first three letters for anonymity reasons."
+					key="cg-nag-jubeat"
+				/>
+			);
+		case "api/cg-gan-jubeat":
+			return (
+				<ImportInfoCard
+					name="CG GAN Integration"
+					href="cg-gan-jubeat"
+					desc="Pull your Jubeat scores from the GAN Network."
+					moreInfo="Note: All networks are reduced to their first three letters for anonymity reasons."
+					key="cg-gan-jubeat"
+				/>
+			);
+		case "api/myt-chunithm":
+			return (
+				<ImportInfoCard
+					name="MYT Integration"
+					href="myt-chunithm"
+					desc="Pull your Chunithm scores from the MYT Network."
+					moreInfo="Note: All networks are reduced to their first three letters for anonymity reasons."
+					key="myt-chunithm"
+				/>
+			);
+		case "api/myt-maimaidx":
+			return (
+				<ImportInfoCard
+					name="MYT Integration"
+					href="myt-maimaidx"
+					desc="Pull your MaiMai DX scores from the MYT Network."
+					moreInfo="Note: All networks are reduced to their first three letters for anonymity reasons."
+					key="myt-maimaidx"
+				/>
+			);
+		case "api/myt-ongeki":
+			return (
+				<ImportInfoCard
+					name="MYT Integration"
+					href="myt-ongeki"
+					desc="Pull your Ongeki scores from the MYT Network."
+					moreInfo="Note: All networks are reduced to their first three letters for anonymity reasons."
+					key="myt-ongeki"
+				/>
+			);
+		case "api/myt-wacca":
+			return (
+				<ImportInfoCard
+					name="MYT Integration"
+					href="myt-wacca"
+					desc="Pull your WACCA scores from the MYT Network."
+					moreInfo="Note: All networks are reduced to their first three letters for anonymity reasons."
+					key="myt-wacca"
+				/>
+			);
 		case "file/eamusement-iidx-csv":
 			return (
 				<ImportInfoCard
@@ -555,12 +741,12 @@ function ImportTypeInfoCard({
 				<ImportInfoCard
 					name="Batch Manual"
 					href="batch-manual"
-					desc={`A JSON format ${TachiConfig.name} recognises and can import scores from.`}
+					desc={`A JSON format ${TachiConfig.NAME} recognises and can import scores from.`}
 					moreInfo={
 						<>
 							This is for programmers to create their own import scripts. <br /> Check
 							the{" "}
-							<ExternalLink href="https://docs.bokutachi.xyz/codebase/batch-manual">
+							<ExternalLink href="https://docs.tachi.ac/codebase/batch-manual">
 								documentation
 							</ExternalLink>
 							.

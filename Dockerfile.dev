@@ -1,0 +1,63 @@
+# For use via `devcontainer.json`. The docker-compose-dev file sets some other
+# important variables.
+
+FROM debian:13
+
+WORKDIR /tachi
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get update \
+	&& apt-get upgrade -y \
+	&& apt-get install -y \
+		# essentials
+		git npm locales sudo \
+		# docs pythonisms
+		python-is-python3 python3-setuptools pip mkdocs mkdocs-material \
+		# nice to haves
+		gh fish just fzf curl wget parallel neovim fd-find bat \
+	# uninstall lynx so people don't get a CLI browser that can't load anything when they do `gh auth login`
+	&& apt-get purge -y lynx
+
+# so apt doesn't complain about the lack of a dialog-like program
+ENV DEBIAN_FRONTEND=readline
+
+# `fd` is called `fdfind` on debian. Awesome.
+RUN ln -s $(which fdfind) /usr/bin/fd
+
+# setup locales
+# https://stackoverflow.com/questions/28405902/how-to-set-the-locale-inside-a-debian-ubuntu-docker-container
+RUN echo 'en_US.UTF-8 UTF-8' > /etc/locale.gen && locale-gen
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+
+# nodeisms
+RUN npm install --silent -g pnpm@8.15.6
+
+# https://github.com/python-babel/babel/issues/990
+# it wouldn't be python without needing absurd global state manipulation to fix
+# an incoherent error message
+RUN rm -f /etc/localtime && ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
+
+# Fix locale issue perl repeatedly complains about
+RUN echo "LC_ALL=en_US.UTF-8\nLANG=en_US.UTF-8" > /etc/default/locale
+
+# create tachi user and give them sudo
+RUN addgroup --gid 1000 tachi \
+	&& adduser --disabled-password --uid 1000 --gid 1000 --home /home/tachi tachi \
+	&& echo "tachi ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Make the /tachi working directory owned by our user instead of root. Docker volumes
+# are mounted as root UNLESS the folder already exists inside the host and has non-root
+# ownership. This is the only way to declare a volume in docker has non-root ownership.
+# Unbelievably obscure.
+RUN chown -R tachi:tachi /tachi
+
+USER tachi
+
+# see above comment about non-root volumes
+RUN mkdir node_modules .pnpm-store
+
+# make pnpm be quiet about new versions
+RUN echo "update-notifier=false" >> /home/tachi/.npmrc
+
+# keep container alive indefinitely
+# Exclude .git from chown to avoid permission errors on macOS Docker mounts
+ENTRYPOINT ["sh", "-c", "sudo find /tachi -maxdepth 1 ! -name '.git' ! -name '/tachi' -exec chown -R tachi:tachi {} + 2>/dev/null || true; exec /bin/fish"]

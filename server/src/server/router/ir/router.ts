@@ -13,8 +13,44 @@ import {
 } from "../../middleware/auth";
 import { RequireBokutachi, RequireKamaitachi } from "../../middleware/type-require";
 import { Router } from "express";
+import { SYMBOL_TACHI_API_AUTH } from "lib/constants/tachi";
+import CreateLogCtx from "lib/logger/logger";
+import { FormatUserDoc, GetUserWithID } from "utils/user";
 
 const router: Router = Router({ mergeParams: true });
+
+const logger = CreateLogCtx(__filename);
+
+router.use(async (req, res, next) => {
+	// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+	if (!req[SYMBOL_TACHI_API_AUTH]) {
+		logger.info(`IR import request received from: ${req.header("Authorization")}`, {
+			body: req.body,
+			query: req.query,
+			url: req.url,
+		});
+
+		next();
+		return;
+	}
+
+	let user;
+
+	if (req[SYMBOL_TACHI_API_AUTH].userID) {
+		user = await GetUserWithID(req[SYMBOL_TACHI_API_AUTH].userID);
+	} else {
+		user = null;
+	}
+
+	logger.info(`IR import request received from: ${user ? FormatUserDoc(user) : "Unknown"}`, {
+		user,
+		body: req.body,
+		query: req.query,
+		url: req.url,
+	});
+
+	next();
+});
 
 // Common IRs
 

@@ -11,7 +11,6 @@ import Muted from "components/util/Muted";
 import DifficultyCell from "components/tables/cells/DifficultyCell";
 import TitleCell from "components/tables/cells/TitleCell";
 import ScoreCoreCells from "components/tables/game-core-cells/ScoreCoreCells";
-import SongChartInfoFormat from "../songs/SongInfoFormat";
 
 export default function FolderScoreAverages({
 	folderDataset,
@@ -122,7 +121,7 @@ export default function FolderScoreAverages({
 					</td>
 				</tr>
 				{Object.entries(data).map(([k, v]) => (
-					<>
+					<React.Fragment key={k}>
 						<tr>
 							<td>{UppercaseFirst(k)} Average (Played Charts)</td>
 							{/* @ts-expect-error this won't fail */}
@@ -165,7 +164,7 @@ export default function FolderScoreAverages({
 								chart={v.worst}
 							/>
 						</tr>
-					</>
+					</React.Fragment>
 				))}
 			</MiniTable>
 		</div>

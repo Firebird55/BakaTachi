@@ -1,8 +1,15 @@
 node_modules
 
+your-pc
+
 # ide stuffs
 .idea
-.vscode
+
+# i am un-ignoring this to make sure that vscode users get the right typescript version
+# picked for them. Future typescript design decisions cause phantom type errors that
+# don't exist on the version we actually compile for.
+#
+# .vscode
 .vs
 
 # PNPM noise
@@ -39,5 +46,7 @@ failed-tests.log
 
 .tsbuildinfo
 
-# bootstrap flag
+# legacy bootstrap flag
 I_HAVE_BOOTSTRAPPED_OK
+# new bootstrap flag
+BOOTSTRAP_OK

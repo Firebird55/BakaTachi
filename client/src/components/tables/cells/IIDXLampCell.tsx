@@ -3,7 +3,7 @@ import { ChangeOpacity } from "util/color-opacity";
 import { IsNotNullish } from "util/misc";
 import { GetEnumColour } from "lib/game-implementations";
 import React from "react";
-import { ChartDocument, GetGPTString, PBScoreDocument, ScoreDocument } from "tachi-common";
+import { ChartDocument, PBScoreDocument, ScoreDocument } from "tachi-common";
 
 export default function IIDXLampCell({
 	sc,
@@ -40,7 +40,7 @@ export default function IIDXLampCell({
 	let cbrkCount;
 	let cbrkText;
 
-	if (sc.scoreData.optional.comboBreak) {
+	if (IsNotNullish(sc.scoreData.optional.comboBreak)) {
 		cbrkCount = sc.scoreData.optional.comboBreak;
 	} else if (
 		IsNotNullish(sc.scoreData.judgements.pgreat) &&
@@ -62,6 +62,7 @@ export default function IIDXLampCell({
 		<td
 			style={{
 				backgroundColor: ChangeOpacity(GetEnumColour(sc, "lamp"), 0.2),
+				whiteSpace: "nowrap",
 			}}
 		>
 			<strong>{sc.scoreData.lamp}</strong>

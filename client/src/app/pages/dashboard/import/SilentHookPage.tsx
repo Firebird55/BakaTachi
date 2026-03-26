@@ -14,7 +14,7 @@ export default function SilentHookPage() {
 			<h1 className="text-center mb-4">What Is Silent Hook?</h1>
 			<div>
 				Silent Hook is a <code>.dll</code> file that hooks into Pop'n and automatically
-				sends the scores to a server. {TachiConfig.name} is compatible with what the Silent
+				sends the scores to a server. {TachiConfig.NAME} is compatible with what the Silent
 				Hook sends, so you can use it to submit scores!
 			</div>
 			<Divider />
@@ -22,7 +22,7 @@ export default function SilentHookPage() {
 			<ol className="instructions-list">
 				<li>
 					Download <code>silent</code> from{" "}
-					<ExternalLink href="https://zkldi.xyz/stuff/silent-latest.zip">
+					<ExternalLink href="https://zkldi.com/stuff/silent-latest.zip">
 						here
 					</ExternalLink>{" "}
 					and place all the <code>.dll</code> files in the same folder as{" "}
@@ -51,7 +51,7 @@ export default function SilentHookPage() {
 						</li>
 					</ul>
 				</li>
-				<li>Your scores now automatically upload to {TachiConfig.name}!</li>
+				<li>Your scores now automatically upload to {TachiConfig.NAME}!</li>
 			</ol>
 		</div>
 	);

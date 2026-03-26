@@ -74,6 +74,7 @@ export const USC_CONTROLLER_CONF = {
 		VF6: {
 			description: "Your best 50 VF6 values added together.",
 			formatter: ToDecimalPlaces(3),
+			associatedScoreAlgs: ["VF6"],
 		},
 	},
 
@@ -92,6 +93,7 @@ export const USC_CONTROLLER_CONF = {
 		vfClass: {
 			type: "DERIVED",
 			values: SDVXVFClasses,
+			minimumRelevantValue: "IMPERIAL_I",
 		},
 	},
 

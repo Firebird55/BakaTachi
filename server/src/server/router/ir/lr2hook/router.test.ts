@@ -5,7 +5,6 @@ import mockApi from "test-utils/mock-api";
 import ResetDBState from "test-utils/resets";
 import { TestingLR2HookScore } from "test-utils/test-data";
 import { ApplyNTimes, RFA } from "utils/misc";
-import type { LR2HookScore } from "lib/score-import/import-types/ir/lr2hook/types";
 
 t.test("POST /ir/lr2hook/import", (t) => {
 	t.beforeEach(ResetDBState);
@@ -66,13 +65,14 @@ t.test("POST /ir/lr2hook/import", (t) => {
 t.test("POST /ir/lr2hook/import/course", (t) => {
 	t.beforeEach(ResetDBState);
 
-	const classBody: LR2HookScore = {
+	const classBody = {
 		md5: "cfad3baadce9e02c45021963453d7c9477d23be22b2370925c573d922276bce0188a99f74ab71804f2e360dcf484545cc46a81cb184f5a804c119930d6eba748",
 		playerData: {
 			autoScr: 0,
 			gameMode: "shrug",
 			gauge: "EASY",
 			random: "MIRROR",
+			rseed: undefined,
 		},
 		scoreData: {
 			exScore: 10,
@@ -87,7 +87,11 @@ t.test("POST /ir/lr2hook/import/course", (t) => {
 			notesTotal: 10,
 			pgreat: 10,
 			poor: 10,
+			extendedJudgements: undefined,
+			extendedHpGraphs: undefined,
+			unexpectedField: "foo",
 		},
+		unixTimestamp: undefined,
 	};
 
 	t.test("Should update a user's class if necessary.", async (t) => {

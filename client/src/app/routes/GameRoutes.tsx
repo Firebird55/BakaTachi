@@ -12,7 +12,7 @@ import GPTSongsPage from "app/pages/dashboard/games/_game/_playtype/GPTSongsPage
 import { ErrorPage } from "app/pages/ErrorPage";
 import ChartInfoFormat from "components/game/charts/ChartInfoFormat";
 import { GPTBottomNav } from "components/game/GPTHeader";
-import SongInfoFormat from "components/game/songs/SongInfoFormat";
+import SongChartInfoFormat from "components/game/songs/SongChartInfoFormat";
 import Card from "components/layout/page/Card";
 import DebugContent from "components/util/DebugContent";
 import Divider from "components/util/Divider";
@@ -56,7 +56,9 @@ export default function GameRoutes() {
 		return <ErrorPage statusCode={404} customMessage={`The game ${game} is not supported.`} />;
 	}
 
-	setBackground(ToCDNURL(`/game-banners/${game}`));
+	useEffect(() => {
+		setBackground(ToCDNURL(`/game-banners/${game}`));
+	}, [game]);
 
 	const gameConfig = GetGameConfig(game);
 
@@ -283,11 +285,13 @@ function SongInfoHeader({
 	return (
 		<Card header="Song Info">
 			<Row className="align-items-center justify-content-evenly">
-				<Col xs={12} lg={3} className="text-center">
-					{/* empty padding :) */}
-				</Col>
+				{game !== "bms" && game !== "pms" && (
+					<Col xs={12} lg={3} className="text-center">
+						{/* empty padding :) */}
+					</Col>
+				)}
 				<Col xs={12} lg={4} className="text-center">
-					<SongInfoFormat {...{ game, song, chart: activeChart }} />
+					<SongChartInfoFormat {...{ game, song, chart: activeChart }} />
 				</Col>
 				{game !== "bms" && game !== "pms" && (
 					<Col xs={12} lg={3} className="text-center">
@@ -326,7 +330,12 @@ function SongInfoHeader({
 				{activeChart && (
 					<Col xs={12}>
 						<hr />
-						<ChartInfoFormat playtype={playtype} chart={activeChart} game={game} />
+						<ChartInfoFormat
+							song={song}
+							playtype={playtype}
+							chart={activeChart}
+							game={game}
+						/>
 					</Col>
 				)}
 			</Row>
@@ -383,31 +392,25 @@ function DifficultyButton({
 					: undefined,
 			}}
 		>
-			{activeChart?.chartID === chart.chartID ? (
-				<strong>
-					{FormatDifficulty(chart, game)}
-					{chart.isPrimary ? (
-						""
-					) : (
-						<>
-							{" "}
-							<Muted>{chart.versions.join("/")}</Muted>
-						</>
-					)}
-				</strong>
-			) : (
-				<>
-					{FormatDifficulty(chart, game)}
-					{chart.isPrimary ? (
-						""
-					) : (
-						<>
-							{" "}
-							<Muted>{chart.versions.join("/")}</Muted>
-						</>
-					)}
-				</>
-			)}
+			<div
+				className={activeChart?.chartID === chart.chartID ? "fw-bolder" : ""}
+				style={{
+					color:
+						game === "ongeki" && diffTag === "LUNATIC"
+							? "light-dark(rgba(140, 30, 40, 1), rgba(255, 180, 180, 1))"
+							: undefined,
+				}}
+			>
+				{FormatDifficulty(chart, game)}
+				{chart.isPrimary ? (
+					""
+				) : (
+					<>
+						{" "}
+						<Muted>{chart.versions.join("/")}</Muted>
+					</>
+				)}
+			</div>
 		</LinkButton>
 	);
 }

@@ -2,8 +2,8 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable no-param-reassign */
 import db from "external/mongo/db";
-import { BacksyncCollectionToBothBranches } from "lib/database-seeds/repo";
 import CreateLogCtx from "lib/logger/logger";
+import { BacksyncCollection } from "lib/seeds/repo";
 import fetch from "node-fetch";
 import { p } from "prudence";
 import { RecalcAllScores } from "utils/calculations/recalc-scores";
@@ -205,11 +205,7 @@ async function FetchSP12Data() {
 
 		logger.info(`Finished recalcing scores.`);
 
-		await BacksyncCollectionToBothBranches(
-			"charts-iidx",
-			db.charts.iidx,
-			"Update SP12 Tierlist"
-		);
+		await BacksyncCollection("charts-iidx", db.charts.iidx, "Update SP12 Tierlist");
 	}
 
 	process.exit(0);

@@ -1,6 +1,6 @@
 # Sieglinde
 
-Sieglinde is a simple rating algorithm for BMS, developed for [Bokutachi](https://bokutachi.xyz).
+Sieglinde is a simple rating algorithm for BMS, developed for [Bokutachi](https://boku.tachi.ac).
 
 ## Goals
 
@@ -20,4 +20,4 @@ pnpm calc-v1
 
 ## Synchronising with seeds
 
-Run `ts-node database-seeds/scripts/rerunners/bms-pms/apply-sieglinde`.
+Run `ts-node seeds/scripts/rerunners/bms-pms/apply-sieglinde`.

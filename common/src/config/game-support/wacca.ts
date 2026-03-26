@@ -1,6 +1,6 @@
 import { FAST_SLOW_MAXCOMBO } from "./_common";
 import { FmtNum } from "../../utils/util";
-import { ClassValue } from "../config-utils";
+import { ClassValue, zodNonNegativeInt } from "../config-utils";
 import { p } from "prudence";
 import { z } from "zod";
 import type { INTERNAL_GAME_CONFIG, INTERNAL_GAME_PT_CONFIG } from "../../types/internals";
@@ -9,8 +9,6 @@ export const WACCA_CONF = {
 	name: "WACCA",
 	playtypes: ["Single"],
 	songData: z.strictObject({
-		titleJP: z.string(),
-		artistJP: z.string(),
 		genre: z.string(),
 		displayVersion: z.nullable(z.string()),
 	}),
@@ -99,10 +97,7 @@ export const WACCA_SINGLE_CONF = {
 	profileRatingAlgs: {
 		naiveRate: {
 			description: "A naive rating algorithm that just sums your 50 best scores.",
-		},
-		rate: {
-			description:
-				"Rating as it's implemented in game, taking 15 scores from the latest version and 35 from all old versions.",
+			associatedScoreAlgs: ["rate"],
 		},
 	},
 	sessionRatingAlgs: {
@@ -133,6 +128,7 @@ export const WACCA_SINGLE_CONF = {
 		colour: {
 			type: "DERIVED",
 			values: WaccaColours,
+			minimumRelevantValue: "RAINBOW",
 		},
 	},
 
@@ -140,14 +136,15 @@ export const WACCA_SINGLE_CONF = {
 
 	versions: {
 		reverse: "REVERSE",
+		plus: "PLUS",
 	},
 
 	chartData: z.strictObject({
-		isHot: z.boolean(),
+		inGameID: zodNonNegativeInt,
 	}),
 
 	preferences: z.strictObject({}),
 	scoreMeta: z.strictObject({ mirror: z.boolean().optional() }),
 
-	supportedMatchTypes: ["songTitle", "tachiSongID"],
+	supportedMatchTypes: ["songTitle", "tachiSongID", "inGameID"],
 } as const satisfies INTERNAL_GAME_PT_CONFIG;

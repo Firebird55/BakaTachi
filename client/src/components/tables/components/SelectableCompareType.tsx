@@ -18,14 +18,16 @@ export default function SelectableCompareType({
 	gptConfig: GamePTConfig;
 } & ZTableTHProps) {
 	return (
-		<th className="vstack gap-1 align-items-center justify-content-center">
+		<th className="gap-1 align-items-center justify-content-center">
 			<select
 				onChange={(v) => setMetric(v.target.value)}
 				value={metric}
 				className="my-1 border-0 text-body fw-bolder bg-transparent rounded focus-ring focus-ring-light"
 			>
 				{GetScoreMetrics(gptConfig, ["DECIMAL", "INTEGER", "ENUM"]).map((e) => (
-					<option value={e}>Vs. ({UppercaseFirst(e)})</option>
+					<option key={e} value={e}>
+						Vs. ({UppercaseFirst(e)})
+					</option>
 				))}
 			</select>
 			<div onClick={() => changeSort("Vs.")}>

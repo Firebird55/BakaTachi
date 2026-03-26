@@ -32,7 +32,7 @@ client.on("guildMemberAdd", async (member) => {
 		const channel = GetLimboChannel(client);
 
 		await channel.send(
-			`Hello! If you already have an account on ${ServerConfig.name}, run \`/letmein\` in #limbo to be let in. Otherwise, ask for an invite in #limbo.`
+			`Hello! If you already have an account on ${ServerConfig.NAME}, run \`/letmein\` in #limbo to be let in. Otherwise, ask for an invite in #limbo.`
 		);
 	}
 });
@@ -54,7 +54,10 @@ client.on("interactionCreate", async (interaction) => {
 			await handleIsCommand(interaction, requestingUser);
 		}
 	} catch (e) {
-		logger.error("Failed to run interaction.", { interaction });
+		await interaction.channel?.send(
+			"We failed to handle this request. Are your DMs shut to non-friends?"
+		);
+		logger.error("Failed to run interaction.", { interaction, e });
 	}
 });
 
@@ -66,9 +69,9 @@ async function RequireUserAuth(interaction: CommandInteraction | SelectMenuInter
 
 	const dmChannel = await interaction.user.createDM();
 
-	await dmChannel.send(`Click this link to authenticate with ${ServerConfig.name}: ${oAuthLink}`);
+	await dmChannel.send(`Click this link to authenticate with ${ServerConfig.NAME}: ${oAuthLink}`);
 	return interaction.reply({
-		content: `To use the bot, your discord account must be linked to ${ServerConfig.name}.
+		content: `To use the bot, your discord account must be linked to ${ServerConfig.NAME}.
 We've sent you a DM with instructions on how to link your account.`,
 		ephemeral: true,
 	});
@@ -98,3 +101,11 @@ void (async () => {
 		process.exit(1);
 	}
 })();
+
+// taken from https://nodejs.org/api/process.html#process_event_unhandledrejection
+// to avoid future deprecation.
+process.on("unhandledRejection", (reason, promise) => {
+	// @ts-expect-error reason is an error, and the logger can handle errors
+	// it just refuses.
+	logger.error(reason, { promise });
+});

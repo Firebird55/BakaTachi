@@ -5,6 +5,7 @@ import LR2orajaDBPage from "app/pages/dashboard/import/LR2orajaDBPage";
 import BeatorajaIRPage from "app/pages/dashboard/import/BeatorajaIRPage";
 import ChunitachiPage from "app/pages/dashboard/import/ChunitachiPage";
 import FervidexPage from "app/pages/dashboard/import/FervidexPage";
+import IIDXCGSiteImportPage from "app/pages/dashboard/import/IIDXCGSiteImportPage";
 import IIDXEamCSVPage from "app/pages/dashboard/import/IIDXEamCSVPage";
 import ImportPage from "app/pages/dashboard/import/ImportPage";
 import KsHookPage from "app/pages/dashboard/import/KsHookPage";
@@ -19,7 +20,7 @@ import WACCAMyPageScraperPage from "app/pages/dashboard/import/WACCAMyPageScrape
 import KAIIntegrationPage from "components/imports/KAIIntegrationPage";
 import Divider from "components/util/Divider";
 import { UserContext } from "context/UserContext";
-import { mode } from "lib/config";
+import { TachiConfig } from "lib/config";
 import React, { useContext } from "react";
 import { Link, Redirect, Route, Switch } from "react-router-dom";
 import CGIntegrationPage from "components/imports/CGIntegrationPage";
@@ -29,6 +30,10 @@ import ChunithmSiteImportPage from "app/pages/dashboard/import/ChunithmSiteImpor
 import SaekawaPage from "app/pages/dashboard/import/SaekawaPage";
 import AquaArtemisExport from "app/pages/dashboard/import/AquaArtemisExportPage";
 import ChunithmMYTExport from "app/pages/dashboard/import/ChunithmMYTExportPage";
+import OngekiArtemisExportPage from "app/pages/dashboard/import/OngekiArtemisExportPage";
+import MytIntegrationPage from "components/imports/MYTIntegrationPage";
+import OngekiInoharaPage from "app/pages/dashboard/import/OngekiInoharaPage";
+import OngekiSiteImportPage from "app/pages/dashboard/import/OngekiSiteImportPage";
 
 export default function ImportRoutes() {
 	const { user } = useContext(UserContext);
@@ -53,7 +58,7 @@ export default function ImportRoutes() {
 						<BatchManualPage />
 					</Route>
 
-					{mode !== "ktchi" && (
+					{TachiConfig.TYPE !== "kamai" && (
 						<>
 							<Route exact path="/import/lr2oraja-ir">
 								<BeatorajaIRPage game="bms" />
@@ -82,7 +87,7 @@ export default function ImportRoutes() {
 						</>
 					)}
 
-					{mode !== "btchi" && (
+					{TachiConfig.TYPE !== "boku" && (
 						<>
 							<Route exact path="/import/iidx-eam-csv">
 								<IIDXEamCSVPage
@@ -112,7 +117,7 @@ export default function ImportRoutes() {
 							<Route exact path="/import/barbatos">
 								<BarbatosPage />
 							</Route>
-							<Route exact path="/import/ks-hook">
+							<Route exact path="/import/kshook">
 								<KsHookPage />
 							</Route>
 							<Route exact path="/import/silent-hook">
@@ -196,6 +201,9 @@ export default function ImportRoutes() {
 							<Route exact path="/import/cg-dev-museca">
 								<CGIntegrationPage cgType="dev" game="museca" />
 							</Route>
+							<Route exact path="/import/cg-dev-jubeat">
+								<CGIntegrationPage cgType="dev" game="jubeat" />
+							</Route>
 
 							<Route exact path="/import/cg-nag-sdvx">
 								<CGIntegrationPage cgType="nag" game="sdvx" />
@@ -205,6 +213,9 @@ export default function ImportRoutes() {
 							</Route>
 							<Route exact path="/import/cg-nag-museca">
 								<CGIntegrationPage cgType="nag" game="museca" />
+							</Route>
+							<Route exact path="/import/cg-nag-jubeat">
+								<CGIntegrationPage cgType="nag" game="jubeat" />
 							</Route>
 
 							<Route exact path="/import/cg-gan-sdvx">
@@ -216,6 +227,26 @@ export default function ImportRoutes() {
 							<Route exact path="/import/cg-gan-museca">
 								<CGIntegrationPage cgType="gan" game="museca" />
 							</Route>
+							<Route exact path="/import/cg-gan-jubeat">
+								<CGIntegrationPage cgType="gan" game="jubeat" />
+							</Route>
+
+							<Route exact path="/import/kt-cg-iidx-importer">
+								<IIDXCGSiteImportPage />
+							</Route>
+
+							<Route exact path="/import/myt-chunithm">
+								<MytIntegrationPage game="chunithm" />
+							</Route>
+							<Route exact path="/import/myt-maimaidx">
+								<MytIntegrationPage game="maimaidx" />
+							</Route>
+							<Route exact path="/import/myt-ongeki">
+								<MytIntegrationPage game="ongeki" />
+							</Route>
+							<Route exact path="/import/myt-wacca">
+								<MytIntegrationPage game="wacca" />
+							</Route>
 
 							<Route exact path="/import/wacca-mypage-scraper">
 								<WACCAMyPageScraperPage />
@@ -223,6 +254,18 @@ export default function ImportRoutes() {
 
 							<Route exact path="/import/kt-maimaidx-site-importer">
 								<MaimaiDXSiteImportPage />
+							</Route>
+
+							<Route exact path="/import/ongeki-artemis-exporter">
+								<OngekiArtemisExportPage />
+							</Route>
+
+							<Route exact path="/import/inohara">
+								<OngekiInoharaPage />
+							</Route>
+
+							<Route exact path="/import/kt-ongeki-site-importer">
+								<OngekiSiteImportPage />
 							</Route>
 						</>
 					)}

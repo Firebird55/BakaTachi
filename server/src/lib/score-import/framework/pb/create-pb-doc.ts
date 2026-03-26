@@ -6,7 +6,7 @@ import { GetEveryonesRivalIDs } from "lib/rivals/rivals";
 import { GetGPTConfig, GetGamePTConfig } from "tachi-common";
 import { DeleteUndefinedProps } from "utils/misc";
 import type { KtLogger } from "lib/logger/logger";
-import type { BulkWriteUpdateOneOperation, FilterQuery } from "mongodb";
+import type { BulkWriteUpdateOneOperation, FilterQuery, SortOptionObject } from "mongodb";
 import type {
 	GPTString,
 	Game,
@@ -129,17 +129,7 @@ export async function CreatePBDoc(
  * Updates rankings on a given chart.
  */
 export async function UpdateChartRanking(game: Game, playtype: Playtype, chartID: string) {
-	const gptConfig = GetGamePTConfig(game, playtype);
-
-	const scores = await db["personal-bests"].find(
-		{ chartID },
-		{
-			sort: {
-				[`scoreData.${gptConfig.defaultMetric}`]: -1,
-				timeAchieved: 1,
-			},
-		}
-	);
+	const scores = await GetSortedPBs(game, playtype, chartID);
 
 	const allRivals = await GetEveryonesRivalIDs(game, playtype);
 
@@ -185,4 +175,55 @@ export async function UpdateChartRanking(game: Game, playtype: Playtype, chartID
 	}
 
 	await db["personal-bests"].bulkWrite(bwrite, { ordered: false });
+}
+
+async function GetSortedPBs(game: Game, playtype: Playtype, chartID: string) {
+	const gptConfig = GetGamePTConfig(game, playtype);
+	let sortOptions: SortOptionObject<PBScoreDocument> = {
+		[`scoreData.${gptConfig.defaultMetric}`]: -1,
+	};
+
+	if (game === "ongeki") {
+		sortOptions = {
+			[`scoreData.score`]: -1,
+			[`scoreData.platinumScore`]: -1,
+		};
+	} else if (game === "chunithm") {
+		sortOptions = {
+			[`scoreData.score`]: -1,
+			[`scoreData.enumIndexes.noteLamp`]: -1,
+			[`scoreData.enumIndexes.clearLamp`]: -1,
+		};
+	}
+
+	return db["personal-bests"].aggregate([
+		{
+			$match: {
+				chartID,
+			},
+		},
+		{
+			$addFields: {
+				hasTimeAchieved: {
+					$cond: {
+						if: { $eq: ["$timeAchieved", null] },
+						then: false,
+						else: true,
+					},
+				},
+			},
+		},
+		{
+			$sort: {
+				...sortOptions,
+				hasTimeAchieved: -1,
+				timeAchieved: 1,
+			},
+		},
+		{
+			$project: {
+				hasTimeAchieved: 0,
+			},
+		},
+	]);
 }

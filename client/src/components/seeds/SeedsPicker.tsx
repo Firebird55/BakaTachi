@@ -28,7 +28,7 @@ export default function SeedsPicker({
 	// a repo is one of the following:
 	// null - nothing has been selected yet
 	// "local" - we're referring to the files on the local development disk
-	// "GitHub:NAME/REPO" - we're referring to a repository on github, like GitHub:TNG-Dev/Tachi
+	// "GitHub:NAME/REPO" - we're referring to a repository on github, like GitHub:zkldi/Tachi
 	const [repo, setRepo] = useState<string | null>(null);
 
 	// to list commits, we need to know what branch we're looking at.
@@ -271,9 +271,9 @@ function RevSelector({
 				const params = new URLSearchParams();
 
 				if (collection) {
-					params.set("path", `database-seeds/collections/${collection}`);
+					params.set("path", `seeds/collections/${collection}`);
 				} else {
-					params.set("path", "database-seeds/collections");
+					params.set("path", "seeds/collections");
 				}
 
 				const res = await fetch(

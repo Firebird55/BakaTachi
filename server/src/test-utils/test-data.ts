@@ -7,6 +7,7 @@ import {
 	USC_DEFAULT_PERFECT,
 	USC_DEFAULT_SLAM,
 } from "lib/constants/usc-ir";
+import { CHUNITHM_NOTE_LAMPS, CHUNITHM_GRADES, CHUNITHM_CLEAR_LAMPS } from "tachi-common";
 import { ApplyNTimes, RFA } from "utils/misc";
 import fs from "fs";
 import path from "path";
@@ -101,6 +102,44 @@ export const TestingIIDXSPScorePB: PBScoreDocument<"iidx:SP"> = {
 	timeAchieved: 10000,
 };
 
+export const TestingDDRSPScorePB: PBScoreDocument<"ddr:SP"> = {
+	calculatedData: {
+		flareSkill: 545,
+	},
+	chartID: "f14bc72ad8336625ce64fc42571192e1ec168113",
+	composedFrom: [
+		{
+			name: "Best Score",
+			scoreID: "Te065000f08b49458f8b0aa3eabf0b857b79c562d7cf9eb34f6dabd7a1c3c3fa6",
+		},
+	],
+	game: "ddr",
+	highlight: false,
+	isPrimary: true,
+	playtype: "SP",
+	rankingData: {
+		rank: 1,
+		outOf: 1,
+		rivalRank: null,
+	},
+	scoreData: {
+		score: 914400,
+		lamp: "CLEAR",
+		judgements: {},
+		optional: {
+			enumIndexes: {},
+		},
+		grade: "AA",
+		enumIndexes: {
+			lamp: 2,
+			grade: 13,
+		},
+	},
+	songID: 37691,
+	timeAchieved: null,
+	userID: 1,
+};
+
 export const TestingJubeatPB: PBScoreDocument<"jubeat:Single"> = {
 	chartID: "b90a319f18d1a746b330b8f4cd6f74874f664421",
 	userID: 1,
@@ -170,6 +209,39 @@ export const TestingIIDXSPScore: ScoreDocument<"iidx:SP"> = {
 	timeAdded: 1,
 	scoreID: "TESTING_SCORE_ID",
 	importType: "ir/direct-manual",
+};
+
+export const TestingDDRSPScore: ScoreDocument<"ddr:SP"> = {
+	calculatedData: {
+		flareSkill: 545,
+	},
+	chartID: "2fc2e0cfdda42addb7840b58be1df1f545310d66",
+	comment: null,
+	game: "ddr",
+	highlight: false,
+	importType: "file/batch-manual",
+	isPrimary: true,
+	playtype: "SP",
+	scoreData: {
+		score: 914400,
+		lamp: "CLEAR",
+		judgements: {},
+		optional: {
+			enumIndexes: {},
+		},
+		grade: "AA",
+		enumIndexes: {
+			lamp: 2,
+			grade: 13,
+		},
+	},
+	scoreID: "Te065000f08b49458f8b0aa3eabf0b857b79c562d7cf9eb34f6dabd7a1c3c3fa6",
+	scoreMeta: {},
+	service: "History (BATCH-MANUAL)",
+	songID: 10,
+	timeAchieved: null,
+	timeAdded: 1722084133807,
+	userID: 1,
 };
 
 export const TestingSDVXScore: ScoreDocument<"sdvx:Single"> = {
@@ -322,6 +394,7 @@ export const TestingLR2HookScore: LR2HookScore = {
 		gameMode: "7K",
 		random: "RAN",
 		gauge: "GROOVE",
+		rseed: undefined,
 	},
 	scoreData: {
 		pgreat: 1100,
@@ -336,7 +409,10 @@ export const TestingLR2HookScore: LR2HookScore = {
 		notesPlayed: 2256,
 		lamp: "HARD",
 		hpGraph: ApplyNTimes(1000, () => RFA([100, 50, 80, 0])),
+		extendedJudgements: undefined,
+		extendedHpGraphs: undefined,
 	},
+	unixTimestamp: undefined,
 };
 
 export const TestingJubeatChart: ChartDocument<"jubeat:Single"> = {
@@ -388,7 +464,8 @@ export const TestingMaimaiChart: ChartDocument<"maimai:Single"> = {
 export const TestingMaimaiDXChart: ChartDocument<"maimaidx:Single"> = {
 	chartID: "fbde73d543f93cbad9ec67052a7165700c5c8df6",
 	data: {
-		isLatest: false,
+		displayVersion: "maimai",
+		inGameID: 1,
 	},
 	difficulty: "Advanced",
 	isPrimary: true,
@@ -475,6 +552,32 @@ export const Testing511Song: SongDocument<"iidx"> = {
 	},
 };
 
+export const TestingDDRSP: ChartDocument<"ddr:SP"> = {
+	chartID: "2fc2e0cfdda42addb7840b58be1df1f545310d66",
+	data: {
+		inGameID: 10,
+	},
+	difficulty: "BASIC",
+	isPrimary: true,
+	level: "6",
+	levelNum: 6,
+	playtype: "SP",
+	songID: 10,
+	versions: ["a3"],
+};
+
+export const TestingDDRSong: SongDocument<"ddr"> = {
+	altTitles: [],
+	artist: "UZI-LAY",
+	data: {
+		flareCategory: "CLASSIC",
+		inGameID: 10,
+	},
+	id: 10,
+	searchTerms: [],
+	title: "PUT YOUR FAITH IN ME",
+};
+
 export const TestingAlbidaADV: ChartDocument<"sdvx:Single"> = {
 	chartID: "5088a4d0e1ee9d0cc2f625934306e45b1a60699b",
 	difficulty: "ADV",
@@ -554,6 +657,41 @@ export const CHUNITHMBBKKChart: ChartDocument<"chunithm:Single"> = {
 	versions: ["paradiselost"],
 };
 
+export const TestingChunithmScorePB: PBScoreDocument<"chunithm:Single"> = {
+	chartID: "192b96bdb6150f80ba6412ce02df1249e16c0cb0",
+	userID: 1,
+	calculatedData: {
+		rating: 5,
+	},
+	composedFrom: [{ name: "Best Score", scoreID: "TESTING_SCORE_ID" }],
+	highlight: false,
+	isPrimary: true,
+	scoreData: {
+		score: 1010000,
+		clearLamp: "BRAVE",
+		noteLamp: "ALL JUSTICE CRITICAL",
+		grade: "SSS+",
+		enumIndexes: {
+			grade: CHUNITHM_GRADES.SSS_PLUS,
+			clearLamp: CHUNITHM_CLEAR_LAMPS.BRAVE,
+			noteLamp: CHUNITHM_NOTE_LAMPS.ALL_JUSTICE_CRITICAL,
+		},
+		judgements: {},
+		optional: {
+			enumIndexes: {},
+		},
+	},
+	rankingData: {
+		rank: 1,
+		outOf: 1,
+		rivalRank: null,
+	},
+	songID: 3,
+	game: "chunithm",
+	playtype: "Single",
+	timeAchieved: 10000,
+};
+
 export const TestingDoraChart: ChartDocument<"gitadora:Dora"> = {
 	songID: 0,
 	chartID: "29f0bfab357ba54e3fd0176fb3cbc578c9ec8df5",
@@ -576,7 +714,7 @@ export const TestingWaccaPupaExp: ChartDocument<"wacca:Single"> = {
 	levelNum: 13.7,
 	level: "13+",
 	data: {
-		isHot: false,
+		inGameID: 2085,
 	},
 	isPrimary: true,
 	versions: ["reverse"],
@@ -587,10 +725,8 @@ export const TestingWaccaPupaSong: SongDocument<"wacca"> = {
 	title: "PUPA",
 	artist: "モリモリあつし",
 	data: {
-		artistJP: "モリモリアツシ",
 		displayVersion: "lilyr",
 		genre: "バラエティ",
-		titleJP: "ピューパ",
 	},
 	searchTerms: [],
 	altTitles: [],
@@ -1225,7 +1361,8 @@ export const FakeChunitachiBatchManual = {
 	scores: [
 		{
 			score: 900000,
-			lamp: "CLEAR",
+			clearLamp: "CLEAR",
+			noteLamp: "NONE",
 			matchType: "songTitle",
 			identifier: "B.B.K.K.B.K.K.",
 			difficulty: "BASIC",
@@ -1267,4 +1404,138 @@ export const TestingArcaeaSheriruthFTR: ChartDocument<"arcaea:Touch"> = {
 	playtype: "Touch",
 	songID: 19,
 	versions: ["mobile"],
+};
+
+export const TestingOngekiChart: ChartDocument<"ongeki:Single"> = {
+	chartID: "213796bdb6150f80ba6412ce69df1249e16c0cb0",
+	data: {
+		displayVersion: "オンゲキ bright MEMORY Act.3",
+		inGameID: 2137,
+		maxPlatScore: 1000,
+	},
+	difficulty: "MASTER",
+	isPrimary: true,
+	level: "10",
+	levelNum: 10.5,
+	playtype: "Single",
+	songID: 19,
+	versions: ["brightMemory3", "brightMemory3Omni"],
+};
+
+export const TestingOngekiScorePB: PBScoreDocument<"ongeki:Single"> = {
+	chartID: "213796bdb6150f80ba6412ce69df1249e16c0cb0",
+	userID: 1,
+	calculatedData: {
+		rating: 17,
+	},
+	composedFrom: [{ name: "Best Score", scoreID: "TESTING_SCORE_ID" }],
+	highlight: false,
+	isPrimary: true,
+	scoreData: {
+		score: 1010000,
+		noteLamp: "ALL BREAK+",
+		bellLamp: "FULL BELL",
+		platinumScore: 1000,
+		platinumStars: 6,
+		grade: "SSS+",
+		enumIndexes: {
+			grade: 11,
+			noteLamp: 4,
+			bellLamp: 1,
+		},
+		judgements: {},
+		optional: {
+			enumIndexes: {},
+		},
+	},
+	rankingData: {
+		rank: 1,
+		outOf: 1,
+		rivalRank: null,
+	},
+	songID: 19,
+	game: "ongeki",
+	playtype: "Single",
+	timeAchieved: 10000,
+};
+
+export const TestingOngekiChartConverter: ChartDocument<"ongeki:Single"> = {
+	chartID: "e5e4ee3d4feb233c399751b3ba3daf8ba149c9e6",
+	data: {
+		displayVersion: "オンゲキ bright",
+		inGameID: 678,
+		maxPlatScore: 2768,
+	},
+	difficulty: "MASTER",
+	isPrimary: true,
+	level: "13+",
+	levelNum: 13.7,
+	playtype: "Single",
+	songID: 683,
+	versions: ["brightMemory3Omni", "brightMemory3"],
+};
+
+export const TestingOngekiSongConverter: SongDocument<"ongeki"> = {
+	altTitles: ["SENOTETOHETSUTEITSUTENNO"],
+	artist: "本城香澄（CV：岩橋由佳）「Re:ステージ！プリズムステップ」",
+	data: {
+		genre: "POPS＆ANIME",
+		duration: 120,
+	},
+	id: 683,
+	searchTerms: [],
+	title: "せーので跳べって言ってんの！",
+};
+
+export const TestingChunithmChartConverter: ChartDocument<"chunithm:Single"> = {
+	chartID: "fbba26a6a223b1dd0bf8ef139cfee83114b91086",
+	data: {
+		inGameID: 956,
+	},
+	difficulty: "MASTER",
+	isPrimary: true,
+	level: "12",
+	levelNum: 12,
+	playtype: "Single",
+	songID: 956,
+	versions: ["paradiselost", "sun", "sun-omni", "sunplus-omni", "luminous-omni"],
+};
+
+export const TestingChunithmSongConverter: SongDocument<"chunithm"> = {
+	altTitles: [],
+	artist: "分島花音「selector infected WIXOSS」",
+	data: {
+		displayVersion: "crystalplus",
+		genre: "POPS & ANIME",
+		duration: 120,
+	},
+	id: 956,
+	searchTerms: [],
+	title: "killy killy JOKER",
+};
+
+export const TestingMaimaiDXSongConverter: SongDocument<"maimaidx"> = {
+	altTitles: [],
+	artist: "suzu",
+	data: {
+		genre: "オンゲキ＆CHUNITHM",
+	},
+	id: 844,
+	searchTerms: ["Shukusei", "Shukusei Shinpan", "Syukusei Shinpan"],
+	title: "宿星審判",
+};
+
+export const TestingMaimaiDXChartConverter: ChartDocument<"maimaidx:Single"> = {
+	chartID: "fab3d632610b9b98ee1e4f68e9ecf0161f9cb8cd",
+	data: {
+		displayVersion: "maimaiでらっくす UNiVERSE",
+		inGameID: 11294,
+	},
+	difficulty: "DX Expert",
+	isPrimary: true,
+	level: "12",
+	levelNum: 12.2,
+	playtype: "Single",
+	songID: 844,
+	versions: ["universeplus", "festival", "festivalplus", "buddies", "buddiesplus"],
 };

@@ -1,5 +1,4 @@
 import { GoalFmtPercent, GoalOutOfFmtPercent, GradeGoalFormatter } from "./_common";
-import db from "external/mongo/db";
 import { CreatePBMergeFor } from "game-implementations/utils/pb-merge";
 import { ProfileSumBestN } from "game-implementations/utils/profile-calc";
 import { SessionAvgBest10For } from "game-implementations/utils/session-calc";
@@ -7,65 +6,6 @@ import { MaimaiDXRate } from "rg-stats";
 import { GetGrade, MAIMAIDX_GBOUNDARIES } from "tachi-common";
 import { IsNullish } from "utils/misc";
 import type { GPTServerImplementation } from "game-implementations/types";
-import type { Game, Playtype, integer } from "tachi-common";
-
-// basically the same as WACCA's.
-async function CalculateMaimaiDXRate(game: Game, playtype: Playtype, userID: integer) {
-	const newChartIDs = (
-		await db.charts.maimaidx.find({ "data.isLatest": true }, { projection: { chartID: 1 } })
-	).map((e) => e.chartID);
-
-	const oldChartIDs = (
-		await db.charts.maimaidx.find({ "data.isLatest": false }, { projection: { chartID: 1 } })
-	).map((e) => e.chartID);
-
-	const best15New = await db["personal-bests"].find(
-		{
-			game,
-			playtype,
-			userID,
-			chartID: { $in: newChartIDs },
-			"calculatedData.rate": { $type: "number" },
-		},
-		{
-			sort: {
-				"calculatedData.rate": -1,
-			},
-			limit: 15,
-			projection: {
-				"calculatedData.rate": 1,
-			},
-		}
-	);
-
-	const best35Old = await db["personal-bests"].find(
-		{
-			game,
-			playtype,
-			userID,
-			chartID: { $in: oldChartIDs },
-			"calculatedData.rate": { $type: "number" },
-		},
-		{
-			sort: {
-				"calculatedData.rate": -1,
-			},
-			limit: 35,
-			projection: {
-				"calculatedData.rate": 1,
-			},
-		}
-	);
-
-	if (best15New.length + best35Old.length === 0) {
-		return null;
-	}
-
-	return (
-		best15New.reduce((a, e) => a + e.calculatedData.rate!, 0) +
-		best35Old.reduce((a, e) => a + e.calculatedData.rate!, 0)
-	);
-}
 
 export const MAIMAIDX_IMPL: GPTServerImplementation<"maimaidx:Single"> = {
 	chartSpecificValidators: {},
@@ -73,16 +13,16 @@ export const MAIMAIDX_IMPL: GPTServerImplementation<"maimaidx:Single"> = {
 		grade: ({ percent }) => GetGrade(MAIMAIDX_GBOUNDARIES, percent),
 	},
 	scoreCalcs: {
-		rate: (scoreData, chart) => MaimaiDXRate.calculate(scoreData.percent, chart.levelNum),
+		rate: (scoreData, chart) =>
+			MaimaiDXRate.calculate(scoreData.percent, chart.levelNum, scoreData.lamp),
 	},
 	sessionCalcs: { rate: SessionAvgBest10For("rate") },
 	profileCalcs: {
-		rate: CalculateMaimaiDXRate,
 		naiveRate: ProfileSumBestN("rate", 50),
 	},
 	classDerivers: {
 		colour: (ratings) => {
-			const rate = ratings.rate;
+			const rate = ratings.naiveRate;
 
 			if (IsNullish(rate)) {
 				return null;
@@ -114,10 +54,10 @@ export const MAIMAIDX_IMPL: GPTServerImplementation<"maimaidx:Single"> = {
 		},
 	},
 	goalCriteriaFormatters: {
-		percent: GoalFmtPercent,
+		percent: (v) => GoalFmtPercent(v, 4),
 	},
 	goalProgressFormatters: {
-		percent: (pb) => `${pb.scoreData.percent.toFixed(2)}%`,
+		percent: (pb) => `${pb.scoreData.percent.toFixed(4)}%`,
 		lamp: (pb) => pb.scoreData.lamp,
 		grade: (pb, gradeIndex) =>
 			GradeGoalFormatter(
@@ -125,11 +65,11 @@ export const MAIMAIDX_IMPL: GPTServerImplementation<"maimaidx:Single"> = {
 				pb.scoreData.grade,
 				pb.scoreData.percent,
 				MAIMAIDX_GBOUNDARIES[gradeIndex]!.name,
-				(v) => `${v.toFixed(2)}%`
+				(v) => `${v.toFixed(4)}%`
 			),
 	},
 	goalOutOfFormatters: {
-		percent: GoalOutOfFmtPercent,
+		percent: (v) => GoalOutOfFmtPercent(v, 4),
 	},
 	pbMergeFunctions: [
 		CreatePBMergeFor("largest", "enumIndexes.lamp", "Best Lamp", (base, score) => {
@@ -149,6 +89,63 @@ export const MAIMAIDX_IMPL: GPTServerImplementation<"maimaidx:Single"> = {
 
 			if (s.scoreData.lamp === "ALL PERFECT" && s.scoreData.percent < 100.5) {
 				return "Cannot have an ALL PERFECT without at least 100.5%.";
+			}
+
+			if (s.scoreData.lamp === "CLEAR" && s.scoreData.percent < 80) {
+				return "Cannot have a CLEAR without at least 80%.";
+			}
+
+			if (s.scoreData.lamp === "FAILED" && s.scoreData.percent >= 80) {
+				return "Cannot have a FAILED if the score is above 80%.";
+			}
+		},
+		(s) => {
+			const { great, good, miss } = s.scoreData.judgements;
+
+			// Assume the lamp is correct if judgements aren't provided.
+			if (IsNullish(great) || IsNullish(good) || IsNullish(miss)) {
+				return;
+			}
+
+			if (s.scoreData.lamp === "ALL PERFECT+" && great + good + miss > 0) {
+				return "Cannot have an ALL PERFECT+ with any non-perfect judgements.";
+			}
+
+			if (s.scoreData.lamp === "ALL PERFECT" && great + good + miss > 0) {
+				return "Cannot have an ALL PERFECT with any non-perfect judgements.";
+			}
+
+			if (s.scoreData.lamp === "FULL COMBO+" && good + miss > 0) {
+				return "Cannot have a FULL COMBO+ with any goods or misses.";
+			}
+
+			if (s.scoreData.lamp === "FULL COMBO" && miss > 0) {
+				return "Cannot have a FULL COMBO with any misses.";
+			}
+		},
+		(s) => {
+			const { maxCombo } = s.scoreData.optional;
+			const { pcrit, perfect, great, good, miss } = s.scoreData.judgements;
+
+			if (
+				IsNullish(maxCombo) ||
+				IsNullish(pcrit) ||
+				IsNullish(perfect) ||
+				IsNullish(great) ||
+				IsNullish(good) ||
+				IsNullish(miss)
+			) {
+				return;
+			}
+
+			if (
+				s.scoreData.lamp !== "CLEAR" &&
+				s.scoreData.lamp !== "FAILED" &&
+				pcrit + perfect + great + good + miss !== maxCombo
+			) {
+				const article = s.scoreData.lamp.startsWith("ALL PERFECT") ? "an" : "a";
+
+				return `Cannot have ${article} ${s.scoreData.lamp} if maxCombo is not equal to the sum of judgements.`;
 			}
 		},
 	],

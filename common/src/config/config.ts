@@ -3,6 +3,7 @@
 import { ARCAEA_CONF, ARCAEA_TOUCH_CONF } from "./game-support/arcaea";
 import { BMS_14K_CONF, BMS_7K_CONF, BMS_CONF } from "./game-support/bms";
 import { CHUNITHM_CONF, CHUNITHM_SINGLE_CONF } from "./game-support/chunithm";
+import { DDR_CONF, DDR_DP_CONF, DDR_SP_CONF } from "./game-support/ddr";
 import { GITADORA_CONF, GITADORA_DORA_CONF, GITADORA_GITA_CONF } from "./game-support/gitadora";
 import { IIDX_CONF, IIDX_DP_CONF, IIDX_SP_CONF } from "./game-support/iidx";
 import { ITG_CONF, ITG_STAMINA_CONF } from "./game-support/itg";
@@ -10,6 +11,7 @@ import { JUBEAT_CONF, JUBEAT_SINGLE_CONF } from "./game-support/jubeat";
 import { MAIMAI_CONF, MAIMAI_SINGLE_CONF } from "./game-support/maimai";
 import { MAIMAI_DX_CONF, MAIMAI_DX_SINGLE_CONF } from "./game-support/maimai-dx";
 import { MUSECA_CONF, MUSECA_SINGLE_CONF } from "./game-support/museca";
+import { ONGEKI_CONF, ONGEKI_SINGLE_CONF } from "./game-support/ongeki";
 import { PMS_CONF, PMS_CONTROLLER_CONF, PMS_KEYBOARD_CONF } from "./game-support/pms";
 import { POPN_9B_CONF, POPN_CONF } from "./game-support/popn";
 import { SDVX_CONF, SDVX_SINGLE_CONF } from "./game-support/sdvx";
@@ -48,6 +50,8 @@ export const GAME_CONFIGS = {
 	pms: PMS_CONF,
 	itg: ITG_CONF,
 	arcaea: ARCAEA_CONF,
+	ongeki: ONGEKI_CONF,
+	ddr: DDR_CONF,
 } as const satisfies Record<string, INTERNAL_GAME_CONFIG>;
 
 /**
@@ -95,6 +99,9 @@ export const GAME_PT_CONFIGS = {
 	"usc:Keyboard": USC_KEYBOARD_CONF,
 	"itg:Stamina": ITG_STAMINA_CONF,
 	"arcaea:Touch": ARCAEA_TOUCH_CONF,
+	"ongeki:Single": ONGEKI_SINGLE_CONF,
+	"ddr:SP": DDR_SP_CONF,
+	"ddr:DP": DDR_DP_CONF,
 } as const satisfies Record<GPTString, INTERNAL_GAME_PT_CONFIG>;
 
 /**

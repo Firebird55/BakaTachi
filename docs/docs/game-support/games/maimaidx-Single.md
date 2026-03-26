@@ -29,10 +29,12 @@ For more information on what metrics are and how they work, see [TODO]!
 | `fast` | Integer | The amount of mistakes in this score that were a result of hitting early. |
 | `slow` | Integer | The amount of mistakes in this score that were a result of hitting late. |
 | `maxCombo` | Integer | The largest combo in this score. |
+| `percentGraph` | Array&lt;Decimal \| null &gt; | The history of the projected achievement, queried in one-second intervals. |
+| `lifeGraph` | Array&lt;Decimal \| null &gt; | Life count history, queried in one-second intervals. |
 
 ## Judgements
 
-The folowing judgements are defined:
+The following judgements are defined:
 
 - `pcrit`
 - `perfect`
@@ -56,12 +58,9 @@ The folowing judgements are defined:
 
 ### Profile Rating Algorithms
 
-The default rating algorithm is `naiveRate`.
-
 | Name | Description |
 | :: | :: |
 | `naiveRate` | A naive rating algorithm that just sums your 50 best scores. |
-| `rate` | Rating as it's implemented in game, taking 15 scores from the latest version and 35 from all old versions. |
 
 ## Difficulties
 
@@ -82,6 +81,7 @@ The default rating algorithm is `naiveRate`.
 | :: | :: | :: |
 | `colour` | DERIVED | WHITE, BLUE, GREEN, YELLOW, RED, PURPLE, BRONZE, SILVER, GOLD, PLATINUM, RAINBOW
 | `dan` | PROVIDED | DAN_1, DAN_2, DAN_3, DAN_4, DAN_5, DAN_6, DAN_7, DAN_8, DAN_9, DAN_10, SHINDAN_1, SHINDAN_2, SHINDAN_3, SHINDAN_4, SHINDAN_5, SHINDAN_6, SHINDAN_7, SHINDAN_8, SHINDAN_9, SHINDAN_10, SHINKAIDEN, URAKAIDEN
+| `matchingClass` | PROVIDED | B5, B4, B3, B2, B1, A5, A5, A4, A3, A2, A1, S5, S4, S3, S2, S1, SS5, SS4, SS3, SS2, SS1, SSS5, SSS4, SSS3, SSS2, SSS1, LEGEND
 
 ## Versions
 
@@ -90,8 +90,18 @@ The default rating algorithm is `naiveRate`.
 | `universeplus` | UNiVERSE PLUS |
 | `festival` | FESTiVAL |
 | `festivalplus` | FESTiVAL PLUS |
+| `buddies` | BUDDiES |
+| `buddies-omni` | BUDDiES Omnimix |
+| `buddiesplus` | BUDDiES PLUS |
+| `buddiesplus-omni` | BUDDiES PLUS Omnimix |
+| `prism` | PRiSM |
+| `prism-omni` | PRiSM Omnimix |
+| `prismplus` | PRiSM PLUS |
+| `prismplus-omni` | PRiSM PLUS Omnimix |
+| `circle` | CiRCLE |
 
 ## Supported Match Types
 
 - `songTitle`
 - `tachiSongID`
+- `inGameID`

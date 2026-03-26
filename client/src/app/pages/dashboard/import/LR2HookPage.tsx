@@ -12,7 +12,7 @@ export default function LR2HookPage() {
 	return (
 		<div>
 			<Alert variant="warning">
-				{TachiConfig.name} <b>DOES NOT</b> officially support LR2.
+				{TachiConfig.NAME} <b>DOES NOT</b> officially support LR2.
 				<br />
 				This hook is provided by a community member. Please do not report issues with LR2 to
 				us.
@@ -24,6 +24,10 @@ export default function LR2HookPage() {
 				<li>
 					Download the latest version of the LR2Hook{" "}
 					<ExternalLink href="https://github.com/MatVeiQaaa/BokutachiHook/releases">
+						here
+					</ExternalLink>{" "}
+					and lr2_chainload{" "}
+					<ExternalLink href="https://github.com/SayakaIsBaka/lr2_chainload/releases">
 						here
 					</ExternalLink>
 					.
@@ -39,14 +43,18 @@ export default function LR2HookPage() {
 					Place this file in the same folder as <b>LR2Body.exe</b>.
 				</li>
 				<li>
-					That's it! Launch the game with <code>BokutachiLauncher.exe</code> and start
-					playing, your scores will automatically submit to the server.
+					Create file named <b>chainload.txt</b> in the same folder as <b>LR2Body.exe</b>{" "}
+					and add new line "BokutachiHook.dll" into it.
+				</li>
+				<li>
+					That's it! Launch the game as usual, your scores will automatically submit to
+					the server.
 				</li>
 			</ol>
 			<Divider />
 			<Muted>
-				Note: If you submit a score on a chart that {TachiConfig.name} doesn't recognise,
-				you'll need to wait until atleast 2 other players submit scores for that chart
+				Note: If you submit a score on a chart that {TachiConfig.NAME} doesn't recognise,
+				you'll need to wait until at least 2 other players submit scores for that chart
 				before it'll show up. This is to combat accidental IR spam.
 			</Muted>
 		</div>

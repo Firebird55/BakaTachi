@@ -1,13 +1,14 @@
 import { Transport as SeqTransport } from "@valuabletouch/winston-seq";
-import { BotConfig, ProcessEnv } from "config";
+import { ProcessEnv } from "config";
 import { CreateLogger } from "mei-logger";
+import { transports } from "winston";
 import type { LoggerLayers } from "../data/data";
 import type { MeiLogger } from "mei-logger";
 import type { SeqLogLevel } from "seq-logging";
 
-const transports: Array<any> = [];
+const tports: Array<any> = [new transports.Console({})];
 
-if (BotConfig.LOGGER?.SEQ_API_KEY && ProcessEnv.seqUrl) {
+if (ProcessEnv.seqUrl) {
 	// Turns winston log levels into seq format.
 	const levelMap: Record<string, SeqLogLevel> = {
 		crit: "Fatal",
@@ -23,9 +24,9 @@ if (BotConfig.LOGGER?.SEQ_API_KEY && ProcessEnv.seqUrl) {
 		debug: "Debug",
 	};
 
-	transports.push(
+	tports.push(
 		new SeqTransport({
-			apiKey: BotConfig.LOGGER.SEQ_API_KEY,
+			apiKey: ProcessEnv.seqApiKey,
 			serverUrl: ProcessEnv.seqUrl,
 			onError: (err) => {
 				// eslint-disable-next-line no-console
@@ -38,7 +39,7 @@ if (BotConfig.LOGGER?.SEQ_API_KEY && ProcessEnv.seqUrl) {
 	);
 }
 
-const logger = CreateLogger(`tachi-bot`, undefined, transports);
+const logger = CreateLogger(`tachi-bot`, undefined, tports);
 
 export default logger;
 

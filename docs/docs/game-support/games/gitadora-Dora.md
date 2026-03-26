@@ -32,7 +32,7 @@ For more information on what metrics are and how they work, see [TODO]!
 
 ## Judgements
 
-The folowing judgements are defined:
+The following judgements are defined:
 
 - `perfect`
 - `great`
@@ -56,11 +56,8 @@ The folowing judgements are defined:
 
 ### Profile Rating Algorithms
 
-The default rating algorithm is `skill`.
-
 | Name | Description |
 | :: | :: |
-| `skill` | Your profile skill as it's implemented in game -- 25 HOT and 25 not HOT. |
 | `naiveSkill` | Your best 50 skill levels added together, regardless of whether the chart is HOT or not. |
 
 ## Difficulties
@@ -81,6 +78,11 @@ The default rating algorithm is `skill`.
 | ID | Pretty Name |
 | :: | :: |
 | `konaste` | Konaste |
+| `fuzzUp` | FUZZ-UP |
+| `highVoltage` | HIGH-VOLTAGE |
+| `nextage` | NEX+AGE |
+| `exchain` | EXCHAIN |
+| `matixx` | Matixx |
 
 ## Supported Match Types
 

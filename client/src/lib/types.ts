@@ -8,6 +8,7 @@ import {
 	Difficulties,
 	ExtractedClasses,
 	GPTString,
+	integer,
 	PBScoreDocument,
 	ScoreDocument,
 	ScoreRatingAlgorithms,
@@ -32,6 +33,8 @@ export type GPTDifficultyColours<GPT extends GPTString> = Record<Difficulties[GP
 export type GPTRatingSystem<GPT extends GPTString> = {
 	name: string;
 	description: string;
+	enumName: string;
+
 	toNumber: (c: ChartDocument<GPT>) => number | null | undefined;
 	toString: (c: ChartDocument<GPT>) => string | null | undefined;
 
@@ -71,7 +74,7 @@ export type GPTClassColours<GPT extends GPTString> = {
 			| "info"
 			| "success"
 			| null
-			| CSSProperties;
+			| (CSSProperties & { shine?: boolean });
 	};
 };
 
@@ -93,6 +96,17 @@ export interface GPTClientImplementation<GPT extends GPTString = GPTString> {
 	 * You can use this to add things like tierlists (chart.data.ncTier, hcTier, etc.)
 	 */
 	ratingSystems: Array<GPTRatingSystem<GPT>>;
+
+	/**
+	 * Can be used to replace the display name of the algorithm.
+	 * (Which defaults to `UppercaseFirst(key)`)
+	 * This is particularly useful for renaming old algorithms.
+	 */
+	ratingAlgNameOverrides?: {
+		score?: Record<string, string>;
+		session?: Record<string, string>;
+		profile?: Record<string, string>;
+	};
 
 	/**
 	 * What headers should be used when rendering scores in a table for this game?
@@ -124,4 +138,10 @@ export interface GPTClientImplementation<GPT extends GPTString = GPTString> {
 		chart: ChartDocument<GPT>;
 		rating: ScoreRatingAlgorithms[GPT];
 	}) => JSX.Element;
+
+	/**
+	 * How many scores should we consider for the topX in the session important scores
+	 * display?
+	 */
+	sessionImportantScoreCount: integer;
 }

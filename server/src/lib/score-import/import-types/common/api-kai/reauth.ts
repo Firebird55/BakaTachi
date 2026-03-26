@@ -1,6 +1,7 @@
 import { GetKaiTypeClientCredentials, KaiTypeToBaseURL } from "./utils";
 import db from "external/mongo/db";
 import ScoreImportFatalError from "lib/score-import/framework/score-importing/score-import-error";
+import { ServerConfig } from "lib/setup/config";
 import { p } from "prudence";
 import nodeFetch from "utils/fetch";
 import type { KtLogger } from "lib/logger/logger";
@@ -8,6 +9,7 @@ import type { KaiAuthDocument } from "tachi-common";
 
 const REAUTH_SCHEMA = {
 	access_token: "string",
+	refresh_token: "string",
 };
 
 export function CreateKaiReauthFunction(
@@ -59,6 +61,16 @@ export function CreateKaiReauthFunction(
 		if (res.status !== 200) {
 			const text = await res.text();
 
+			if (res.status === 400) {
+				// we now entirely expect this and have no way to fix it.
+				throw new ScoreImportFatalError(
+					400,
+					`Your authentication with this service has expired, and a bug on their end prevents us from automatically renewing it.
+					
+					Please go to ${ServerConfig.OUR_URL}/u/me/integrations/services to un-link and re-link.`
+				);
+			}
+
 			logger.error(`Unexpected ${res.status} error while fetching reauth?`, { res, text });
 			throw new ScoreImportFatalError(
 				500,
@@ -92,6 +104,7 @@ export function CreateKaiReauthFunction(
 		// asserted by prudence
 		const validatedContent = json as {
 			access_token: string;
+			refresh_token: string;
 		};
 
 		await db["kai-auth-tokens"].update(
@@ -102,6 +115,7 @@ export function CreateKaiReauthFunction(
 			{
 				$set: {
 					token: validatedContent.access_token,
+					refreshToken: validatedContent.refresh_token,
 				},
 			}
 		);

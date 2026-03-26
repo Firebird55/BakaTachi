@@ -1,0 +1,2 @@
+src/proto/generated
+src/lib/search/fzf/**/*.ts

@@ -14,7 +14,8 @@ For more information on what metrics are and how they work, see [TODO]!
 | Metric Name | Type | Description |
 | :: | :: | :: |
 | `score` | Integer | The score value. This is between 0 and 1.01 million. |
-| `lamp` | "FAILED", "CLEAR", "FULL COMBO", "ALL JUSTICE", "ALL JUSTICE CRITICAL" | The type of clear this was. |
+| `noteLamp` | "NONE", "FULL COMBO", "ALL JUSTICE", "ALL JUSTICE CRITICAL" | The type of combo this was. |
+| `clearLamp` | "FAILED", "CLEAR", "HARD", "BRAVE", "ABSOLUTE", "CATASTROPHY" | The type of clear this was. |
 
 ### Derived Metrics
 
@@ -29,10 +30,12 @@ For more information on what metrics are and how they work, see [TODO]!
 | `fast` | Integer | The amount of mistakes in this score that were a result of hitting early. |
 | `slow` | Integer | The amount of mistakes in this score that were a result of hitting late. |
 | `maxCombo` | Integer | The largest combo in this score. |
+| `scoreGraph` | Array&lt;Decimal&gt; | The history of the projected score, queried in one-second intervals. |
+| `lifeGraph` | Array&lt;Decimal&gt; | Challenge gauge history, queried in one-second intervals. |
 
 ## Judgements
 
-The folowing judgements are defined:
+The following judgements are defined:
 
 - `jcrit`
 - `justice`
@@ -57,7 +60,7 @@ The folowing judgements are defined:
 
 | Name | Description |
 | :: | :: |
-| `naiveRating` | The average of your best 30 ratings. This is different to in-game, as it does not take into account your recent scores in any way. |
+| `naiveRating` | The average of your best 50 ratings. |
 
 ## Difficulties
 
@@ -65,19 +68,41 @@ The folowing judgements are defined:
 - `ADVANCED`
 - `EXPERT`
 - `MASTER`
+- `ULTIMA`
 
 ## Classes
 
 | Name | Type | Values |
 | :: | :: | :: |
-| `colour` | DERIVED | BLUE, GREEN, ORANGE, RED, PURPLE, COPPER, SILVER, GOLD, PLATINUM, RAINBOW |
+| `colour` | DERIVED | BLUE, GREEN, ORANGE, RED, PURPLE, COPPER, SILVER, GOLD, PLATINUM, RAINBOW, RAINBOW_II, RAINBOW_III, RAINBOW_IV, RAINBOW_EX_I, RAINBOW_EX_II, RAINBOW_EX_III
+| `dan` | PROVIDED | DAN_I, DAN_II, DAN_III, DAN_IV, DAN_V, DAN_INFINITE
+| `emblem` | PROVIDED | DAN_I, DAN_II, DAN_III, DAN_IV, DAN_V, DAN_INFINITE
 
 ## Versions
 
 | ID | Pretty Name |
 | :: | :: |
-| `paradiselost` | Paradise Lost |
+| `paradiselost` | PARADISE LOST |
+| `new` | NEW |
+| `newplus` | NEW PLUS |
 | `sun` | SUN |
+| `sun-intl` | SUN International |
+| `sun-omni` | SUN Omnimix |
+| `sunplus` | SUN PLUS |
+| `sunplus-intl` | SUN PLUS International |
+| `sunplus-omni` | SUN PLUS Omnimix |
+| `luminous` | LUMINOUS |
+| `luminous-intl` | LUMINOUS International |
+| `luminous-omni` | LUMINOUS Omnimix |
+| `luminousplus` | LUMINOUS PLUS |
+| `luminousplus-intl` | LUMINOUS PLUS International |
+| `luminousplus-omni` | LUMINOUS PLUS Omnimix |
+| `verse` | VERSE |
+| `verse-intl` | VERSE International |
+| `verse-omni` | VERSE Omnimix |
+| `xverse` | X-VERSE |
+| `xverse-intl` | X-VERSE International |
+| `xverse-omni` | X-VERSE Omnimix |
 
 ## Supported Match Types
 

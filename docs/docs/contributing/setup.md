@@ -2,87 +2,100 @@
 
 Before you can contribute to Tachi, it'll help to have a functional setup on your machine.
 
-You don't *necessarily* need to have a working install to contribute - you could easily
+You don't _necessarily_ need to have a working install to contribute - you could easily
 make documentation contributions without having anything running on your machine - but
 it's extremely helpful to be able to run Tachi's things while working on them.
 
-## 0. Get some developer tools.
+## 0. Install the basics
 
-If you're an experienced programmer, you won't need this bit.
+### VSCode
 
-### Editor
+We'll need a code editor so we can actually edit Tachi's code.
 
-You'll need an editor to work in!
-
-If you've only done a bit of programming in school,
-you might be used to something like Visual Studio.
-
-Sadly, Visual Studio is *not* a great editor for a codebase like Tachi. Visual Studio is
-really good at writing C# (a language we don't use at all),
-but its integration with TypeScript (the language we use) is quite poor.
-
-We **highly** recommend that you get [VSCode](https://code.visualstudio.com/). Especially
-if you're a beginner! It's an extremely good editor, and has remarkably good integration
-with everything we use.
+Please install [VSCode](https://code.visualstudio.com).
+We'll use this as our editor because of it's excellent support for dev containers.
 
 ### Terminal
 
-You'll need a terminal to run commands in. For Linux and Mac users, you can just open
+You'll also need a terminal to run commands in. For Linux and Mac users, you can just open
 a Terminal app.
 
 However, for Windows users we recommend installing the [Windows Terminal](https://apps.microsoft.com/store/detail/windows-terminal/9N0DX20HK701?hl=en-gb&gl=GB).
 
 With a terminal open you can proceed to the next steps!
 
-## 1. Getting Node and Docker.
+### Git
 
-You'll need `node` and `npm` in order to run Tachi. Install this from [the official NodeJS website](https://nodejs.org).
+You'll need `git` to clone Tachi to your machine.
 
-!!! info
-	If you are on linux, NodeJS will be provided by your package manager instead.
-	
-	You may wish to use that instead. It honestly doesn't matter all too much.
+=== "Windows"
+Install git [from the official website](https://git-scm.com/downloads).
 
-Check that the install has worked by running `npm -v`. If you get an error message saying that `npm` was not found, try restarting the terminal.
+=== "Ubuntu, Debian"
+Open a terminal and type this:
+`sh
+	sudo apt install git
+	`
+
+=== "Arch, Manjaro"
+Open a terminal and type this:
+
+    ```sh
+    sudo pacman -S git
+    ```
+
+=== "MacOS"
+Open a terminal and type this:
+
+    ```sh
+    brew install git
+    ```
+
+## 1. Getting Docker.
 
 To set everything else up for local development, we'll use [Docker](https://docker.com).
 
 === "Windows, WSL Ubuntu"
-	You should install [Docker Desktop](https://docs.docker.com/desktop/) instead.
-	Docker doesn't work well inside WSL.
+You should install [Docker Desktop](https://docs.docker.com/desktop/) instead.
+Docker doesn't work well inside WSL.
 
 === "Debian"
-	[Please use the official Docker install guide.](https://docs.docker.com/engine/install/debian/)
+[Please use the official Docker install guide.](https://docs.docker.com/engine/install/debian/)
 
 === "Ubuntu"
-	[Please use the official Docker install guide.](https://docs.docker.com/engine/install/ubuntu/)
+[Please use the official Docker install guide.](https://docs.docker.com/engine/install/ubuntu/)
 
 === "Arch, Manjaro"
-	```sh
-	sudo pacman -S docker docker-compose
-	```
+Open a terminal and type this:
+
+    ```sh
+    sudo pacman -S docker docker-compose
+    ```
 
 === "MacOS"
-	```sh
-	brew install docker docker-compose
-	```
+Open a terminal and type this:
+
+    ```sh
+    brew install docker docker-compose
+    ```
 
 !!! info
-	Docker is like a VM[^1]. It runs an entire Linux box to contain your software in, and generally sidesteps the whole "works on my machine" problem, by just shipping the entire machine.
+Docker is like a VM[^1]. It runs an entire Linux box to contain your software in, and generally sidesteps the whole "works on some machines" problem.
 
 ## 2. Fork and pull the repo.
 
-Since you can't just commit straight to someone elses codebase (that would be a massive security issue), you need to make a fork of Tachi - One owned by you!
+Since you can't just commit straight to someone else's codebase (that would be a massive security issue), you need to make a fork of Tachi - One owned by you!
 
-Go to [the Tachi repository](https://github.com/TNG-dev/Tachi) and click the Fork button in the top right (Make sure you're signed in).
+Go to [the Tachi repository](https://github.com/zkldi/Tachi) and click the Fork button in the top right (Make sure you're signed in).
 
 Now, back to the terminal:
 
 !!! tip
-	It's good organisation to make a folder on your PC for codestuffs.
-	
-	If you do that, make sure you open the terminal in that folder,
-	so your Tachi repo will save there!
+It's good organisation to make a folder on your PC for codestuffs.
+If you do that, make sure you open the terminal in that folder,
+so your Tachi repo will save there!
+
+Open a terminal and type the following commands:
 
 ```sh
 # This will create a folder called Tachi on your PC.
@@ -93,58 +106,75 @@ git clone https://github.com/YOUR_GITHUB_USERNAME/Tachi
 code Tachi
 ```
 
-## 3. Authenticate with Github.
+## 3. Get into the container.
+
+### What is a container?
+
+Your personal machine could be running anything. Windows, Mac, Linux, whatever!
+Tachi expects to be running on Linux and with specific versions of certain software running.
+It's a huge pain to ask _you_ to install that software and manage it yourself.
+Plus, subtle differences between Windows and Linux cause problems _all_ the time.
+
+As such, we work _inside_ a docker container. This is sort of like having a Linux VM with everything set up perfectly for you.
+I've spent quite a bit of time making this container user friendly, and it has so many nice things pre-installed for you.
+
+Perhaps more importantly, the container has everything needed to run Tachi perfectly. Neat!
+
+### Getting into it
+
+With `VSCode` open to Tachi, install the [Dev Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extension.
+
+Then, hit `Ctrl+Shift+P` to view all commands, and run `Dev Containers: Rebuild and Reopen in Container`.
+
+!!! warning
+First time setup can take a very long time.
+This depends on the performance of your machine, and whether you're using Windows or not.
+
+    You can click `view log` in the bottom right to see the progress of making the container.
+
+### Working in the container
+
+**You want to do ALL your work inside the container.**
+Doing thing outside of the container will cause issues or crashes.
+
+There is a subtle confusing trick here. We now want to use a terminal _inside_ our container.
+**Do not use a terminal outside of VSCode now.**
+
+To open a terminal inside `VSCode`, use `Ctrl+J` to open the bottom panel.
+Inside there there should be a `TERMINAL` tab, click that.
+There should be a `+` at the top right of the panel. Click that to open a new terminal!
+
+You should see a message starting with `Welcome to Tachi!`. Inside this shell, you have full access to Tachi and all of its utilities.
+
+## 4. Authenticate with Github.
 
 You'll need to authenticate with GitHub before you can actually push changes back
 to your repository.
 
-There's a remarkably easy way to do this, using GitHub's `gh` tool.
-
-=== "Debian, Ubuntu, WSL Ubuntu"
-	[Use the official Linux instructions.](https://github.com/cli/cli/blob/trunk/docs/install_linux.md)
-
-=== "Arch, Manjaro"
-	```sh
-	sudo pacman -S gh
-	```
-
-=== "MacOS"
-	```sh
-	brew install gh
-	```
-
-Once you've installed it, type `gh auth` and follow the instructions.
+Type `gh auth login` and follow the instructions.
 You should now be properly authenticated!
 
-## 4. Start Tachi!
+## 5. Start Tachi!
 
-With a terminal open inside the `Tachi` folder you just cloned, run `npm start`.
+With a terminal open inside the `Tachi` container you just cloned, run `just start`.
 
 The frontend will be running on `http://127.0.0.1:3000`.
 The backend will be running on `https://127.0.0.1:8080`.
 
 !!! danger
-	The backend **always runs on HTTPS** in local development. This is because browsers
-	tend to *really* hate HTTP mode nowadays, and it causes so many problems.
+The backend **always runs on HTTPS** in local development. This is because browsers
+tend to _really_ hate HTTP mode nowadays, and it causes so many problems.
 
-	You **need** to navigate to your running instance of the backend in a browser, and tell
-	the browser that you trust these certificates. Otherwise, all client requests to
-	the server will silently be chomped by the browser.
-
-## 5. Editor Plugins
-
-If you're using VSCode as your editor (I *really* recommend it!) You'll want a couple
-plugins.
-
-Namely, Install the ESLint plugin, and enable "Format On Save" in your settings. We use an [incredibly strict](https://github.com/CadenceJS/Cadence) plugin for ESLint, which catches a *ton* of programming errors and mistakes. By having it run in your editor, you can see your mistakes before you ever run the code, and have them automatically fix on save!
+    You **need** to navigate to your running instance of the backend in a browser, and tell
+    the browser that you trust these certificates. Otherwise, all client requests to
+    the server will silently be chomped by the browser.
 
 !!! tip
-	With `Ctrl-Shift-P`, you can open VSCodes "Command Palette". This will let you search
-	for all the possible things VSCode can do. To open the settings, you can use `Ctrl-Shift-P` and search for "Settings".
+Type `just` in the terminal to see other available commands.
 
-	It's ridiculously convenient, and there's a bunch of other stuff that VSCode helps with.
+Navigate to http://127.0.0.1:3000 and check your Tachi instance!
 
-## 8. OK, Now what.
+## 6. OK, Now what.
 
 Now that you've got a working version of Tachi running on your local PC, you should go check out the [component-specific contribution guides](./components.md)!
 

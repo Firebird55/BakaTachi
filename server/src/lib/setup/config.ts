@@ -9,7 +9,7 @@ import { FormatPrError } from "utils/prudence";
 import fs from "fs";
 import { URL } from "url";
 import type { SendMailOptions } from "nodemailer";
-import type { Game, ImportTypes, integer } from "tachi-common";
+import type { TachiServerCoreConfig, integer } from "tachi-common";
 
 // imports things like NODE_ENV from a local .env file if one is present.
 dotenv.config();
@@ -25,7 +25,9 @@ let confFile;
 try {
 	confFile = fs.readFileSync(confLocation, "utf-8");
 } catch (err) {
-	logger.error("Error while trying to open conf.json5. Is one present?", { err });
+	logger.error("Error while trying to open conf.json5. Is one present?", {
+		err,
+	});
 
 	process.exit(1);
 }
@@ -65,6 +67,7 @@ export interface TachiServerConfig {
 	EAG_API_URL?: string;
 	MIN_API_URL?: string;
 	ARC_API_URL?: string;
+	MYT_API_HOST?: string;
 
 	CG_DEV_CONFIG?: CGConfig;
 	CG_NAG_CONFIG?: CGConfig;
@@ -74,6 +77,7 @@ export interface TachiServerConfig {
 	EAG_OAUTH2_INFO?: OAuth2Info;
 	MIN_OAUTH2_INFO?: OAuth2Info;
 	ARC_AUTH_TOKEN?: string;
+	MYT_AUTH_TOKEN?: string;
 	ENABLE_SERVER_HTTPS?: boolean;
 	CLIENT_DEV_SERVER?: string | null;
 	RATE_LIMIT: integer;
@@ -81,11 +85,19 @@ export interface TachiServerConfig {
 	OPTIONS_ALWAYS_SUCCEEDS?: boolean;
 	USE_EXTERNAL_SCORE_IMPORT_WORKER: boolean;
 	EXTERNAL_SCORE_IMPORT_WORKER_CONCURRENCY?: integer;
-	SEEDS_CONFIG?: {
-		REPO_URL: string;
-		USER_NAME: string | null;
-		USER_EMAIL: string | null;
-	};
+	ENABLE_METRICS: boolean;
+	SEEDS_CONFIG?:
+		| {
+				TYPE: "GIT_REPO";
+				REPO_URL: string;
+				USER_NAME: string | null;
+				USER_EMAIL: string | null;
+				BRANCH?: string;
+		  }
+		| {
+				TYPE: "LOCAL_FILES";
+				PATH: string;
+		  };
 	EMAIL_CONFIG?: {
 		FROM: string;
 		DKIM?: SendMailOptions["dkim"];
@@ -110,22 +122,7 @@ export interface TachiServerConfig {
 		INVITE_CAP: integer;
 		BETA_USER_BONUS: integer;
 	};
-	TACHI_CONFIG: {
-		NAME: string;
-		TYPE: "btchi" | "ktchi" | "omni";
-		GAMES: Array<Game>;
-		IMPORT_TYPES: Array<ImportTypes>;
-	};
-	LOGGER_CONFIG: {
-		LOG_LEVEL: "crit" | "debug" | "error" | "info" | "severe" | "verbose" | "warn";
-		CONSOLE: boolean;
-		FILE: boolean;
-		SEQ_API_KEY: string | undefined;
-		DISCORD?: {
-			WEBHOOK_URL: string;
-			WHO_TO_TAG: Array<string>;
-		};
-	};
+	TACHI_CONFIG: TachiServerCoreConfig;
 	CDN_CONFIG: {
 		WEB_LOCATION: string;
 		SAVE_LOCATION:
@@ -161,6 +158,7 @@ const err = p(config, {
 	EAG_API_URL: p.optional(isValidURL),
 	MIN_API_URL: p.optional(isValidURL),
 	ARC_API_URL: p.optional(isValidURL),
+	MYT_API_HOST: "*string",
 
 	CG_DEV_CONFIG: isValidCGConfig,
 	CG_NAG_CONFIG: isValidCGConfig,
@@ -170,6 +168,7 @@ const err = p(config, {
 	EAG_OAUTH2_INFO: isValidOauth2,
 	MIN_OAUTH2_INFO: isValidOauth2,
 	ARC_AUTH_TOKEN: "*string",
+	MYT_AUTH_TOKEN: "*string",
 	ENABLE_SERVER_HTTPS: "*boolean",
 	CLIENT_DEV_SERVER: "*?string",
 	RATE_LIMIT: p.optional(p.isPositiveInteger),
@@ -178,6 +177,7 @@ const err = p(config, {
 	USE_EXTERNAL_SCORE_IMPORT_WORKER: "*boolean",
 	EXTERNAL_SCORE_IMPORT_WORKER_CONCURRENCY: p.optional(p.isPositiveInteger),
 	ALLOW_RUNNING_OFFLINE: "*boolean",
+	ENABLE_METRICS: "*boolean",
 	EMAIL_CONFIG: p.optional({
 		FROM: "string",
 		DKIM: "*object",
@@ -214,21 +214,10 @@ const err = p(config, {
 	}),
 	TACHI_CONFIG: {
 		NAME: "string",
-		TYPE: p.isIn("ktchi", "btchi", "omni"),
+		TYPE: p.isIn("kamai", "boku", "omni"),
 		GAMES: [p.isIn(allSupportedGames)],
 		IMPORT_TYPES: [p.isIn(allImportTypes)],
-	},
-	LOGGER_CONFIG: {
-		LOG_LEVEL: p.optional(
-			p.isIn("debug", "verbose", "info", "warn", "error", "severe", "crit")
-		),
-		CONSOLE: "*boolean",
-		FILE: "*boolean",
-		SEQ_API_KEY: "*string",
-		DISCORD: p.optional({
-			WEBHOOK_URL: "string",
-			WHO_TO_TAG: ["string"],
-		}),
+		SIGNUPS_ENABLED: p.optional("boolean"),
 	},
 	CDN_CONFIG: {
 		WEB_LOCATION: "string",
@@ -249,11 +238,21 @@ const err = p(config, {
 			}
 		),
 	},
-	SEEDS_CONFIG: p.optional({
-		REPO_URL: "string",
-		USER_NAME: "?string",
-		USER_EMAIL: "?string",
-	}),
+	SEEDS_CONFIG: p.optional(
+		p.or(
+			{
+				TYPE: p.is("GIT_REPO"),
+				REPO_URL: "string",
+				USER_NAME: "?string",
+				USER_EMAIL: "?string",
+				BRANCH: "*string",
+			},
+			{
+				TYPE: p.is("LOCAL_FILES"),
+				PATH: "string",
+			}
+		)
+	),
 });
 
 if (err) {
@@ -272,6 +271,8 @@ tachiServerConfig.MAX_QUEST_SUBSCRIPTIONS ??= 100;
 tachiServerConfig.MAX_RIVALS ??= 5;
 tachiServerConfig.MAX_FOLLOWING_AMOUNT ??= 1_000;
 tachiServerConfig.USE_EXTERNAL_SCORE_IMPORT_WORKER ??= false;
+tachiServerConfig.TACHI_CONFIG.SIGNUPS_ENABLED ??= true;
+tachiServerConfig.ENABLE_METRICS ??= false;
 
 export const TachiConfig = tachiServerConfig.TACHI_CONFIG;
 export const ServerConfig = tachiServerConfig;
@@ -301,14 +302,6 @@ if (!mongoUrl) {
 	process.exit(1);
 }
 
-const seqUrl = process.env.SEQ_URL ?? "";
-
-if (!seqUrl && tachiServerConfig.LOGGER_CONFIG.SEQ_API_KEY) {
-	logger.warn(
-		`No SEQ_URL specified in environment, yet LOGGER_CONFIG.SEQ_API_KEY was defined. No logs will be sent to Seq!`
-	);
-}
-
 const nodeEnv = process.env.NODE_ENV ?? "";
 
 if (!nodeEnv) {
@@ -332,6 +325,14 @@ if (TachiConfig.GAMES.includes("bms") !== TachiConfig.GAMES.includes("pms")) {
 	process.exit(1);
 }
 
+const logLevel = process.env.LOG_LEVEL ?? "info";
+
+if (!["crit", "severe", "error", "warn", "info", "verbose", "debug"].includes(logLevel)) {
+	logger.error(`Invalid LOG_LEVEL of ${logLevel}.`);
+
+	process.exit(1);
+}
+
 const replicaIdentity = process.env.REPLICA_IDENTITY;
 
 export const Environment = {
@@ -340,6 +341,8 @@ export const Environment = {
 	mongoUrl,
 	nodeEnv: nodeEnv as "dev" | "production" | "staging" | "test",
 	replicaIdentity,
-	seqUrl,
 	commitHash: process.env.COMMIT_HASH,
+	seqUrl: process.env.SEQ_URL,
+	seqApiKey: process.env.SEQ_API_KEY,
+	logLevel: logLevel as "crit" | "debug" | "error" | "info" | "severe" | "verbose" | "warn",
 };

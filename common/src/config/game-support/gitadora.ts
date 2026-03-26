@@ -8,9 +8,7 @@ import type { INTERNAL_GAME_CONFIG, INTERNAL_GAME_PT_CONFIG } from "../../types/
 export const GITADORA_CONF = {
 	name: "GITADORA",
 	playtypes: ["Gita", "Dora"],
-	songData: z.strictObject({
-		isHot: z.boolean(),
-	}),
+	songData: z.strictObject({}),
 } as const satisfies INTERNAL_GAME_CONFIG;
 
 const GitadoraColours = [
@@ -71,18 +69,16 @@ export const GITADORA_GITA_CONF = {
 		skill: { description: "The average of your best 10 skill ratings this session." },
 	},
 	profileRatingAlgs: {
-		skill: {
-			description: "Your profile skill as it's implemented in game -- 25 HOT and 25 not HOT.",
-		},
 		naiveSkill: {
 			description:
 				"Your best 50 skill levels added together, regardless of whether the chart is HOT or not.",
+			associatedScoreAlgs: ["skill"],
 		},
 	},
 
 	defaultScoreRatingAlg: "skill",
 	defaultSessionRatingAlg: "skill",
-	defaultProfileRatingAlg: "skill",
+	defaultProfileRatingAlg: "naiveSkill",
 
 	difficulties: {
 		type: "FIXED",
@@ -110,13 +106,18 @@ export const GITADORA_GITA_CONF = {
 	},
 
 	classes: {
-		colour: { type: "DERIVED", values: GitadoraColours },
+		colour: { type: "DERIVED", values: GitadoraColours, minimumScores: 50 },
 	},
 
 	orderedJudgements: ["perfect", "great", "good", "ok", "miss"],
 
 	versions: {
 		konaste: "Konaste",
+		fuzzUp: "FUZZ-UP",
+		highVoltage: "HIGH-VOLTAGE",
+		nextage: "NEX+AGE",
+		exchain: "EXCHAIN",
+		matixx: "Matixx",
 	},
 
 	chartData: z.strictObject({

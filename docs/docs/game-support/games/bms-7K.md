@@ -33,6 +33,9 @@ For more information on what metrics are and how they work, see [TODO]!
 | `bp` | Integer | The total bads + poors in this score. |
 | `gauge` | Decimal | The life in percent (between 0 and 100) that was on the gauge at the end of the chart. |
 | `gaugeHistory` | Array&lt;Decimal&gt; | A snapshot of the gauge percent throughout the chart. The values should be null from the point the user dies until the end of the chart. |
+| `gaugeHistoryEasy` | Array&lt;Decimal&gt; | The easy gauge history. |
+| `gaugeHistoryGroove` | Array&lt;Decimal&gt; | The groove gauge history. |
+| `gaugeHistoryHard` | Array&lt;Decimal&gt; | The hard gauge history. |
 | `epg` | Integer | The amount of early PGreats in this score. |
 | `egr` | Integer | The amount of early greats in this score. |
 | `egd` | Integer | The amount of early goods in this score. |
@@ -46,7 +49,7 @@ For more information on what metrics are and how they work, see [TODO]!
 
 ## Judgements
 
-The folowing judgements are defined:
+The following judgements are defined:
 
 - `pgreat`
 - `great`
@@ -83,7 +86,8 @@ The folowing judgements are defined:
 | Name | Type | Values |
 | :: | :: | :: |
 | `genocideDan` | PROVIDED | NORMAL_1, NORMAL_2, NORMAL_3, NORMAL_4, NORMAL_5, NORMAL_6, NORMAL_7, NORMAL_8, NORMAL_9, NORMAL_10, INSANE_1, INSANE_2, INSANE_3, INSANE_4, INSANE_5, INSANE_6, INSANE_7, INSANE_8, INSANE_9, INSANE_10, INSANE_KAIDEN, OVERJOY
-| `stslDan` | PROVIDED | SL0, SL1, SL2, SL3, SL4, SL5, SL6, SL7, SL8, SL9, SL10, SL11, SL12, ST0, ST1, ST2, ST3, ST4, ST5, ST6, ST7, ST8, ST9, ST10, ST11
+| `stslDan` | PROVIDED | SL0, SL1, SL2, SL3, SL4, SL5, SL6, SL7, SL8, SL9, SL10, SL11, SL12, ST0, ST1, ST2, ST3, ST4, ST5, ST6, ST7, ST8, ST9, ST10, ST11, ST12
+| `newGenerationDan` | PROVIDED | NORMAL_1, NORMAL_2, NORMAL_3, NORMAL_4, NORMAL_5, NORMAL_6, NORMAL_7, NORMAL_8, NORMAL_9, NORMAL_10, INSANE_0, INSANE_1, INSANE_2, INSANE_3, INSANE_4, INSANE_5, INSANE_6, INSANE_7, INSANE_8, INSANE_9, INSANE_10, INSANE_KAIDEN
 | `lnDan` | PROVIDED | DAN_1, DAN_2, DAN_3, DAN_4, DAN_5, DAN_6, DAN_7, DAN_8, DAN_9, DAN_10, KAIDEN, OVERJOY, UDON
 | `scratchDan` | PROVIDED | KYU_7, KYU_6, KYU_5, KYU_4, KYU_3, KYU_2, KYU_1, DAN_1, DAN_2, DAN_3, DAN_4, DAN_5, DAN_6, DAN_7, DAN_8, DAN_9, DAN_10, KAIDEN
 

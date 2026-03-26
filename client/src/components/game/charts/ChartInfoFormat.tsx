@@ -14,14 +14,26 @@ import { GPT_CLIENT_IMPLEMENTATIONS } from "lib/game-implementations";
 import React, { useContext } from "react";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { ChartDocument, FolderDocument, Game, GetGPTString } from "tachi-common";
+import {
+	ChartDocument,
+	FolderDocument,
+	FormatDifficulty,
+	FormatDifficultySearch,
+	FormatDifficultyShort,
+	Game,
+	GetGameConfig,
+	GetGamePTConfig,
+	GetGPTString,
+	SongDocument,
+} from "tachi-common";
 import { GamePT } from "types/react";
 
 export default function ChartInfoFormat({
+	song,
 	chart,
 	game,
 	playtype,
-}: { chart: ChartDocument } & GamePT) {
+}: { chart: ChartDocument; song: SongDocument } & GamePT) {
 	const gptImpl = GPT_CLIENT_IMPLEMENTATIONS[GetGPTString(game, playtype)];
 
 	const ratingSystems = gptImpl.ratingSystems;
@@ -41,6 +53,8 @@ export default function ChartInfoFormat({
 		return <Loading />;
 	}
 
+	const versions = Object.keys(GetGamePTConfig(game, playtype).versions);
+
 	return (
 		<Row
 			className="text-center align-items-center"
@@ -49,29 +63,37 @@ export default function ChartInfoFormat({
 				justifyContent: "space-evenly",
 			}}
 		>
-			<Col xs={12} lg={3}>
+			<Col xs={12} lg={3} style={{ textAlign: "left" }}>
 				<h4>Appears In</h4>
 				{data.length !== 0 ? (
-					data.map((e) => (
-						<li key={e.folderID}>
-							{user && ugs ? (
-								<Link
-									className="text-decoration-none"
-									to={`/u/${user.username}/games/${game}/${playtype}/folders/${e.folderID}`}
-								>
-									{e.title}
-								</Link>
-							) : (
-								<span>{e.title}</span>
-							)}
-						</li>
-					))
+					data
+						.sort((a, b) => a.title.localeCompare(b.title))
+						.sort((a, b) =>
+							"versions" in a.data && "versions" in b.data
+								? versions.indexOf(a.data.versions) -
+								  versions.indexOf(b.data.versions)
+								: 0
+						)
+						.map((e) => (
+							<li key={e.folderID}>
+								{user && ugs ? (
+									<Link
+										className="text-decoration-none"
+										to={`/u/${user.username}/games/${game}/${playtype}/folders/${e.folderID}`}
+									>
+										{e.title}
+									</Link>
+								) : (
+									<span>{e.title}</span>
+								)}
+							</li>
+						))
 				) : (
 					<Muted>No folders...</Muted>
 				)}
 			</Col>
 			<Col xs={12} lg={4}>
-				<ChartInfoMiddle chart={chart} game={game} />
+				<ChartInfoMiddle song={song} chart={chart} game={game} />
 			</Col>
 			<Col xs={12} lg={3}>
 				{ratingSystems.length !== 0 &&
@@ -121,16 +143,24 @@ export default function ChartInfoFormat({
 	);
 }
 
-function ChartInfoMiddle({ game, chart }: { chart: ChartDocument; game: Game }) {
+function ChartInfoMiddle({
+	game,
+	song,
+	chart,
+}: {
+	song: SongDocument;
+	chart: ChartDocument;
+	game: Game;
+}) {
 	if (game === "bms") {
 		const bmsChart = chart as ChartDocument<"bms:7K" | "bms:14K">;
 
 		return (
 			<>
 				<ExternalLink
-					href={`http://www.ribbit.xyz/bms/score/view?md5=${bmsChart.data.hashMD5}`}
+					href={`https://bms-score-viewer.pages.dev/view?md5=${bmsChart.data.hashMD5}`}
 				>
-					View Chart on Ribbit
+					View Chart
 				</ExternalLink>
 				<br />
 				<ExternalLink
@@ -154,5 +184,34 @@ function ChartInfoMiddle({ game, chart }: { chart: ChartDocument; game: Game }) 
 		);
 	}
 
-	return <></>;
+	const gameConfig = GetGameConfig(game);
+
+	const diff = FormatDifficultySearch(chart, game);
+	const gameName =
+		game === "ongeki" ? "オンゲキ" : game === "maimaidx" ? "maimai" : gameConfig.name;
+	const formattedTitle = song.title
+		.replace(/([!?,]){4,}/gu, (m) => m[0].repeat(3))
+		.replace(/-/gu, " ");
+
+	let search = `${gameName} ${formattedTitle}`;
+
+	if (diff !== null) {
+		search += ` ${diff}`;
+	}
+
+	return (
+		<>
+			<ExternalLink
+				href={`https://youtube.com/results?search_query=${encodeURIComponent(search)}`}
+			>
+				Search YouTube
+			</ExternalLink>
+			{"chartViewURL" in chart.data && (
+				<>
+					<br />
+					<ExternalLink href={chart.data.chartViewURL}>Chart view</ExternalLink>
+				</>
+			)}
+		</>
+	);
 }

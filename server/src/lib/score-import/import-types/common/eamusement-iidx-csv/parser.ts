@@ -38,6 +38,9 @@ export enum EAM_VERSION_NAMES {
 	"BISTROVER" = 28,
 	"CastHour" = 29,
 	"RESIDENT" = 30,
+	"EPOLIS" = 31,
+	"Pinky Crush" = 32,
+	"Sparkle Shower" = 33,
 }
 
 const PRE_HV_HEADER_COUNT = 27;

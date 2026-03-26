@@ -7,6 +7,7 @@ import "express-async-errors";
 import { RequestLoggerMiddleware } from "./middleware/request-logger";
 import mainRouter from "./router/router";
 import connectRedis from "connect-redis";
+import ExpressPromBundle from "express-prom-bundle";
 import expressSession from "express-session";
 import { RedisClient } from "external/redis/redis";
 import helmet from "helmet";
@@ -36,7 +37,6 @@ if (Environment.nodeEnv !== "test") {
 const userSessionMiddleware = expressSession({
 	// append node_env onto the end of the session name
 	// so we can separate tokens under the same URL.
-	// say for staging.kamaitachi.xyz
 	name: `${TachiConfig.NAME.replace(/ /gu, "_")}_SESSION`,
 	secret: ServerConfig.SESSION_SECRET,
 	store,
@@ -109,6 +109,10 @@ if (Environment.nodeEnv !== "production" && IsNonEmptyString(ServerConfig.CLIENT
 	app.use(helmet());
 }
 
+if (ServerConfig.ENABLE_METRICS) {
+	app.use(ExpressPromBundle({ includeMethod: true, includePath: true }));
+}
+
 app.use(userSessionMiddleware);
 
 // Most of these options are leveraged from KTAPI
@@ -177,8 +181,6 @@ interface ExpressJSONErr extends SyntaxError {
 }
 
 const MAIN_ERR_HANDLER: express.ErrorRequestHandler = (err, req, res, _next) => {
-	logger.info(`MAIN_ERR_HANDLER hit by request.`, { url: req.originalUrl });
-
 	// this use of instanceof is fine.
 	// eslint-disable-next-line cadence/no-instanceof
 	if (err instanceof SyntaxError) {
@@ -187,13 +189,16 @@ const MAIN_ERR_HANDLER: express.ErrorRequestHandler = (err, req, res, _next) => 
 		if (expErr.status === 400 && "body" in expErr) {
 			logger.info(`JSON Parsing Error?`, {
 				url: req.originalUrl,
-				userID: req[SYMBOL_TACHI_API_AUTH].userID,
+				// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+				userID: req[SYMBOL_TACHI_API_AUTH]?.userID,
 			});
 			return res.status(400).send({ success: false, description: err.message });
 		}
 
 		// else, this isn't a JSON parsing error
 	}
+
+	logger.error(`MAIN_ERR_HANDLER hit by request.`, { url: req.originalUrl, body: req.body });
 
 	const unknownErr = err as unknown;
 

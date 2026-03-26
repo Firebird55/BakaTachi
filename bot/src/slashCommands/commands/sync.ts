@@ -14,14 +14,19 @@ const choices: Array<[string, string]> = (
 		["CG DEV SDVX", "api/cg-dev-sdvx"],
 		["CG DEV MUSECA", "api/cg-dev-museca"],
 		["CG DEV Pop'n", "api/cg-dev-popn"],
+		["CG DEV Jubeat", "api/cg-dev-jubeat"],
 		["CG SDVX", "api/cg-prod-sdvx"],
 		["CG MUSECA", "api/cg-prod-museca"],
 		["CG Pop'n", "api/cg-prod-popn"],
+		["MYT CHUNITHM", "api/myt-chunithm"],
+		["MYT MAIMAI DX", "api/myt-maimaidx"],
+		["MYT ONGEKI", "api/myt-ongeki"],
+		["MYT WACCA", "api/myt-wacca"],
 	] as Array<[string, string]>
 )
 
 	// @ts-expect-error god i hate the includes signature
-	.filter((e) => ServerConfig.importTypes.includes(e[1]));
+	.filter((e) => ServerConfig.IMPORT_TYPES.includes(e[1]));
 
 const command: SlashCommand = {
 	info: new SlashCommandBuilder()
@@ -48,6 +53,10 @@ const command: SlashCommand = {
 			},
 			interaction
 		);
+
+		if (typeof importDoc === "string") {
+			return importDoc;
+		}
 
 		return CreateImportEmbed(importDoc);
 	},

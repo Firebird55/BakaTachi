@@ -22,35 +22,35 @@ We're allowed 5 types of metrics:
 This metric is expected to be a decimal.
 
 !!! example
-	```ts
+`ts
 	percent: {
 		type: "DECIMAL",
 		validate: p.isBetween(0, 100),
 		formatter: FmtPercent,
 		description: "EX Score divided by the maximum possible EX Score on this chart.",
 	},
-	```
+	`
 
 - `INTEGER`
 
 This metric is expected to be a whole number.
 
 !!! example
-	```ts
+`ts
 	{
 		type: "INTEGER",
 		validate: p.isBetween(0, 100_000),
 		formatter: FmtNum,
 		description: "The score value.",
 	}
-	```
+	`
 
 - `ENUM`
 
 This metric is expected to be a string in a provided ordered list of strings. This is used to implement things like `"FAILED", "CLEAR", "FULL COMBO", "PERFECT"` lamps.
 
 !!! example
-	```ts
+`ts
 	{
 		type: "ENUM",
 		values: [
@@ -66,8 +66,7 @@ This metric is expected to be a string in a provided ordered list of strings. Th
 		minimumRelevantValue: "EASY CLEAR",
 		description: "The type of clear this was.",
 	},
-	```
-
+	`
 
 - `GRAPH`
 
@@ -78,25 +77,26 @@ This metric is an array of numbers.
 This metric is an array of numbers or null.
 
 !!! example
-	```ts
+`ts
 		gaugeHistory: {
 			type: "NULLABLE_GRAPH",
 			validate: p.isBetween(0, 100),
 			description:
 				"A snapshot of the gauge percent throughout the chart. The values should be null from the point the user dies until the end of the chart.",
 		},
-	```
+	`
 
-	Importantly: something like `[99, 74, 12, null, null, null]` would be legal as a nullable graph.
+    Importantly: something like `[99, 74, 12, null, null, null]` would be legal as a nullable graph.
 
-	This does not mean the field itself is nullable, only the values inside the array!
+    This does not mean the field itself is nullable, only the values inside the array!
 
 ## Enum Metrics
 
 Metrics of type `ENUM` are special in many ways. Most importantly, they don't require
 any sort of validation - the input is either a member of `values` or it isn't.
 
-An ENUM metric looks like this: 
+An ENUM metric looks like this:
+
 ```ts
 {
 	type: "ENUM",
@@ -122,10 +122,10 @@ ever realistically care about getting. This is used in the UI and other places t
 hide useless ENUM values from the user.
 
 !!! example
-	![](../../images/min-relevant-value.png)
+![](../../images/min-relevant-value.png)
 
-	Despite the fact this user failed a bunch of stuff this session, the UI won't
-	show me my new `FAILED` or `ASSIST CLEAR` scores!
+    Despite the fact this user failed a bunch of stuff this session, the UI won't
+    show me my new `FAILED` or `ASSIST CLEAR` scores!
 
 ## Integer and Decimal Metrics
 
@@ -138,32 +138,32 @@ a property called `validate` which returns true on success, and a string represe
 an error message on failure:
 
 !!! example
-	```ts
-	{
-			type: "INTEGER",
-			validate: (value) => {
-				if (value > 100_000) { return "Score cannot be greater than 100k." }
+```ts
+{
+type: "INTEGER",
+validate: (value) => {
+if (value > 100_000) { return "Score cannot be greater than 100k." }
 
-				return true;
-			},
-			formatter: FmtNum,
-			description: "The score value.",
-	}
-	```
+    			return true;
+    		},
+    		formatter: FmtNum,
+    		description: "The score value.",
+    }
+    ```
 
 !!! note
-	The type of input is already checked for you. You don't need to check whether your
-	input is an integer or not if you declare `type: "INTEGER"`. The same goes for
-	`type: "GRAPH"`, the validator instead runs on each element in the array.
+The type of input is already checked for you. You don't need to check whether your
+input is an integer or not if you declare `type: "INTEGER"`. The same goes for
+`type: "GRAPH"`, the validator instead runs on each element in the array.
 
 !!! tip
-	The reason for this rather strange type signature (`string | true`) is because we
-	can use our validation library - [Prudence](https://github.com/zkldi/Prudence) - to create validators for us. Instead
-	of writing out that validation code, we can use `p.isBetween(0, 100_000)`!
+The reason for this rather strange type signature (`string | true`) is because we
+can use our validation library - [Prudence](https://github.com/zkldi/Prudence) - to create validators for us. Instead
+of writing out that validation code, we can use `p.isBetween(0, 100_000)`!
 
 However, it might not be possible to validate a metric without knowing what chart
 the score is on. For example, in IIDX the maximum amount of score you can get is
-the chart's notecount * 2.
+the chart's notecount \* 2.
 
 Since we don't know what this GPT chart's look like at this time (we haven't defined them yet!)
 we instead don't declare a validator and put down `chartDependentMax: true` instead.
@@ -173,7 +173,7 @@ We will have to write the validator later in the server implementation.
 ### Formatting
 
 We also want to format these metrics into a string. For example, a `percent` metric may want to stringify into `92.45%` instead of `92.49938222293842`.
-More subtle formatting rules can be defined here too, such as how in jubeat, scores are
+More subtle formatting rules can be defined here too, such as how in Jubeat, scores are
 easier to read written like `903,283` instead of `903283`.
 
 ## Graph Metrics
@@ -182,6 +182,7 @@ Graph metrics (`GRAPH` and `NULLABLE_GRAPH`) also have to define a validator, bu
 
 To validate that all of the values in a graph metric are between 0 and 10, you could
 write a validator like:
+
 ```ts
 function validate(value: number) {
 	if (value < 0) return "too small";

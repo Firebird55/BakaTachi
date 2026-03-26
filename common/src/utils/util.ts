@@ -101,6 +101,49 @@ export function FormatDifficultyShort(chart: ChartDocument, game: Game): string 
 	return `${chart.playtype}${shortDiff} ${chart.level}`;
 }
 
+/**
+ * Formats a chart's difficulty for searching, such as forwarding this query to youtube.
+ */
+export function FormatDifficultySearch(chart: ChartDocument, game: Game): string | null {
+	const gptConfig = GetGamePTConfig(game, chart.playtype);
+
+	if (game === "itg") {
+		const itgChart = chart as ChartDocument<"itg:Stamina">;
+
+		return `S${itgChart.data.difficultyTag} ${chart.level}`;
+	}
+
+	if (gptConfig.difficulties.type === "DYNAMIC") {
+		// TODO cap string length
+		return chart.difficulty;
+	}
+
+	const shortDiff = gptConfig.difficulties.shorthand[chart.difficulty] ?? chart.difficulty;
+
+	switch (game) {
+		case "jubeat":
+		case "maimai":
+		case "museca":
+		case "maimaidx":
+		case "popn":
+		case "sdvx":
+		case "wacca":
+		case "arcaea":
+		case "ongeki":
+		case "chunithm":
+		case "ddr":
+		case "usc":
+			return chart.difficulty;
+		case "iidx":
+			return `${chart.playtype}${shortDiff}`;
+		case "gitadora":
+			return shortDiff;
+		case "bms":
+		case "pms":
+			return null;
+	}
+}
+
 export function FormatGame(game: Game, playtype: Playtypes[Game]): string {
 	const gameConfig = GetGameConfig(game);
 
@@ -242,6 +285,28 @@ export function FmtNum(num: number) {
 
 export function FmtPercent(v: number, dp = 2) {
 	return `${v.toFixed(dp)}%`;
+}
+
+/**
+ * Formats a number into "★★★☆☆"
+ */
+export function FmtStars(num: number) {
+	if (num > 5) {
+		return "★★★★★(虹)";
+	}
+
+	return "★".repeat(num) + "☆".repeat(5 - num);
+}
+
+/**
+ * Formats a number into "★★★"
+ */
+export function FmtStarsCompact(num: number) {
+	if (num > 5) {
+		return "★★★★★(虹)";
+	}
+
+	return "★".repeat(num);
 }
 
 /**

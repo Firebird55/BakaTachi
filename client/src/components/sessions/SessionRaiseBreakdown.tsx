@@ -49,6 +49,7 @@ export default function SessionRaiseBreakdown({
 }) {
 	const game = sessionData.session.game;
 	const playtype = sessionData.session.playtype;
+	const lampName = game === "ongeki" || game === "chunithm" ? "noteLamp" : "lamp";
 
 	const { user } = useContext(UserContext);
 
@@ -82,14 +83,12 @@ export default function SessionRaiseBreakdown({
 						<div className="col-12 col-lg-6 offset-lg-3">
 							<div className="d-none d-lg-flex justify-content-center">
 								<div className="btn-group">
-									<SelectButton value={view} setValue={setView} id="lamp">
+									<SelectButton value={view} setValue={setView} id={lampName}>
 										<Icon type="lightbulb" /> Lamps Only
 									</SelectButton>
-
 									<SelectButton value={view} setValue={setView} id={null}>
 										<Icon type="bolt" /> All
 									</SelectButton>
-
 									<SelectButton value={view} setValue={setView} id="grade">
 										<Icon type="sort-alpha-up" /> Grades Only
 									</SelectButton>
@@ -128,14 +127,14 @@ function SessionScoreStatBreakdown({
 
 	const enumMetrics = GetScoreMetrics(gptConfig, "ENUM");
 
+	type Datapoint = { score: ScoreDocument; scoreInfo: SessionScoreInfo };
 	const newEnums = useMemo(() => {
-		const newEnums: Record<
-			string,
-			Record<string, { score: ScoreDocument; scoreInfo: SessionScoreInfo }[]>
-		> = {};
+		const newEnums: Record<string, Record<string, Array<Datapoint>>> = {};
 
 		for (const metric of enumMetrics) {
 			newEnums[metric] = {};
+
+			const highestMetric: Record<string, Datapoint> = {};
 
 			for (const scoreInfo of sessionData.scoreInfo) {
 				const score = scoreMap.get(scoreInfo.scoreID);
@@ -147,38 +146,36 @@ function SessionScoreStatBreakdown({
 					continue;
 				}
 
-				if (scoreInfo.isNewScore || scoreInfo.deltas[metric] > 0) {
-					// @ts-expect-error yeah this is fine pls
-					const enumValue = score.scoreData[metric] as string;
-					// @ts-expect-error yeah this is fine pls
-					const enumIndex = score.scoreData.enumIndexes[metric] as integer;
+				if (!scoreInfo.isNewScore && scoreInfo.deltas[metric] <= 0) {
+					// not a raise
+					continue;
+				}
 
-					if (newEnums[metric][enumValue]) {
-						const alreadyInArray = newEnums[metric][enumValue].find(
-							(e) => e.score.scoreID === score.scoreID
-						);
+				if (highestMetric[score.chartID]) {
+					const prevScore = highestMetric[score.chartID].score;
 
-						if (
-							alreadyInArray &&
-							// @ts-expect-error not justifying this
-							alreadyInArray.score.scoreData.enumIndexes[enumValue] < enumIndex
-						) {
-							alreadyInArray.score = score;
-							alreadyInArray.scoreInfo = scoreInfo;
-						} else {
-							newEnums[metric][enumValue].push({
-								score,
-								scoreInfo,
-							});
-						}
-					} else {
-						newEnums[metric][enumValue] = [
-							{
-								score,
-								scoreInfo,
-							},
-						];
+					// trumps previous score
+					if (
+						// @ts-expect-error yeah this is fine pls
+						prevScore.scoreData.enumIndexes[metric] <
+						// @ts-expect-error yeah this is fine pls
+						score.scoreData.enumIndexes[metric]
+					) {
+						highestMetric[score.chartID] = { score, scoreInfo };
 					}
+				} else {
+					highestMetric[score.chartID] = { score, scoreInfo };
+				}
+			}
+
+			for (const s of Object.values(highestMetric)) {
+				// @ts-expect-error bad metric type
+				const enumValue = s.score.scoreData[metric];
+
+				if (newEnums[metric][enumValue]) {
+					newEnums[metric][enumValue].push(s);
+				} else {
+					newEnums[metric][enumValue] = [s];
 				}
 			}
 		}
@@ -201,7 +198,7 @@ function SessionScoreStatBreakdown({
 					}}
 				>
 					{enumMetrics.map((metric) => (
-						<div style={{ flex: 1 }}>
+						<div key={metric} style={{ flex: 1 }}>
 							<MiniTable
 								headers={[
 									`${UppercaseFirst(metric)}s`,
@@ -430,7 +427,9 @@ function BreakdownChartContents({
 	}
 
 	if (fullSize) {
-		let preScoreCell = <td colSpan={3}>No Play</td>;
+		const gptImpl = GPT_CLIENT_IMPLEMENTATIONS[GetGPTString(score.game, score.playtype)];
+
+		let preScoreCell = <td colSpan={gptImpl.scoreHeaders.length}>No Play</td>;
 
 		if (!scoreInfo.isNewScore) {
 			const newScoreData = cloneDeep(score.scoreData);

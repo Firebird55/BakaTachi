@@ -1,4 +1,5 @@
 import { APIFetchV1 } from "util/api";
+import { FormatGPTScoreRatingName } from "util/misc";
 import useSetSubheader from "components/layout/header/useSetSubheader";
 import PBTable from "components/tables/pbs/PBTable";
 import ScoreTable from "components/tables/scores/ScoreTable";
@@ -29,6 +30,7 @@ import {
 import { GamePT, SetState, UGPT } from "types/react";
 import usePreferredRanking from "components/util/usePreferredRanking";
 import { Col, Form, Row } from "react-bootstrap";
+import useApiQuery from "components/util/query/useApiQuery";
 
 export default function ScoresPage({
 	reqUser,
@@ -75,7 +77,7 @@ export default function ScoresPage({
 					<Route exact path="/u/:userID/games/:game/:playtype/scores">
 						<>
 							{Object.keys(gptConfig.scoreRatingAlgs).length > 1 && (
-								<AlgSelector {...{ alg, setAlg, gptConfig }} />
+								<AlgSelector {...{ alg, setAlg, game, playtype }} />
 							)}
 							<PBsOverview
 								url={`/users/${reqUser.id}/games/${game}/${playtype}/pbs/best?alg=${alg}`}
@@ -114,20 +116,23 @@ export default function ScoresPage({
 }
 
 function AlgSelector({
-	gptConfig,
+	game,
+	playtype,
 	alg,
 	setAlg,
 }: {
-	gptConfig: GamePTConfig;
 	alg: ScoreRatingAlgorithms[GPTString];
 	setAlg: SetState<ScoreRatingAlgorithms[GPTString]>;
-}) {
+} & GamePT) {
+	const gptConfig = GetGamePTConfig(game, playtype);
 	return (
 		<Form.Group className="d-flex flex-column gap-1">
 			<div>Best 100 PBs according to</div>
 			<Form.Select value={alg} onChange={(e) => setAlg(e.target.value as any)}>
 				{Object.keys(gptConfig.scoreRatingAlgs).map((e) => (
-					<option key={e}>{e}</option>
+					<option key={e} value={e}>
+						{FormatGPTScoreRatingName(game, playtype, e)}
+					</option>
 				))}
 			</Form.Select>
 		</Form.Group>
@@ -135,21 +140,16 @@ function AlgSelector({
 }
 
 function useFetchPBs(url: string, reqUser: UserDocument) {
-	const { data, error } = useQuery(url, async () => {
-		const res = await APIFetchV1<{
-			pbs: PBScoreDocument[];
-			charts: ChartDocument[];
-			songs: SongDocument[];
-		}>(url);
+	const { data, error } = useApiQuery<{
+		pbs: PBScoreDocument[];
+		charts: ChartDocument[];
+		songs: SongDocument[];
+	}>(url);
 
-		if (!res.success) {
-			throw res;
-		}
-
-		return FormatData(res.body.pbs, res.body.songs, res.body.charts, reqUser);
-	});
-
-	return { error: error as UnsuccessfulAPIResponse, data };
+	return {
+		error: error as UnsuccessfulAPIResponse,
+		data: data ? FormatData(data.pbs, data.songs, data.charts, reqUser) : undefined,
+	};
 }
 
 function PBsOverview({
@@ -229,21 +229,16 @@ function FormatData<
 }
 
 function useFetchScores(url: string, reqUser: UserDocument) {
-	const { data, error } = useQuery(url, async () => {
-		const res = await APIFetchV1<{
-			scores: ScoreDocument[];
-			charts: ChartDocument[];
-			songs: SongDocument[];
-		}>(url);
+	const { data, error } = useApiQuery<{
+		scores: ScoreDocument[];
+		charts: ChartDocument[];
+		songs: SongDocument[];
+	}>(url);
 
-		if (!res.success) {
-			throw res;
-		}
-
-		return FormatData(res.body.scores, res.body.songs, res.body.charts, reqUser);
-	});
-
-	return { error: error as UnsuccessfulAPIResponse, data };
+	return {
+		error: error as UnsuccessfulAPIResponse,
+		data: data ? FormatData(data.scores, data.songs, data.charts, reqUser) : undefined,
+	};
 }
 
 function PBsSearch({

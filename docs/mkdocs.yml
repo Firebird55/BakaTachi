@@ -1,7 +1,11 @@
 site_name: Tachi Documentation
 site_description: Documentation for Kamaitachi, Bokutachi and related things.
 site_author: zkldi
-site_url: https://docs.bokutachi.xyz
+site_url: https://docs.tachi.ac
+
+watch:
+  - "docs/"
+  - "mkdocs.yml"
 
 theme:
   name: material
@@ -33,44 +37,52 @@ nav:
               - "contributing/components/issues.md"
               - "contributing/components/documentation.md"
               - "contributing/components/seeds.md"
+              - "contributing/components/core.md"
 
           - Cookbook:
-            - "contributing/cookbook/iidx-mdb.md"
-            - "contributing/cookbook/sdvx-mdb.md"
-            - "contributing/cookbook/bms-tables.md"
+              - "contributing/cookbook/iidx-mdb.md"
+              - "contributing/cookbook/sdvx-mdb.md"
+              - "contributing/cookbook/ddr-mdb.md"
+              - "contributing/cookbook/bms-tables.md"
 
       - Supporting New Games:
           - "game-support/index.md"
 
           - Common Config:
-            - "game-support/common-config/index.md"
-            - "game-support/common-config/metrics.md"
-            - "game-support/common-config/metric-groups.md"
-            - "game-support/common-config/match-types.md"
-            - "game-support/common-config/versions.md"
+              - "game-support/common-config/index.md"
+              - "game-support/common-config/metrics.md"
+              - "game-support/common-config/metric-groups.md"
+              - "game-support/common-config/match-types.md"
+              - "game-support/common-config/versions.md"
 
           - "game-support/server-impl.md"
           - "game-support/client-impl.md"
+          - "game-support/seeds.md"
 
           - Game Information:
-            - "game-support/games/iidx-SP.md"
-            - "game-support/games/iidx-DP.md"
-            - "game-support/games/museca-Single.md"
-            - "game-support/games/chunithm-Single.md"
-            - "game-support/games/bms-7K.md"
-            - "game-support/games/bms-14K.md"
-            - "game-support/games/gitadora-Gita.md"
-            - "game-support/games/gitadora-Dora.md"
-            - "game-support/games/jubeat-Single.md"
-            - "game-support/games/maimaidx-Single.md"
-            - "game-support/games/popn-9B.md"
-            - "game-support/games/sdvx-Single.md"
-            - "game-support/games/usc-Controller.md"
-            - "game-support/games/usc-Keyboard.md"
-            - "game-support/games/wacca-Single.md"
-            - "game-support/games/pms-Controller.md"
-            - "game-support/games/pms-Keyboard.md"
-            - "game-support/games/itg-Stamina.md"
+              - "game-support/games/iidx-SP.md"
+              - "game-support/games/iidx-DP.md"
+              - "game-support/games/museca-Single.md"
+              - "game-support/games/chunithm-Single.md"
+              - "game-support/games/bms-7K.md"
+              - "game-support/games/bms-14K.md"
+              - "game-support/games/gitadora-Gita.md"
+              - "game-support/games/gitadora-Dora.md"
+              - "game-support/games/jubeat-Single.md"
+              - "game-support/games/maimai-Single.md"
+              - "game-support/games/maimaidx-Single.md"
+              - "game-support/games/popn-9B.md"
+              - "game-support/games/sdvx-Single.md"
+              - "game-support/games/usc-Controller.md"
+              - "game-support/games/usc-Keyboard.md"
+              - "game-support/games/wacca-Single.md"
+              - "game-support/games/pms-Controller.md"
+              - "game-support/games/pms-Keyboard.md"
+              - "game-support/games/itg-Stamina.md"
+              - "game-support/games/arcaea-Touch.md"
+              - "game-support/games/ongeki-Single.md"
+              - "game-support/games/ddr-SP.md"
+              - "game-support/games/ddr-DP.md"          
 
   - Wiki:
       - "wiki/index.md"
@@ -140,6 +152,7 @@ nav:
           - "codebase/batch-manual/direct-manual.md"
 
       - Score Importing:
+          - "codebase/import/overview.md"
           - "codebase/import/main.md"
           - "codebase/import/import-types.md"
           - "codebase/import/parse-conv.md"

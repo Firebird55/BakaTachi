@@ -250,7 +250,34 @@ const PR_CHART_DOCUMENT = (game: Game) => (self: unknown) => {
 
 		data: PrudenceZodShim(gptConfig.chartData),
 
-		versions: [p.isIn(Object.keys(gptConfig.versions))],
+		versions: (self) => {
+			if (!Array.isArray(self)) {
+				return "Expected an array";
+			}
+
+			const versions = Object.keys(gptConfig.versions);
+
+			if (self.find((k) => !versions.includes(k))) {
+				return "Array contained invalid versions";
+			}
+
+			// yeah, so versions array *shouldn't* be empty, and yet we've ended up
+			// in a real, unignorable situation in which a chart has no versions.
+			//
+			// just allow this, for now.
+
+			// const gameUsesVersions = versions.length > 0;
+			//
+			// if (gameUsesVersions && self.length === 0) {
+			// 	return "Versions array should not be empty as this game uses versions";
+			// }
+
+			if (new Set(self).size !== self.length) {
+				return "Versions array shouldn't contain the same version twice";
+			}
+
+			return true;
+		},
 	})(self);
 };
 
@@ -283,8 +310,12 @@ const PRE_SCHEMAS = {
 				return "Expected a string";
 			}
 
-			if (self.length !== 32 * 4) {
-				return "Expected 32 * 4 characters (4 md5 hashes long).";
+			if (self.length < 32 * 2) {
+				return "Expected at least 2 md5 hashes in a course";
+			}
+
+			if (self.length % 32 !== 0) {
+				return "Expected mod32 characters (an md5 hash is 32 chars long).";
 			}
 
 			if (!/^[a-z0-9]*$/u.exec(self)) {
@@ -844,11 +875,13 @@ const PR_BATCH_MANUAL_SCORE = (game: Game, playtype: Playtype): PrudenceSchema =
 			"inGameID",
 			"inGameStrID",
 			"uscChartHash",
-			"popnChartHash"
+			"popnChartHash",
+			"ddrSongHash"
 		),
 		identifier: "string",
 		comment: optNull(p.isBoundedString(3, 240)),
 		difficulty: "*?string",
+		artist: "*?string",
 
 		// this is checked in converting instead
 		// the lowest acceptable time is september 9th 2001 - this check saves people who dont
@@ -971,3 +1004,25 @@ export const PR_BATCH_MANUAL = (game: Game, playtype: Playtype): PrudenceSchema 
 	scores: [PR_BATCH_MANUAL_SCORE(game, playtype)],
 	classes: optNull(PR_BATCH_MANUAL_CLASSES(game, playtype)),
 });
+
+export const PR_RESOLVER: PrudenceSchema = {
+	matchType: p.isIn(
+		"songTitle",
+		"tachiSongID",
+		"bmsChartHash",
+		"itgChartHash",
+		"sdvxInGameID",
+		"inGameID",
+		"inGameStrID",
+		"uscChartHash",
+		"popnChartHash",
+		"ddrSongHash"
+	),
+	identifier: "string",
+	comment: optNull(p.isBoundedString(3, 240)),
+
+	// extra disambiguators
+	difficulty: "*?string",
+	artist: "*?string",
+	version: "*?string",
+};

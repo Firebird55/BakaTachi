@@ -1,5 +1,11 @@
 import { APIFetchV1 } from "util/api";
-import { ToFixedFloor, UppercaseFirst } from "util/misc";
+import {
+	FormatGPTProfileRatingName,
+	FormatGPTScoreRatingName,
+	FormatGPTSessionRatingName,
+	ToFixedFloor,
+	UppercaseFirst,
+} from "util/misc";
 import { ErrorPage } from "app/pages/ErrorPage";
 import useSetSubheader from "components/layout/header/useSetSubheader";
 import Card from "components/layout/page/Card";
@@ -178,7 +184,9 @@ function PreferencesForm({ reqUser, game, playtype }: UGPT) {
 						onChange={formik.handleChange}
 					>
 						{Object.keys(gptConfig.scoreRatingAlgs).map((e) => (
-							<option key={e}>{e}</option>
+							<option key={e} value={e}>
+								{FormatGPTScoreRatingName(game, playtype, e)}
+							</option>
 						))}
 					</Form.Select>
 					<Form.Text className="text-body-secondary">
@@ -196,7 +204,9 @@ function PreferencesForm({ reqUser, game, playtype }: UGPT) {
 						onChange={formik.handleChange}
 					>
 						{Object.keys(gptConfig.sessionRatingAlgs).map((e) => (
-							<option key={e}>{e}</option>
+							<option key={e} value={e}>
+								{FormatGPTSessionRatingName(game, playtype, e)}
+							</option>
 						))}
 					</Form.Select>
 					<Form.Text className="text-body-secondary">
@@ -214,7 +224,9 @@ function PreferencesForm({ reqUser, game, playtype }: UGPT) {
 						onChange={formik.handleChange}
 					>
 						{Object.keys(gptConfig.profileRatingAlgs).map((e) => (
-							<option key={e}>{e}</option>
+							<option key={e} value={e}>
+								{FormatGPTProfileRatingName(game, playtype, e)}
+							</option>
 						))}
 					</Form.Select>
 					<Form.Text className="text-body-secondary">
@@ -231,11 +243,13 @@ function PreferencesForm({ reqUser, game, playtype }: UGPT) {
 					onChange={formik.handleChange}
 				>
 					{GetScoreMetrics(gptConfig, "ENUM").map((e) => (
-						<option value={e}>{UppercaseFirst(e)}</option>
+						<option key={e} value={e}>
+							{UppercaseFirst(e)}
+						</option>
 					))}
 				</Form.Select>
 				<Form.Text className="text-body-secondary">
-					What should {TachiConfig.name} default to showing you about folders?
+					What should {TachiConfig.NAME} default to showing you about folders?
 				</Form.Text>
 			</Form.Group>
 			{settings.rivals.length !== 0 && (
@@ -250,7 +264,7 @@ function PreferencesForm({ reqUser, game, playtype }: UGPT) {
 						<option value="rival">Rival Rankings</option>
 					</Form.Select>
 					<Form.Text className="text-body-secondary">
-						What should {TachiConfig.name} default to when showing your score rankings?
+						What should {TachiConfig.NAME} default to when showing your score rankings?
 					</Form.Text>
 				</Form.Group>
 			)}
@@ -303,7 +317,7 @@ function PreferencesForm({ reqUser, game, playtype }: UGPT) {
 							onChange={formik.handleChange}
 						/>
 						<Form.Text className="text-body-secondary">
-							Set yourself a BPI target. {TachiConfig.name} will show how far away you
+							Set yourself a BPI target. {TachiConfig.NAME} will show how far away you
 							are from it in the UI!
 						</Form.Text>
 					</Form.Group>
@@ -325,7 +339,7 @@ function PreferencesForm({ reqUser, game, playtype }: UGPT) {
 					Expected Profile VF6{" "}
 					{ToFixedFloor((formik.values.gameSpecific.vf6Target ?? 0) * 50, 2)}
 					<Form.Text className="text-body-secondary">
-						Set yourself a VF6 target. {TachiConfig.name} will show how far away you are
+						Set yourself a VF6 target. {TachiConfig.NAME} will show how far away you are
 						from it in the UI!
 						<br />
 						Set this to 0 to disable the target.

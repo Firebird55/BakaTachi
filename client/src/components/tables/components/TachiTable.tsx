@@ -53,11 +53,13 @@ function GetSortFunctions<D>(headers: Header<D>[]) {
 function ParseHeaders<D>(headers: Header<D>[], thProps: ZTableTHProps) {
 	const headerElements: JSX.Element[] = [];
 
-	for (const header of headers) {
+	headers.forEach((header, index) => {
 		const [name, shortName, sortFn, componentYielder] = header;
 
 		if (componentYielder) {
-			headerElements.push(componentYielder(thProps));
+			headerElements.push(
+				<React.Fragment key={index}>{componentYielder(thProps)}</React.Fragment>
+			);
 		} else if (sortFn) {
 			headerElements.push(
 				<SortableTH key={`header-${name}`} name={name} shortName={shortName} {...thProps} />
@@ -70,7 +72,7 @@ function ParseHeaders<D>(headers: Header<D>[], thProps: ZTableTHProps) {
 				</th>
 			);
 		}
-	}
+	});
 
 	return <tr>{headerElements}</tr>;
 }
@@ -85,6 +87,7 @@ export default function TachiTable<D>({
 	defaultReverseSort,
 	searchFunctions,
 	noTopDisplayStr = false,
+	noBottomDisplayPager = false,
 }: {
 	dataset: D[];
 	rowFunction: (data: D) => JSX.Element;
@@ -92,6 +95,7 @@ export default function TachiTable<D>({
 	entryName: string;
 	pageLen?: integer;
 	noTopDisplayStr?: boolean;
+	noBottomDisplayPager?: boolean;
 	defaultSortMode?: string;
 	defaultReverseSort?: boolean;
 	searchFunctions?: SearchFunctions<D>;
@@ -151,10 +155,12 @@ export default function TachiTable<D>({
 							placeholder={`Filter ${entryName}`}
 							value={search}
 						/>
-						<FilterDirectivesIndicator
-							searchFunctions={searchFunctions}
-							doc={dataset[0]}
-						/>
+						{dataset[0] && (
+							<FilterDirectivesIndicator
+								searchFunctions={searchFunctions}
+								doc={dataset[0]}
+							/>
+						)}
 					</InputGroup>
 				)}
 			</div>
@@ -162,22 +168,30 @@ export default function TachiTable<D>({
 				<table className="table table-striped table-hover table-vertical-center text-center">
 					<thead>{headersRow}</thead>
 					<tbody>
-						<NoDataWrapper>{window.map((e) => rowFunction(e))}</NoDataWrapper>
+						<NoDataWrapper>
+							{window.map((e, i) => (
+								<React.Fragment key={i + ztable.pageLen * (page - 1)}>
+									{e && rowFunction(e)}
+								</React.Fragment>
+							))}
+						</NoDataWrapper>
 					</tbody>
 				</table>
 			</div>
 			<div className="row row-gap-4">
 				<div className="col-lg-4 d-flex justify-content-center justify-content-lg-start">
-					<Select
-						name={`Show this many ${entryName}:`}
-						value={ztable.pageLen.toString()}
-						setValue={(e) => ztable.setPageLen(Number(e))}
-					>
-						<option value="10">10</option>
-						<option value="25">25</option>
-						<option value="50">50</option>
-						<option value="100">100</option>
-					</Select>
+					{dataset.length > 10 && !noBottomDisplayPager && (
+						<Select
+							name={`Show this many ${entryName}:`}
+							value={ztable.pageLen.toString()}
+							setValue={(e) => ztable.setPageLen(Number(e))}
+						>
+							<option value="10">10</option>
+							<option value="25">25</option>
+							<option value="50">50</option>
+							<option value="100">100</option>
+						</Select>
+					)}
 				</div>
 				<div className="d-none d-lg-flex col-lg-4 justify-content-center align-items-center">
 					{settings?.preferences.developerMode && (
@@ -199,23 +213,25 @@ export default function TachiTable<D>({
 					)}
 				</div>
 				<div className="col-lg-4 ms-auto d-flex justify-content-center justify-content-lg-end">
-					<div className="btn-group">
-						<Button
-							variant="secondary"
-							disabled={pageState === "start" || pageState === "start-end"}
-							onClick={decrementPage}
-						>
-							<SmallText small="<" large="Previous" />
-						</Button>
-						<PageSelector currentPage={page} maxPage={maxPage} setPage={setPage} />
-						<Button
-							variant="secondary"
-							disabled={pageState === "end" || pageState === "start-end"}
-							onClick={incrementPage}
-						>
-							<SmallText small=">" large="Next" />
-						</Button>
-					</div>
+					{dataset.length > ztable.pageLen && !noBottomDisplayPager && (
+						<div className="btn-group">
+							<Button
+								variant="secondary"
+								disabled={pageState === "start" || pageState === "start-end"}
+								onClick={decrementPage}
+							>
+								<SmallText small="<" large="Previous" />
+							</Button>
+							<PageSelector currentPage={page} maxPage={maxPage} setPage={setPage} />
+							<Button
+								variant="secondary"
+								disabled={pageState === "end" || pageState === "start-end"}
+								onClick={incrementPage}
+							>
+								<SmallText small=">" large="Next" />
+							</Button>
+						</div>
+					)}
 				</div>
 			</div>
 		</div>

@@ -11,7 +11,7 @@ import Loading from "components/util/Loading";
 import Muted from "components/util/Muted";
 import useApiQuery from "components/util/query/useApiQuery";
 import SelectLinkButton from "components/util/SelectLinkButton";
-import { mode, TachiConfig } from "lib/config";
+import { TachiConfig } from "lib/config";
 import React, { useEffect, useReducer, useState } from "react";
 import { Alert, Button, Col, Form, Modal, Row } from "react-bootstrap";
 import { Link, Route, Switch } from "react-router-dom";
@@ -22,9 +22,11 @@ import {
 	UserDocument,
 	TachiAPIClientDocument,
 	CGCardInfo,
+	MytCardInfo,
 } from "tachi-common";
 import { SetState } from "types/react";
 import { CGNeedsIntegrate } from "components/imports/CGIntegrationPage";
+import { MytNeedsIntegrate } from "components/imports/MYTIntegrationPage";
 import FervidexIntegrationPage from "./FervidexIntegrationPage";
 import KsHookSV6CIntegrationPage from "./KsHookSV6CIntegrationPage";
 
@@ -42,7 +44,7 @@ export default function UserIntegrationsPage({ reqUser }: { reqUser: UserDocumen
 			<Row>
 				<Col xs={12}>
 					<div className="btn-group d-flex justify-content-center">
-						{mode !== "btchi" && (
+						{TachiConfig.TYPE !== "boku" && (
 							<SelectLinkButton className="text-wrap" to={`${baseUrl}/services`}>
 								<Icon type="network-wired" /> Service Configuration
 							</SelectLinkButton>
@@ -81,15 +83,15 @@ function OAuthClientPage() {
 				<h3>API Clients</h3>
 				<Alert variant="info">
 					This page is for programmers who want to make their own things that interface
-					with {TachiConfig.name}.
+					with {TachiConfig.NAME}.
 					<br />
 					You can read the documentation{" "}
-					<ExternalLink href="https://docs.bokutachi.xyz/codebase/infrastructure/api-clients/">
+					<ExternalLink href="https://docs.tachi.ac/codebase/infrastructure/api-clients/">
 						here
 					</ExternalLink>
 					!
 				</Alert>
-				<Muted>Register your own clients for integrating with {TachiConfig.name}.</Muted>
+				<Muted>Register your own clients for integrating with {TachiConfig.NAME}.</Muted>
 			</Col>
 			<Col xs={12}>
 				<OAuthClientInfo />
@@ -213,7 +215,7 @@ function CreateNewOAuthClient({ setClients }: { setClients: SetState<TachiAPICli
 							/>
 						</div>
 						<Muted>
-							This is the URL {TachiConfig.name} will redirect to as part of the OAuth
+							This is the URL {TachiConfig.NAME} will redirect to as part of the OAuth
 							flow.
 						</Muted>
 						<Divider />
@@ -224,7 +226,7 @@ function CreateNewOAuthClient({ setClients }: { setClients: SetState<TachiAPICli
 							placeholder="https://example.com/webhook"
 						/>
 						<Muted>
-							This is the URL {TachiConfig.name} will send webhook info to. Leave this
+							This is the URL {TachiConfig.NAME} will send webhook info to. Leave this
 							blank to not recieve webhook events.
 						</Muted>
 						<Divider />
@@ -239,7 +241,7 @@ function CreateNewOAuthClient({ setClients }: { setClients: SetState<TachiAPICli
 							In what format should a generated API Key be shown to the user? This
 							only applies to Client File Flow. <code>%%TACHI_KEY%%</code> will be
 							replaced with the generated key. Read more about client file flow{" "}
-							<ExternalLink href="https://docs.bokutachi.xyz/codebase/infrastructure/file-flow/">
+							<ExternalLink href="https://docs.tachi.ac/codebase/infrastructure/file-flow/">
 								here
 							</ExternalLink>
 							.
@@ -268,8 +270,8 @@ function CreateNewOAuthClient({ setClients }: { setClients: SetState<TachiAPICli
 						<Divider />
 						<h4>Permissions</h4>
 						<div className="px-4">
-							{allPermissions.map((permission) => (
-								<>
+							{allPermissions.map((permission, i) => (
+								<React.Fragment key={i}>
 									<input
 										key={permission}
 										className="form-check-input"
@@ -286,7 +288,7 @@ function CreateNewOAuthClient({ setClients }: { setClients: SetState<TachiAPICli
 									/>
 									<label className="form-check-label">{permission}</label>
 									<br />
-								</>
+								</React.Fragment>
 							))}
 						</div>
 
@@ -555,7 +557,7 @@ function EditClientModal({
 					/>
 					<Muted>
 						Where to send webhook events to. Please read the{" "}
-						<ExternalLink href="https://docs.bokutachi.xyz/api/webhooks/main/">
+						<ExternalLink href="https://docs.tachi.ac/api/webhooks/main/">
 							Webhook Documentation
 						</ExternalLink>{" "}
 						before using this, as there are necessary security precautions.
@@ -573,7 +575,7 @@ function EditClientModal({
 						In what format should a generated API Key be shown to the user? This only
 						applies to Client File Flow. <code>%%TACHI_KEY%%</code> will be replaced
 						with the generated key. Read more about client file flow{" "}
-						<ExternalLink href="https://docs.bokutachi.xyz/codebase/infrastructure/file-flow/">
+						<ExternalLink href="https://docs.tachi.ac/codebase/infrastructure/file-flow/">
 							here
 						</ExternalLink>
 						.
@@ -612,7 +614,7 @@ function EditClientModal({
 }
 
 function ServicesPage({ reqUser }: { reqUser: UserDocument }) {
-	if (mode === "btchi") {
+	if (TachiConfig.TYPE === "boku") {
 		return (
 			<Row className="text-center">
 				Looks like there's no services available for integration.
@@ -637,10 +639,12 @@ function ServicesPage({ reqUser }: { reqUser: UserDocument }) {
 				<Divider />
 			</Col>
 			<Col xs={12}>
-				<div className="btn-group">
+				<div className="btn-group d-flex overflow-x-auto scrollbar-hide whitespace-nowrap">
 					<SelectLinkButton to={`${baseUrl}/fervidex`}>Fervidex</SelectLinkButton>
-					<SelectLinkButton to={`${baseUrl}/cg`}>CG</SelectLinkButton>
+					<SelectLinkButton to={`${baseUrl}/cg-gan`}>CG GAN</SelectLinkButton>
+					<SelectLinkButton to={`${baseUrl}/cg-nag`}>CG NAG</SelectLinkButton>
 					<SelectLinkButton to={`${baseUrl}/cg-dev`}>CG Dev</SelectLinkButton>
+					<SelectLinkButton to={`${baseUrl}/myt`}>MYT</SelectLinkButton>
 					<SelectLinkButton to={`${baseUrl}/kshook`}>KsHook</SelectLinkButton>
 					<SelectLinkButton to={`${baseUrl}/flo`}>FLO</SelectLinkButton>
 					<SelectLinkButton to={`${baseUrl}/eag`}>EAG</SelectLinkButton>
@@ -660,6 +664,9 @@ function ServicesPage({ reqUser }: { reqUser: UserDocument }) {
 				</Route>
 				<Route exact path={`${baseUrl}/cg-dev`}>
 					<CGIntegrationInfo key="cg" userID={reqUser.id} cgType="dev" />
+				</Route>
+				<Route exact path={`${baseUrl}/myt`}>
+					<MytIntegrationInfo userID={reqUser.id} />
 				</Route>
 				<Route exact path={`${baseUrl}/kshook`}>
 					<KsHookSV6CIntegrationPage reqUser={reqUser} />
@@ -769,12 +776,12 @@ function APIKeysPage({ reqUser }: { reqUser: UserDocument }) {
 	return (
 		<>
 			<Alert variant="danger">
-				API Keys allow other programs to interact with {TachiConfig.name} on your behalf.
+				API Keys allow other programs to interact with {TachiConfig.NAME} on your behalf.
 				They have limited permissions, so they can't just change your password!
 				<br />
 				<br />
 				In contrast to Integrations, API Keys let other programs interact with{" "}
-				{TachiConfig.name}, rather than the other way around.
+				{TachiConfig.NAME}, rather than the other way around.
 				<br />
 				<br />
 				Still, the stuff on this page is sensitive information! Be careful who you give
@@ -860,8 +867,8 @@ function CreateAPIKeyModal({
 					<Divider />
 					<h4>Permissions</h4>
 					<div className="px-4">
-						{allPermissions.map((permission) => (
-							<>
+						{allPermissions.map((permission, i) => (
+							<React.Fragment key={i}>
 								<input
 									key={permission}
 									className="form-check-input"
@@ -878,7 +885,7 @@ function CreateAPIKeyModal({
 								/>
 								<label className="form-check-label">{permission}</label>
 								<br />
-							</>
+							</React.Fragment>
 						))}
 					</div>
 
@@ -983,6 +990,49 @@ function CGIntegrationInfo({ cgType, userID }: { cgType: "dev" | "gan" | "nag"; 
 			}}
 			initialCardID={data?.cardID ?? undefined}
 			initialPin={data?.pin ?? undefined}
+		/>
+	);
+}
+
+function MytIntegrationInfo({ userID }: { userID: integer }) {
+	const [reload, shouldReloadCardInfo] = useReducer((x) => x + 1, 0);
+
+	const { data, error } = useApiQuery<MytCardInfo | null>(
+		`/users/${userID}/integrations/myt`,
+		undefined,
+		[reload]
+	);
+
+	if (error) {
+		return <ApiError error={error} />;
+	}
+
+	// null is a valid response for this call, so be explicit with going to loading
+	if (data === undefined) {
+		return <Loading />;
+	}
+
+	return (
+		<MytNeedsIntegrate
+			onSubmit={async (cardAccessCode) => {
+				const res = await APIFetchV1(
+					`/users/${userID}/integrations/myt`,
+					{
+						method: "PUT",
+						body: JSON.stringify({ cardAccessCode }),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					},
+					true,
+					true
+				);
+
+				if (res.success) {
+					shouldReloadCardInfo();
+				}
+			}}
+			initialCardAccessCode={data?.cardAccessCode ?? undefined}
 		/>
 	);
 }

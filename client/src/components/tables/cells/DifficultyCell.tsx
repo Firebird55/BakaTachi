@@ -53,8 +53,9 @@ export default function DifficultyCell({
 
 	const gptImpl = GPT_CLIENT_IMPLEMENTATIONS[GetGPTString(game, chart.playtype)];
 
-	if (game === "iidx") {
+	if (game === "iidx" || game === "maimaidx") {
 		// IIDX stuff should always be in the form SPA/SPL to save space.
+		// For the same reason, maimai DX stuff should be using (DX) EXP/MAS/Re:MAS.
 		// All players know what this means.
 		// eslint-disable-next-line no-param-reassign
 		alwaysShort = true;
@@ -76,14 +77,6 @@ export default function DifficultyCell({
 				{FormatDifficultyShort(chart, game)}
 			</div>
 			<DisplayLevelNum game={game} level={chart.level} levelNum={chart.levelNum} />
-			{(("isHot" in chart.data && chart.data.isHot) ||
-				("isLatest" in chart.data && chart.data.isLatest)) && (
-				<QuickTooltip tooltipContent="This chart is from the latest version of the game!">
-					<div>
-						<Icon type="fire" />
-					</div>
-				</QuickTooltip>
-			)}
 			{!noTierlist && gptImpl.ratingSystems.length > 0 && (
 				<RatingSystemPart chart={chart} game={game} />
 			)}
@@ -109,6 +102,16 @@ export function DisplayLevelNum({
 	prefix?: string;
 	game: Game;
 }) {
+	// Always display 1dp levelNum for these games
+	if (["ongeki", "chunithm", "maimai", "maimaidx", "wacca"].includes(game)) {
+		return (
+			<Muted>
+				{prefix}
+				{levelNum.toFixed(1)}
+			</Muted>
+		);
+	}
+
 	// Don't display levelnum if its identical to the level, the decimal places in the
 	// level end with .0, or the levelNum itself is 0.
 	if (levelNum.toString() === level || level.endsWith(".0") || levelNum === 0) {

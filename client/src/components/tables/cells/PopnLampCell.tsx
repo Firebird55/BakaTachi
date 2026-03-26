@@ -16,16 +16,10 @@ export default function PopnLampCell({
 					GPT_CLIENT_IMPLEMENTATIONS["popn:9B"].enumColours.lamp[score.scoreData.lamp],
 					0.2
 				),
+				whiteSpace: "nowrap",
 			}}
 		>
 			<strong>{score.scoreData.lamp}</strong>
-			<br />
-			<img
-				style={{
-					maxWidth: "32px",
-				}}
-				src={ToCDNURL(`/misc/popn/${score.scoreData.clearMedal}.png`)}
-			/>
 		</td>
 	);
 }

@@ -1,4 +1,4 @@
-# USC (Keyboard) Support
+# USC (Keyboard/Other) Support
 
 This game has the internal GPTString of `usc:Keyboard`.
 
@@ -33,7 +33,7 @@ For more information on what metrics are and how they work, see [TODO]!
 
 ## Judgements
 
-The folowing judgements are defined:
+The following judgements are defined:
 
 - `critical`
 - `near`

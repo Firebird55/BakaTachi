@@ -1,6 +1,7 @@
 import { APIFetchV1 } from "util/api";
 import { CreateSongMap } from "util/data";
 import { UppercaseFirst } from "util/misc";
+import { StrSOV } from "util/sorts";
 import { useFormik } from "formik";
 import React, { ChangeEventHandler, useContext, useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
@@ -65,7 +66,7 @@ function UGPTStatInnerSearchyBit({ game, playtype, onCreate, setShow }: Props) {
 	const formik = useFormik({
 		initialValues: {
 			mode: "chart",
-			metric: "lamp",
+			metric: GetScoreMetrics(gptConfig, ["DECIMAL", "INTEGER", "ENUM"])[0],
 			folderID: undefined,
 			chartID: undefined,
 		},
@@ -128,7 +129,11 @@ function UGPTStatInnerSearchyBit({ game, playtype, onCreate, setShow }: Props) {
 				throw new Error(res.description);
 			}
 
-			setFolderData(res.body.map((e) => ({ folderID: e.folderID, name: e.title })));
+			setFolderData(
+				res.body
+					.map((e) => ({ folderID: e.folderID, name: e.title }))
+					.sort(StrSOV((e) => e.name))
+			);
 		})();
 	}, [folderSearch]);
 
@@ -165,6 +170,8 @@ function UGPTStatInnerSearchyBit({ game, playtype, onCreate, setShow }: Props) {
 					name: `${song!.title} ${FormatDifficulty(chart, game)}`,
 				});
 			}
+
+			data.sort(StrSOV((e) => e.name));
 
 			setChartData(data);
 		})();

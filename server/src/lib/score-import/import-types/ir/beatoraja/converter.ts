@@ -3,19 +3,17 @@ import {
 	InvalidScoreFailure,
 	SongOrChartNotFoundFailure,
 } from "../../../framework/common/converter-failures";
-import db from "external/mongo/db";
 import { HandleOrphanQueue } from "lib/orphan-queue/orphan-queue";
-import { ReprocessOrphan } from "lib/score-import/framework/orphans/orphans";
+import { DeorphanScores } from "lib/score-import/framework/orphans/orphans";
 import { ServerConfig, TachiConfig } from "lib/setup/config";
 import { Random20Hex } from "utils/misc";
-import { GetBlacklist } from "utils/queries/blacklist";
 import { FindChartOnSHA256, FindChartOnSHA256Playtype } from "utils/queries/charts";
 import { FindSongOnID } from "utils/queries/songs";
 import type { DryScore } from "../../../framework/common/types";
 import type { ConverterFunction } from "../../common/types";
 import type { BeatorajaChart, BeatorajaContext, BeatorajaScore } from "./types";
 import type { KtLogger } from "lib/logger/logger";
-import type { ChartDocument, SongDocument, Playtypes, Playtype } from "tachi-common";
+import type { ChartDocument, SongDocument, Playtypes } from "tachi-common";
 import type { Mutable } from "utils/types";
 
 const LAMP_LOOKUP = {
@@ -47,6 +45,16 @@ async function HandleOrphanChartProcess(
 	logger: KtLogger
 ) {
 	const chartName = `${context.chart.artist} (${context.chart.subartist})- ${context.chart.title} (${context.chart.subtitle})`;
+
+	// -1: unspecified in chart
+	// 0: force-LN
+	// 1: force-CN
+	// 2: force-HCN
+	if (context.chart.lntype !== 0 && context.chart.lntype !== -1) {
+		throw new InvalidScoreFailure(
+			`${TachiConfig.NAME} does not support charts with forced-CN or forced-HCN.`
+		);
+	}
 
 	if (context.chart.hasRandom) {
 		// If you're someone forking tachi looking to remove this
@@ -126,10 +134,7 @@ async function HandleOrphanChartProcess(
 		);
 	}
 
-	const blacklist = await GetBlacklist();
-	const scoresToDeorphan = await db["orphan-scores"].find(criteria);
-
-	await Promise.all(scoresToDeorphan.map((e) => ReprocessOrphan(e, blacklist, logger)));
+	await DeorphanScores(criteria, logger);
 
 	return chart;
 }
@@ -196,6 +201,9 @@ export const ConverterIRBeatoraja: ConverterFunction<BeatorajaScore, BeatorajaCo
 	> = {
 		bp: data.minbp === -1 ? null : data.minbp,
 		gauge: data.gauge === -1 ? null : data.gauge,
+		gaugeHistoryEasy: data.gaugeHistory?.easy,
+		gaugeHistoryGroove: data.gaugeHistory?.groove,
+		gaugeHistoryHard: data.gaugeHistory?.hard,
 	};
 
 	for (const k of [

@@ -85,6 +85,7 @@ export const SDVX_SINGLE_CONF = {
 				"FAILED",
 				"CLEAR",
 				"EXCESSIVE CLEAR",
+				"MAXXIVE CLEAR",
 				"ULTIMATE CHAIN",
 				"PERFECT ULTIMATE CHAIN",
 			],
@@ -144,6 +145,7 @@ export const SDVX_SINGLE_CONF = {
 		VF6: {
 			description: "Your best 50 VF6 values added together.",
 			formatter: ToDecimalPlaces(3),
+			associatedScoreAlgs: ["VF6"],
 		},
 	},
 
@@ -153,7 +155,7 @@ export const SDVX_SINGLE_CONF = {
 
 	difficulties: {
 		type: "FIXED",
-		order: ["NOV", "ADV", "EXH", "INF", "GRV", "HVN", "VVD", "XCD", "MXM"],
+		order: ["NOV", "ADV", "EXH", "INF", "GRV", "HVN", "VVD", "XCD", "MXM", "ULT"],
 		shorthand: {}, // they're all already short enough
 		default: "EXH",
 	},
@@ -166,6 +168,7 @@ export const SDVX_SINGLE_CONF = {
 		vfClass: {
 			type: "DERIVED",
 			values: SDVXVFClasses,
+			minimumRelevantValue: "IMPERIAL_I",
 		},
 	},
 
@@ -184,6 +187,8 @@ export const SDVX_SINGLE_CONF = {
 	chartData: z.strictObject({
 		inGameID: zodNonNegativeInt,
 		clearTier: zodTierlistData,
+		pucTier: zodTierlistData,
+		sTier: zodTierlistData,
 	}),
 
 	preferences: z.strictObject({ vf6Target: z.number().optional().nullable() }),

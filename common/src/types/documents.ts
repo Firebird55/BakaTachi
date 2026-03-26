@@ -514,6 +514,15 @@ export interface ImportProcessInfoInvalidDatapoint {
 	content: Record<string, never>;
 }
 
+export interface ImportProcessInfoAmbiguousTitle {
+	success: false;
+	type: "AmbiguousTitle";
+	message: string;
+	content: {
+		title: string;
+	};
+}
+
 export interface ImportProcessInfoScoreImported<GPT extends GPTString = GPTString> {
 	success: true;
 	type: "ScoreImported";
@@ -543,6 +552,7 @@ export interface ImportProcessInfoSongOrChartNotFound {
 }
 
 export type ImportProcessingInfo<GPT extends GPTString = GPTString> =
+	| ImportProcessInfoAmbiguousTitle
 	| ImportProcessInfoInternalError
 	| ImportProcessInfoInvalidDatapoint
 	| ImportProcessInfoOrphanExists
@@ -572,6 +582,11 @@ export interface CGCardInfo {
 
 	// are we gonna do maths on it? no. it's a string. don't bother me.
 	pin: string;
+}
+
+export interface MytCardInfo {
+	userID: integer;
+	cardAccessCode: string; // matches /^[0-9]{20}$/
 }
 
 interface BMSCourseInner<GPT extends GPTStrings["bms"], Set extends keyof ExtractedClasses[GPT]> {
@@ -761,3 +776,10 @@ export interface ImportTrackerFailed extends BaseImportTracker {
  * is kept track of via { @see ImportDocument }.
  */
 export type ImportTrackerDocument = ImportTrackerFailed | ImportTrackerOngoing;
+
+export interface UserNameChangeDocument {
+	userID: integer;
+	username: string;
+	timestamp: integer;
+	previousUsername: string;
+}

@@ -1,6 +1,7 @@
 import { ARCAEA_IMPL } from "./games/arcaea";
 import { BMS_14K_IMPL, BMS_7K_IMPL, PMS_CONTROLLER_IMPL, PMS_KEYBOARD_IMPL } from "./games/bms-pms";
 import { CHUNITHM_IMPL } from "./games/chunithm";
+import { DDR_IMPL } from "./games/ddr";
 import { GITADORA_DORA_IMPL, GITADORA_GITA_IMPL } from "./games/gitadora";
 import { IIDX_DP_IMPL, IIDX_SP_IMPL } from "./games/iidx";
 import { ITG_STAMINA_IMPL } from "./games/itg";
@@ -8,6 +9,7 @@ import { JUBEAT_IMPL } from "./games/jubeat";
 import { MAIMAI_IMPL } from "./games/maimai";
 import { MAIMAIDX_IMPL } from "./games/maimaidx";
 import { MUSECA_IMPL } from "./games/museca";
+import { ONGEKI_IMPL } from "./games/ongeki";
 import { POPN_9B_IMPL } from "./games/popn";
 import { SDVX_IMPL } from "./games/sdvx";
 import { USC_CONTROLLER_IMPL, USC_KEYBOARD_IMPL } from "./games/usc";
@@ -43,4 +45,7 @@ export const GPT_SERVER_IMPLEMENTATIONS: GPTImplementations = {
 	"usc:Keyboard": USC_KEYBOARD_IMPL,
 	"sdvx:Single": SDVX_IMPL,
 	"arcaea:Touch": ARCAEA_IMPL,
+	"ongeki:Single": ONGEKI_IMPL,
+	"ddr:SP": DDR_IMPL,
+	"ddr:DP": DDR_IMPL,
 };

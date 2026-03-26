@@ -34,6 +34,7 @@ For more information on what metrics are and how they work, see [TODO]!
 | `gauge` | Decimal | The life in percent (between 0 and 100) that was on the gauge at the end of the chart. |
 | `comboBreak` | Integer | The amount of times combo was broken. |
 | `gaugeHistory` | Array&lt;Decimal \| null &gt; | A snapshot of the gauge percent throughout the chart. The values should be null from the point the user dies until the end of the chart. |
+| `scoreHistory` | Array&lt;Decimal \| null &gt; | A snapshot of the user's ghost throughout the chart. The values may be null. |
 | `gsmEasy` | Array&lt;Decimal \| null &gt; | If GSM is used, this stores the easy gauge history. |
 | `gsmNormal` | Array&lt;Decimal \| null &gt; | If GSM is used, this stores the normal gauge history. |
 | `gsmHard` | Array&lt;Decimal \| null &gt; | If GSM is used, this stores the hard gauge history. |
@@ -41,7 +42,7 @@ For more information on what metrics are and how they work, see [TODO]!
 
 ## Judgements
 
-The folowing judgements are defined:
+The following judgements are defined:
 
 - `pgreat`
 - `great`
@@ -118,6 +119,9 @@ The default rating algorithm is `ktLampRating`.
 | `28` | BISTROVER |
 | `29` | CastHour |
 | `30` | Resident |
+| `31` | Epolis |
+| `32` | Pinky Crush |
+| `33` | Sparkle Shower |
 | `3-cs` | 3rd Style CS |
 | `4-cs` | 4th Style CS |
 | `5-cs` | 5th Style CS |
@@ -137,8 +141,12 @@ The default rating algorithm is `ktLampRating`.
 | `28-omni` | BISTROVER Omnimix |
 | `29-omni` | CastHour Omnimix |
 | `30-omni` | Resident Omnimix |
+| `31-omni` | Epolis Omnimix |
+| `32-omni` | Pinky Crush Omnimix |
 | `27-2dxtra` | HEROIC VERSE 2dxtra |
 | `28-2dxtra` | BISTROVER 2dxtra |
+| `30-2dxtra` | RESIDENT 2dxtra |
+| `31-2dxtra` | Epolis 2dxtra |
 | `bmus` | BEATMANIA US |
 | `inf` | INFINITAS |
 

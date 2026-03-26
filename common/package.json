@@ -12,9 +12,10 @@
 		"build": "tsc -b",
 		"install": "tsc -b",
 		"prepublish": "tsc -b",
-		"lint": "eslint . --ext .ts --fix"
+		"lint": "eslint . --ext .ts",
+		"lint-fix": "eslint . --ext .ts --fix"
 	},
-	"author": "zkldi",
+	"author": "zk",
 	"license": "MIT",
 	"dependencies": {
 		"@types/express-serve-static-core": "4.17.29",
@@ -25,7 +26,8 @@
 	},
 	"devDependencies": {
 		"@types/tap": "^15.0.7",
-		"tap": "15.1.6"
+		"tap": "workspace:../vendor/tap",
+		"typescript": "4.9.4"
 	},
 	"nyc": {
 		"reporter": [

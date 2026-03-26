@@ -1,5 +1,5 @@
 import { CreateUserMap } from "util/data";
-import { ToFixedFloor, UppercaseFirst } from "util/misc";
+import { FormatGPTProfileRating, FormatGPTProfileRatingName } from "util/misc";
 import { NumericSOV, StrSOV } from "util/sorts";
 import ClassBadge from "components/game/ClassBadge";
 import ScoreLeaderboard from "components/game/ScoreLeaderboard";
@@ -71,7 +71,7 @@ function ProfileLeaderboard({ game, playtype }: GamePT) {
 			<Form.Select value={alg} onChange={(e) => setAlg(e.target.value as any)}>
 				{Object.keys(gptConfig.profileRatingAlgs).map((e) => (
 					<option key={e} value={e}>
-						{UppercaseFirst(e)}
+						{FormatGPTProfileRatingName(game, playtype, e)}
 					</option>
 				))}
 			</Form.Select>
@@ -126,8 +126,8 @@ function ProfileLeaderboard({ game, playtype }: GamePT) {
 					...(Object.keys(gptConfig.profileRatingAlgs) as Array<AnyProfileRatingAlg>).map(
 						(e) =>
 							[
-								UppercaseFirst(e),
-								UppercaseFirst(e),
+								FormatGPTProfileRatingName(game, playtype, e),
+								FormatGPTProfileRatingName(game, playtype, e),
 								NumericSOV((x) => x.ratings[e] ?? -Infinity),
 							] as Header<UGSDataset[0]>
 					),
@@ -142,9 +142,7 @@ function ProfileLeaderboard({ game, playtype }: GamePT) {
 						).map((e) => (
 							<td key={e}>
 								{r.ratings[e]
-									? gptConfig.profileRatingAlgs[e].formatter
-										? gptConfig.profileRatingAlgs[e].formatter!(r.ratings[e]!)
-										: ToFixedFloor(r.ratings[e]!, 2)
+									? FormatGPTProfileRating(game, playtype, e, r.ratings[e]!)
 									: "No Data."}
 							</td>
 						))}
@@ -152,18 +150,20 @@ function ProfileLeaderboard({ game, playtype }: GamePT) {
 							{Object.keys(r.classes).length === 0 ? (
 								<Muted>None</Muted>
 							) : (
-								Object.entries(r.classes).map(
-									([k, v]) =>
-										v && (
-											<ClassBadge
-												key={k}
-												classSet={k as keyof typeof r.classes}
-												game={game}
-												playtype={playtype}
-												classValue={v}
-											/>
-										)
-								)
+								Object.entries(r.classes)
+									.sort(StrSOV((x) => x[0]))
+									.map(
+										([k, v]) =>
+											v && (
+												<ClassBadge
+													key={k}
+													classSet={k as keyof typeof r.classes}
+													game={game}
+													playtype={playtype}
+													classValue={v}
+												/>
+											)
+									)
 							)}
 						</td>
 					</tr>

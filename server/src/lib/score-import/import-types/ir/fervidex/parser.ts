@@ -1,9 +1,13 @@
 import ScoreImportFatalError from "../../../framework/score-importing/score-import-error";
 import {
 	EXT_BISTROVER,
+	EXT_CANNON_BALLERS,
 	EXT_CASTHOUR,
+	EXT_EPOLIS,
 	EXT_HEROIC_VERSE,
+	EXT_PINKYCRUSH,
 	EXT_RESIDENT,
+	EXT_ROOTAGE,
 	MODEL_IIDX,
 	MODEL_IIDX_LIGHTNING,
 	MODEL_INFINITAS_2,
@@ -51,7 +55,19 @@ const PR_FERVIDEX: PrudenceSchema = {
 	} as unknown as ValidSchemaValue),
 
 	option: p.optional({
-		gauge: optNull(p.isIn("ASSISTED_EASY", "EASY", "HARD", "EX_HARD")),
+		gauge: optNull(
+			p.isIn(
+				"ASSISTED_EASY",
+				"EASY",
+				"HARD",
+				"EX_HARD",
+				"EROSION_LV1",
+				"EROSION_LV2",
+				"EROSION_LV3",
+				"EROSION_LV4",
+				"EROSION_LV5"
+			)
+		),
 		range: optNull(
 			p.isIn("SUDDEN_PLUS", "HIDDEN_PLUS", "SUD_PLUS_HID_PLUS", "LIFT", "LIFT_SUD_PLUS")
 		),
@@ -89,7 +105,17 @@ export function SoftwareIDToVersion(
 		} else if (data.model === MODEL_IIDX || data.model === MODEL_IIDX_LIGHTNING) {
 			// pretty icky yandere-dev tier if statements, but hey
 			// that's just how it works...
-			if (data.ext === EXT_HEROIC_VERSE) {
+			if (data.ext === EXT_CANNON_BALLERS) {
+				if (data.rev === REV_NORMAL) {
+					return "25";
+				}
+			} else if (EXT_ROOTAGE.includes(data.ext)) {
+				if (data.rev === REV_OMNIMIX) {
+					return "26-omni";
+				} else if (data.rev === REV_NORMAL) {
+					return "26";
+				}
+			} else if (data.ext === EXT_HEROIC_VERSE) {
 				if (data.rev === REV_OMNIMIX) {
 					return "27-omni";
 				} else if (data.rev === REV_2DXTRA) {
@@ -116,6 +142,22 @@ export function SoftwareIDToVersion(
 					return "30";
 				} else if (data.rev === REV_OMNIMIX) {
 					return "30-omni";
+				} else if (data.rev === REV_2DXTRA) {
+					return "30-2dxtra";
+				}
+			} else if (EXT_EPOLIS.includes(data.ext)) {
+				if (data.rev === REV_NORMAL) {
+					return "31";
+				} else if (data.rev === REV_OMNIMIX) {
+					return "31-omni";
+				} else if (data.rev === REV_2DXTRA) {
+					return "31-2dxtra";
+				}
+			} else if (EXT_PINKYCRUSH.includes(data.ext)) {
+				if (data.rev === REV_NORMAL) {
+					return "32";
+				} else if (data.rev === REV_OMNIMIX) {
+					return "32-omni";
 				}
 			}
 		}

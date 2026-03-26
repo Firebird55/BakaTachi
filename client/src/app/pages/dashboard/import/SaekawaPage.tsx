@@ -13,7 +13,7 @@ export default function SaekawaPage() {
 			<h1 className="text-center mb-4">What is Saekawa?</h1>
 			<div>
 				Saekawa is a <code>.dll</code> file that hooks into CHUNITHM and automatically sends
-				scores to a server. {TachiConfig.name} is compatible with what Saekawa sends, so you
+				scores to a server. {TachiConfig.NAME} is compatible with what Saekawa sends, so you
 				can use it to submit scores!
 			</div>
 			<Divider />
@@ -21,7 +21,7 @@ export default function SaekawaPage() {
 			<ol className="instructions-list">
 				<li>
 					Download the latest version of <code>saekawa.dll</code> from{" "}
-					<ExternalLink href="https://github.com/beerpiss/saekawa/releases/latest">
+					<ExternalLink href="https://github.com/beer-psi/saekawa/releases/latest">
 						here
 					</ExternalLink>
 					.
@@ -36,12 +36,12 @@ export default function SaekawaPage() {
 				</li>
 				<li>
 					Follow the remaining install instructions on{" "}
-					<ExternalLink href="https://github.com/beerpiss/saekawa/blob/trunk/README.md">
+					<ExternalLink href="https://github.com/beer-psi/saekawa/blob/trunk/README.md">
 						GitHub
 					</ExternalLink>
 					.
 				</li>
-				<li>Your scores and dans now automatically upload to {TachiConfig.name}!</li>
+				<li>Your scores and dans now automatically upload to {TachiConfig.NAME}!</li>
 			</ol>
 		</div>
 	);

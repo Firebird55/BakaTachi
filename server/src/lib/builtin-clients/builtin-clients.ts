@@ -17,8 +17,8 @@ type DefaultClients = Array<Omit<TachiAPIClientDocument, "author" | "clientSecre
 // Defines some Tachi API Clients that should come default with a Tachi
 // environment.
 // These use the special Client ID prefix "CX" instead of "CI", which
-// means they cannot possibly be collided.1
-const KtchiDefaultClients: DefaultClients = [
+// means they cannot possibly be collided.
+const KamaiDefaultClients: DefaultClients = [
 	{
 		name: "Fervidex",
 		webhookUri: null,
@@ -169,63 +169,84 @@ api_key = '%%TACHI_KEY%%'
 		webhookUri: null,
 		apiKeyFilename: "saekawa.toml",
 		apiKeyTemplate: `[general]
-# Set to 'false' to disable the hook
-enable = true
-# Whether the hook should export your class medals and emblems or not.
+# Whether the hook should export class medals (dans) and emblems.
 export_class = true
-# Whether the hook should export PBs. This should be used as a last resort, if
-# you cannot import scores from your network, since this provides less data
-# and sends only one pre-joined score per chart. Will only work once every session; you'll
-# need to restart the game to do it again.
-export_pbs = false
-# Whether FAILED should override FULL COMBO and ALL JUSTICE.
+
+# Whether FAILED lamps should override FULL COMBO and ALL JUSTICE.
+# Not recommended, but it's an option.
 fail_over_lamp = false
-# Timeout for web requests, in milliseconds
+
+# Timeout for web requests, in milliseconds. If your network connection
+# to Tachi is unstable, you might want to bump this up.
 timeout = 3000
 
+# Whether the hook should update itself when a new update is found.
+auto_update = true
+
+# The directory/folder to store failed imports due to network
+# connectivity issues. It will not save any imports rejected
+# by Tachi for other reasons.
+failed_import_dir = "failed_saekawa_imports"
+
 [cards]
-# **DOES NOT WORK FOR WHITELISTING PBS!!**
-#
-# Access codes that should be whitelisted
-# If this is empty, all cards will be whitelisted
-# There should be no whitespace between the digits
-#
-# example: whitelist = ["00001111222233334444"]
-whitelist = []
+# Tachi API keys go here. You can set a default API key for all
+# cards using the \`default\` key:
+#    default = "example-api-key"
+# You can also set the API key that will be used for a specific access code
+# (useful for shared setups):
+#    "00001111222233334444" = "example-api-key-1"
+#    "55556666777788889999" = "example-api-key-2"
+# The \`default\` key can also be removed, discarding any scores
+# that do not come from the list of access codes configured.
 
-[crypto]
-# Since CRYSTAL+, the game employs network encryption. If you do not wish to
-# patch out encryption from your game, you will need to fill in these values.
-#
-# All values are in hex strings.
-key = ""
-iv = ""
-
-# Salt for deriving hashed API endpoint names. Not necessary on PARADISE LOST
-# and older. For CHUNITHM NEW and later versions, this must be set if encryption
-# is not patched out, otherwise the hook will be active but doing nothing, since 
-# it cannot recognize the score upload endpoint.
-#
-# This must also be a hex string.
-salt = ""
-
-# Number of PBKDF2 iterations to hash the endpoint URL. Set to 70 for CHUNITHM SUN
-# and newer, and 44 for older versions.
-iterations = 70
+default = "%%TACHI_KEY%%"
 
 [tachi]
+# The base URL of the Tachi instance to submit scores to.
+base_url = "${ServerConfig.OUR_URL}"`,
+	},
+	{
+		clientID: "CXInohara",
+		requestedPermissions: ["submit_score"],
+		name: "Inohara",
+		redirectUri: null,
+		webhookUri: null,
+		apiKeyFilename: "inohara.cfg",
+		apiKeyTemplate: `[Options]
+
+# Whether to enable score submissions
+Enable = true
+
+# Timeout for web requests, in seconds
+Timeout = 5
+
 # Tachi instance base URL
-base_url = '${ServerConfig.OUR_URL}'
-# Tachi status endpoint
-status = '/api/v1/status'
+BaseUrl = ${ServerConfig.OUR_URL}
+
+# Tachi API v1 route
+ApiRoute = /api/v1
+
 # Tachi score import endpoint
-import = '/ir/direct-manual/import'
-# Your Tachi API key
-api_key = '%%TACHI_KEY%%'`,
+Import = /ir/direct-manual/import
+
+# Whether to generate score/bell/life charts
+EnableGraphs = true
+
+[Keys]
+
+* = %%TACHI_KEY%%
+
+# If you have a multi-user setup, you can configure
+# keys per-profile, using in-game name or access code:
+#
+# InGameUsername = TachiApiKey
+# 00081111222233334444 = AnotherTachiApiKey
+#
+# If present, an * matches everyone else`,
 	},
 ];
 
-const BtchiDefaultClients: DefaultClients = [
+const BokuDefaultClients: DefaultClients = [
 	{
 		name: "Beatoraja IR",
 		webhookUri: null,
@@ -277,13 +298,13 @@ const BtchiDefaultClients: DefaultClients = [
 ];
 
 export async function LoadDefaultClients() {
-	if (TachiConfig.TYPE === "ktchi") {
-		await LoadClients(KtchiDefaultClients);
-	} else if (TachiConfig.TYPE === "btchi") {
-		await LoadClients(BtchiDefaultClients);
+	if (TachiConfig.TYPE === "kamai") {
+		await LoadClients(KamaiDefaultClients);
+	} else if (TachiConfig.TYPE === "boku") {
+		await LoadClients(BokuDefaultClients);
 	} else {
-		await LoadClients(KtchiDefaultClients);
-		await LoadClients(BtchiDefaultClients);
+		await LoadClients(KamaiDefaultClients);
+		await LoadClients(BokuDefaultClients);
 	}
 }
 

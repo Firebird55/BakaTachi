@@ -1,4 +1,3 @@
-import type { integer } from "../types";
 import type { GPTStrings } from "../types/game-config";
 import type { GetEnumValue } from "../types/metrics";
 
@@ -206,4 +205,39 @@ export const ARCAEA_GBOUNDARIES = MakeGradeBoundaries<GetEnumValue<"arcaea:Touch
 	AA: 9_500_000,
 	EX: 9_800_000,
 	"EX+": 9_900_000,
+});
+
+export const ONGEKI_GBOUNDARIES = MakeGradeBoundaries<GetEnumValue<"ongeki:Single", "grade">>({
+	D: 0,
+	C: 500_000,
+	B: 700_000,
+	BB: 750_000,
+	BBB: 800_000,
+	A: 850_000,
+	AA: 900_000,
+	AAA: 940_000,
+	S: 970_000,
+	SS: 990_000,
+	SSS: 1_000_000,
+	"SSS+": 1_007_500,
+});
+
+export const DDR_GBOUNDARIES = MakeGradeBoundaries<GetEnumValue<GPTStrings["ddr"], "grade">>({
+	AAA: 990000,
+	"AA+": 950000,
+	AA: 900000,
+	"AA-": 890000,
+	"A+": 850000,
+	A: 800000,
+	"A-": 790000,
+	"B+": 750000,
+	B: 700000,
+	"B-": 690000,
+	"C+": 650000,
+	C: 600000,
+	"C-": 590000,
+	"D+": 550000,
+	D: 0,
+	// cannot be achieved. This can only be attained if the player failed the chart.
+	E: -Infinity,
 });

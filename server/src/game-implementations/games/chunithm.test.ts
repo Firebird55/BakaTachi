@@ -2,27 +2,30 @@ import { CHUNITHM_IMPL } from "./chunithm";
 import db from "external/mongo/db";
 import CreateLogCtx from "lib/logger/logger";
 import { CreatePBDoc } from "lib/score-import/framework/pb/create-pb-doc";
-import { CHUNITHM_GRADES, CHUNITHM_LAMPS } from "tachi-common";
+import { CHUNITHM_GRADES, CHUNITHM_NOTE_LAMPS, CHUNITHM_CLEAR_LAMPS } from "tachi-common";
 import t from "tap";
 import { dmf, mkMockPB, mkMockScore } from "test-utils/misc";
 import ResetDBState from "test-utils/resets";
-import { CHUNITHMBBKKChart } from "test-utils/test-data";
+import { CHUNITHMBBKKChart, TestingChunithmScorePB } from "test-utils/test-data";
 import type { ProvidedMetrics, ScoreData } from "tachi-common";
 
 const baseMetrics: ProvidedMetrics["chunithm:Single"] = {
-	lamp: "CLEAR",
+	clearLamp: "CLEAR",
+	noteLamp: "NONE",
 	score: 1_003_000,
 };
 
 const scoreData: ScoreData<"chunithm:Single"> = {
-	lamp: "CLEAR",
+	clearLamp: "CLEAR",
+	noteLamp: "NONE",
 	score: 1_003_000,
 	grade: "SS",
 	judgements: {},
 	optional: { enumIndexes: {} },
 	enumIndexes: {
 		grade: CHUNITHM_GRADES.SS,
-		lamp: CHUNITHM_LAMPS.CLEAR,
+		clearLamp: CHUNITHM_CLEAR_LAMPS.CLEAR,
+		noteLamp: CHUNITHM_NOTE_LAMPS.NONE,
 	},
 };
 
@@ -69,7 +72,43 @@ t.test("CHUNITHM Implementation", (t) => {
 	});
 
 	t.todo("Session Calcs");
-	t.todo("Profile Calcs");
+
+	t.test("Profile Calcs", (t) => {
+		t.beforeEach(ResetDBState);
+
+		const mockPBs = async (ratings: Array<number>) => {
+			await Promise.all(
+				ratings.map((rating, idx) =>
+					db["personal-bests"].insert({
+						...TestingChunithmScorePB,
+						chartID: `TEST${idx}`,
+						calculatedData: {
+							...TestingChunithmScorePB.calculatedData,
+							rating,
+						},
+					})
+				)
+			);
+		};
+
+		t.test("Floating-point edge case", async (t) => {
+			await mockPBs(Array(50).fill(17.15));
+
+			t.equal(await CHUNITHM_IMPL.profileCalcs.naiveRating("chunithm", "Single", 1), 17.15);
+
+			t.end();
+		});
+
+		t.test("Profile with fewer than 50 scores", async (t) => {
+			await mockPBs([16, 16, 16, 16]);
+
+			t.equal(await CHUNITHM_IMPL.profileCalcs.naiveRating("chunithm", "Single", 1), 1.28);
+
+			t.end();
+		});
+
+		t.end();
+	});
 
 	t.test("Colour Deriver", (t) => {
 		const f = (v: number | null, expected: any) =>
@@ -90,6 +129,12 @@ t.test("CHUNITHM Implementation", (t) => {
 		f(14.5, "GOLD");
 		f(15.25, "PLATINUM");
 		f(16, "RAINBOW");
+		f(16.25, "RAINBOW_II");
+		f(16.5, "RAINBOW_III");
+		f(16.75, "RAINBOW_IV");
+		f(17, "RAINBOW_EX_I");
+		f(17.25, "RAINBOW_EX_II");
+		f(17.5, "RAINBOW_EX_III");
 
 		t.end();
 	});
@@ -123,7 +168,8 @@ t.test("CHUNITHM Implementation", (t) => {
 
 			f("grade", { grade: "S+", score: 997_342 }, CHUNITHM_GRADES.SS, "SS-2.7K");
 			f("score", { score: 982_123 }, 1_000_000, "982,123");
-			f("lamp", { lamp: "CLEAR" }, CHUNITHM_LAMPS.CLEAR, "CLEAR");
+			f("clearLamp", { clearLamp: "CLEAR" }, CHUNITHM_CLEAR_LAMPS.CLEAR, "CLEAR");
+			f("noteLamp", { noteLamp: "FULL COMBO" }, CHUNITHM_NOTE_LAMPS.FULL_COMBO, "FULL COMBO");
 
 			t.end();
 		});
@@ -145,21 +191,39 @@ t.test("CHUNITHM Implementation", (t) => {
 			await db.scores.insert(mockScore);
 			await db.scores.insert(
 				dmf(mockScore, {
-					scoreID: "bestLamp",
+					scoreID: "bestNoteLamp",
 					scoreData: {
 						score: 0,
-						lamp: "FULL COMBO",
-						enumIndexes: { lamp: CHUNITHM_LAMPS.FULL_COMBO },
+						noteLamp: "FULL COMBO",
+						enumIndexes: { noteLamp: CHUNITHM_NOTE_LAMPS.FULL_COMBO },
+					},
+				})
+			);
+			await db.scores.insert(
+				dmf(mockScore, {
+					scoreID: "bestClearLamp",
+					scoreData: {
+						score: 0,
+						clearLamp: "ABSOLUTE",
+						enumIndexes: { clearLamp: CHUNITHM_CLEAR_LAMPS.ABSOLUTE },
 					},
 				})
 			);
 
 			t.hasStrict(await CreatePBDoc("chunithm:Single", 1, CHUNITHMBBKKChart, logger), {
-				composedFrom: [{ name: "Best Score" }, { name: "Best Lamp", scoreID: "bestLamp" }],
+				composedFrom: [
+					{ name: "Best Score" },
+					{ name: "Best Note Lamp", scoreID: "bestNoteLamp" },
+					{ name: "Best Clear Lamp", scoreID: "bestClearLamp" },
+				],
 				scoreData: {
 					score: mockScore.scoreData.score,
-					lamp: "FULL COMBO",
-					enumIndexes: { lamp: CHUNITHM_LAMPS.FULL_COMBO },
+					clearLamp: "ABSOLUTE",
+					noteLamp: "FULL COMBO",
+					enumIndexes: {
+						clearLamp: CHUNITHM_CLEAR_LAMPS.ABSOLUTE,
+						noteLamp: CHUNITHM_NOTE_LAMPS.FULL_COMBO,
+					},
 				},
 			});
 

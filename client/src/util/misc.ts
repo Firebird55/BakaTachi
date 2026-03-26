@@ -1,4 +1,5 @@
 import fjsh from "fast-json-stable-hash";
+import { GPT_CLIENT_IMPLEMENTATIONS } from "lib/game-implementations";
 import toast from "react-hot-toast";
 import { useHistory } from "react-router-dom";
 import {
@@ -8,6 +9,7 @@ import {
 	ChartDocument,
 	Game,
 	GamePTConfig,
+	GetGPTString,
 	GetGamePTConfig,
 	Playtype,
 	QuestDocument,
@@ -88,6 +90,21 @@ export function FormatGPTSessionRating(
 	}
 
 	return value.toFixed(2);
+}
+
+export function FormatGPTProfileRatingName(game: Game, playtype: Playtype, key: string) {
+	const gptConfig = GPT_CLIENT_IMPLEMENTATIONS[GetGPTString(game, playtype)];
+	return gptConfig.ratingAlgNameOverrides?.profile?.[key] ?? UppercaseFirst(key);
+}
+
+export function FormatGPTSessionRatingName(game: Game, playtype: Playtype, key: string) {
+	const gptConfig = GPT_CLIENT_IMPLEMENTATIONS[GetGPTString(game, playtype)];
+	return gptConfig.ratingAlgNameOverrides?.session?.[key] ?? UppercaseFirst(key);
+}
+
+export function FormatGPTScoreRatingName(game: Game, playtype: Playtype, key: string) {
+	const gptConfig = GPT_CLIENT_IMPLEMENTATIONS[GetGPTString(game, playtype)];
+	return gptConfig.ratingAlgNameOverrides?.score?.[key] ?? UppercaseFirst(key);
 }
 
 export function ReverseStr(str: string) {
@@ -568,15 +585,19 @@ export function HumanisedJoinArray(arr: Array<string>, lastJoiner = "or") {
 }
 
 export function isCardIDValid(cardID: string) {
-	if (cardID.startsWith("E004")) {
+	if (cardID.startsWith("E004") || cardID.startsWith("012E")) {
 		return false;
 	}
 
-	if (cardID[0] === "C") {
-		return cardID.length === 13;
+	if (cardID.match(/^C[0-9]{12}$/u) !== null) {
+		return true;
 	}
 
-	return cardID.length === 16;
+	if (cardID.match(/^[0-9A-z]{14}[1|2][0-9A-z]$/u) !== null) {
+		return true;
+	}
+
+	return false;
 }
 
 /**

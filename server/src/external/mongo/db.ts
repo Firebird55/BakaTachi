@@ -48,6 +48,8 @@ import type {
 	ImportTrackerDocument as ImportTrackerDocument,
 	CGCardInfo,
 	GPTStrings,
+	MytCardInfo,
+	UserNameChangeDocument,
 } from "tachi-common";
 import type { MigrationDocument, PrivateUserInfoDocument } from "utils/types";
 
@@ -63,10 +65,10 @@ if (Environment.nodeEnv === "test") {
 logger.info(`Connecting to database ${Environment.mongoUrl}/${dbName}...`, { bootInfo: true });
 const dbtime = process.hrtime.bigint();
 
-// By default the connectTimeoutMS is 30 seconds. This has been upped to 5 minutes, due to poor performance
-// inside githubs test runners.
 export const monkDB = monk(`${Environment.mongoUrl}/${dbName}`, {
-	serverSelectionTimeoutMS: Environment.nodeEnv === "test" ? ONE_MINUTE * 5 : ONE_MINUTE,
+	// Various things cause bizarre issues with mongodb connections. Windows+Docker especially so.
+	// 5 minutes is excessive, but believe it or not, some setups are exceeding 2 minutes!
+	serverSelectionTimeoutMS: ONE_MINUTE * 5,
 
 	// in local dev, don't **ever** add _id onto objects you're inserting
 	// in production, this might have a performance hit.
@@ -170,11 +172,14 @@ const db = {
 	"game-stats": monkDB.get<UserGameStats>("game-stats"),
 	"kai-auth-tokens": monkDB.get<KaiAuthDocument>("kai-auth-tokens"),
 	"cg-card-info": monkDB.get<CGCardInfo>("cg-card-info"),
+	"myt-card-info": monkDB.get<MytCardInfo>("myt-card-info"),
 
 	"bms-course-lookup": monkDB.get<BMSCourseDocument>("bms-course-lookup"),
 	"api-tokens": monkDB.get<APITokenDocument>("api-tokens"),
 	"orphan-scores": monkDB.get<OrphanScoreDocument>("orphan-scores"),
-	"import-locks": monkDB.get<{ userID: integer; locked: boolean }>("import-locks"),
+	"import-locks": monkDB.get<{ userID: integer; locked: boolean; lockedAt: integer | null }>(
+		"import-locks"
+	),
 	tables: monkDB.get<TableDocument>("tables"),
 	"invite-locks": monkDB.get<{ userID: integer; locked: boolean }>("invite-locks"),
 	"game-settings": monkDB.get<UGPTSettingsDocument>("game-settings"),
@@ -208,6 +213,7 @@ const db = {
 	migrations: monkDB.get<MigrationDocument>("migrations"),
 	notifications: monkDB.get<NotificationDocument>("notifications"),
 	"import-trackers": monkDB.get<ImportTrackerDocument>("import-trackers"),
+	"user-name-changes": monkDB.get<UserNameChangeDocument>("user-name-changes"),
 };
 
 export type StaticDatabases = Exclude<

@@ -9,15 +9,32 @@ export enum IIDX_LAMPS {
 	FULL_COMBO = 7,
 }
 
-export enum CHUNITHM_LAMPS {
+export enum CHUNITHM_CLEAR_LAMPS {
 	FAILED = 0,
 	CLEAR = 1,
-	FULL_COMBO = 2,
-	ALL_JUSTICE = 3,
-	ALL_JUSTICE_CRITICAL = 4,
+	HARD = 2,
+	BRAVE = 3,
+	ABSOLUTE = 4,
+	CATASTROPHY = 5,
+}
+
+export enum CHUNITHM_NOTE_LAMPS {
+	NONE = 0,
+	FULL_COMBO = 1,
+	ALL_JUSTICE = 2,
+	ALL_JUSTICE_CRITICAL = 3,
 }
 
 export enum SDVX_LAMPS {
+	FAILED = 0,
+	CLEAR = 1,
+	EXCESSIVE_CLEAR = 2,
+	MAXXIVE_CLEAR = 3,
+	ULTIMATE_CHAIN = 4,
+	PERFECT_ULTIMATE_CHAIN = 5,
+}
+
+export enum USC_LAMPS {
 	FAILED = 0,
 	CLEAR = 1,
 	EXCESSIVE_CLEAR = 2,
@@ -555,4 +572,48 @@ export enum ARCAEA_COURSE_BANNERS {
 	PHASE_9 = 8,
 	PHASE_10 = 9,
 	PHASE_11 = 10,
+}
+
+export enum ONGEKI_NOTE_LAMPS {
+	LOSS = 0,
+	CLEAR = 1,
+	FULL_COMBO = 2,
+	ALL_BREAK = 3,
+	ALL_BREAK_PLUS = 4,
+}
+
+export enum ONGEKI_BELL_LAMPS {
+	NONE = 0,
+	FULL_BELL = 1,
+}
+
+export enum ONGEKI_GRADES {
+	D = 0,
+	C = 1,
+	B = 2,
+	BB = 3,
+	BBB = 4,
+	A = 5,
+	AA = 6,
+	AAA = 7,
+	S = 8,
+	SS = 9,
+	SSS = 10,
+	SSS_PLUS = 11,
+}
+
+export enum ONGEKI_COLOURS {
+	BLUE = 0,
+	GREEN = 1,
+	ORANGE = 2,
+	RED = 3,
+	PURPLE = 4,
+	COPPER = 5,
+	SILVER = 6,
+	GOLD = 7,
+	PLATINUM = 8,
+	RAINBOW = 9,
+	RAINBOW_SHINY = 10,
+	RAINBOW_EX = 11,
+	RAINBOW_EX_TRUE = 12,
 }

@@ -8,10 +8,11 @@ import DeltaCell from "components/tables/cells/DeltaCell";
 import ScoreCell from "components/tables/cells/ScoreCell";
 import React from "react";
 import RatingCell from "components/tables/cells/RatingCell";
-import { GPT_CLIENT_IMPLEMENTATIONS, GetEnumColour } from "lib/game-implementations";
-import { CreateRatingSys, bg, bgc } from "./_util";
+import { GetEnumColour } from "lib/game-implementations";
+import { CreateRatingSys, bgc } from "./_util";
 
 const BASE_IMPL: GPTClientImplementation<GPTStrings["bms" | "pms"]> = {
+	sessionImportantScoreCount: 20,
 	difficultyColours: {
 		CHART: COLOUR_SET.gray, // lol
 	},
@@ -48,12 +49,14 @@ const BASE_IMPL: GPTClientImplementation<GPTStrings["bms" | "pms"]> = {
 		CreateRatingSys(
 			"Sieglinde EC",
 			"TODO lol",
+			"lamp",
 			(c) => c.data.sglEC,
 			(c) => (IsNullish(c.data.sglEC) ? null : FormatSieglindeBMS(c.data.sglEC!))
 		),
 		CreateRatingSys(
 			"Sieglinde HC",
 			"TODO lol",
+			"lamp",
 			(c) => c.data.sglHC,
 			(c) => (IsNullish(c.data.sglHC) ? null : FormatSieglindeBMS(c.data.sglHC!))
 		),
@@ -118,6 +121,30 @@ export const BMS_7K_IMPL: GPTClientImplementation<"bms:7K"> = {
 			INSANE_KAIDEN: bgc("teal", "var(--bs-light)"),
 			OVERJOY: bgc("purple", "var(--bs-light)"),
 		},
+		newGenerationDan: {
+			NORMAL_1: bgc("lightblue", "var(--bs-dark)"),
+			NORMAL_2: bgc("lightblue", "var(--bs-dark)"),
+			NORMAL_3: bgc("lightblue", "var(--bs-dark)"),
+			NORMAL_4: bgc("lightblue", "var(--bs-dark)"),
+			NORMAL_5: bgc("lightblue", "var(--bs-dark)"),
+			NORMAL_6: bgc("lightblue", "var(--bs-dark)"),
+			NORMAL_7: bgc("lightblue", "var(--bs-dark)"),
+			NORMAL_8: bgc("lightblue", "var(--bs-dark)"),
+			NORMAL_9: bgc("tomato", "var(--bs-dark)"),
+			NORMAL_10: bgc("tomato", "var(--bs-dark)"),
+			INSANE_0: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_1: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_2: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_3: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_4: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_5: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_6: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_7: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_8: bgc("var(--bs-info)", "var(--bs-light)"),
+			INSANE_9: bgc("var(--bs-danger)", "var(--bs-light)"),
+			INSANE_10: bgc("var(--bs-danger)", "var(--bs-light)"),
+			INSANE_KAIDEN: bgc("teal", "var(--bs-light)"),
+		},
 		lnDan: {
 			DAN_1: bgc("lightblue", "var(--bs-dark)"),
 			DAN_2: bgc("lightblue", "var(--bs-dark)"),
@@ -179,6 +206,7 @@ export const BMS_7K_IMPL: GPTClientImplementation<"bms:7K"> = {
 			ST9: bgc("var(--bs-dark)", "var(--bs-light)"),
 			ST10: bgc("var(--bs-dark)", "var(--bs-light)"),
 			ST11: bgc("var(--bs-dark)", "var(--bs-light)"),
+			ST12: bgc("var(--bs-dark)", "var(--bs-light)"),
 		},
 	},
 };

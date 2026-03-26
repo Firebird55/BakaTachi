@@ -283,7 +283,6 @@ function StatDelta({
 	}
 
 	const formattedV2 = FormatValue(game, playtype, mode, property, v2);
-	const d = FormatValue(game, playtype, mode, property, v2 - v1);
 
 	let colour;
 	if (v2 === v1) {
@@ -297,7 +296,14 @@ function StatDelta({
 	let delta = null;
 
 	// don't bother highlighting grade/lamp deltas, since they're kinda meaningless
-	if (property === "percent" || property === "score" || property === "playcount") {
+	// unless it's a folder then always show the delta for charts that meet requirement
+	if (
+		property === "percent" ||
+		property === "score" ||
+		property === "playcount" ||
+		mode === "folder"
+	) {
+		const d = FormatValue(game, playtype, mode, property, v2 - v1);
 		delta = ` (${v2 > v1 ? `+${d}` : v2 === v1 ? `±${d}` : d})`;
 	}
 

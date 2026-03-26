@@ -34,7 +34,7 @@ For more information on what metrics are and how they work, see [TODO]!
 
 ## Judgements
 
-The folowing judgements are defined:
+The following judgements are defined:
 
 - `cool`
 - `great`
@@ -80,6 +80,7 @@ The folowing judgements are defined:
 | :: | :: |
 | `peace` | peace |
 | `kaimei` | Kaimei Riddles |
+| `unilab` | Unilab |
 
 ## Supported Match Types
 

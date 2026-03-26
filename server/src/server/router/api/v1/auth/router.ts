@@ -14,7 +14,7 @@ import db from "external/mongo/db";
 import { SendEmail } from "lib/email/client";
 import { EmailFormatResetPassword, EmailFormatVerifyEmail } from "lib/email/formats";
 import CreateLogCtx from "lib/logger/logger";
-import { Environment, ServerConfig } from "lib/setup/config";
+import { Environment, ServerConfig, TachiConfig } from "lib/setup/config";
 import { p } from "prudence";
 import prValidate from "server/middleware/prudence-validate";
 import {
@@ -184,6 +184,13 @@ router.post(
 		"verbose"
 	),
 	async (req, res) => {
+		if (!TachiConfig.SIGNUPS_ENABLED) {
+			return res.status(501).json({
+				success: false,
+				description: `Signups are not currently enabled.`,
+			});
+		}
+
 		const body = req.safeBody as {
 			username: string;
 			"!password": string;
@@ -191,6 +198,9 @@ router.post(
 			inviteCode?: string;
 			captcha: string;
 		};
+
+		// force lowercase for emails to avoid case-confusion in lookups...
+		body.email = body.email.toLowerCase();
 
 		if (body.inviteCode === undefined && ServerConfig.INVITE_CODE_CONFIG) {
 			return res.status(400).json({
@@ -461,6 +471,8 @@ router.post(
 		const body = req.safeBody as {
 			email: string;
 		};
+
+		body.email = body.email.toLowerCase();
 
 		logger.debug(`received password reset request for ${body.email}.`);
 

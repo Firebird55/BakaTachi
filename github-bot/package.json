@@ -3,16 +3,18 @@
 	"version": "0.1.0-see-project-root",
 	"private": true,
 	"description": "A GitHub bot for listening to Tachi's GitHub Repo.",
-	"author": "zkldi",
+	"author": "zk",
+	"type": "module",
 	"scripts": {
 		"build": "tsc -b",
 		"start": "tsc -b && node js/main.js"
 	},
 	"dependencies": {
-		"@octokit/app": "^13.1.0",
+		"@octokit/app": "15.1.0",
+		"@octokit/webhooks-types": "7.5.1",
 		"dotenv": "16.0.0",
-		"express": "4.17.2",
-		"node-fetch": "2.6.7",
+		"express": "4.20.0",
+		"node-fetch": "3.3.2",
 		"prudence": "0.10.0"
 	},
 	"devDependencies": {
@@ -22,7 +24,7 @@
 		"typescript": "4.9.4"
 	},
 	"engines": {
-		"node": "16",
-		"pnpm": "7"
+		"node": "20",
+		"pnpm": "8"
 	}
 }

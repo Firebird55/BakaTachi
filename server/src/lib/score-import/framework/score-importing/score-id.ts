@@ -2,18 +2,19 @@ import db from "external/mongo/db";
 import fjsh from "fast-json-stable-hash";
 import { GetGPTConfig } from "tachi-common";
 import type { DryScore } from "../common/types";
+import type { KtLogger } from "lib/logger/logger";
 import type { integer, GPTString, ProvidedMetrics, OptionalMetrics } from "tachi-common";
 
 /**
  * Creates an identifier for this score.
  * This is used to deduplicate repeated scores.
- * @returns @see HashScoreIDString - prefixed with R.
  */
 export function CreateScoreID(
 	gptString: GPTString,
 	userID: integer,
 	dryScore: DryScore,
-	chartID: string
+	chartID: string,
+	logger?: KtLogger
 ) {
 	const elements: Record<string, number | string> = { userID, chartID };
 
@@ -38,7 +39,14 @@ export function CreateScoreID(
 
 	// use a stable object hashing method instead of string joining
 	// as it's immune to key order or anything screwy like that.
-	const hash = fjsh.hash(elements, "sha256");
+	let hash;
+
+	try {
+		hash = fjsh.hash(elements, "sha256");
+	} catch (err) {
+		logger?.error(`Failed to checksum score: ${err}`, { elements, dryScore });
+		throw err;
+	}
 
 	return `T${hash}`;
 }

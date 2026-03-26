@@ -9,8 +9,8 @@ export const MAIMAI_DX_CONF = {
 	name: "maimai DX",
 	playtypes: ["Single"],
 	songData: z.strictObject({
-		displayVersion: z.string(),
 		genre: z.string(),
+		duration: z.number().optional(),
 	}),
 } as const satisfies INTERNAL_GAME_CONFIG;
 
@@ -96,7 +96,7 @@ export const MAIMAI_DX_SINGLE_CONF = {
 		percent: {
 			type: "DECIMAL",
 			validate: p.isBetween(0, 101),
-			formatter: FmtPercent,
+			formatter: (v) => FmtPercent(v, 4),
 			description:
 				"The percent this score was worth. Sometimes called 'rate' in game. This is between 0 and 101.",
 		},
@@ -135,7 +135,20 @@ export const MAIMAI_DX_SINGLE_CONF = {
 	defaultMetric: "percent",
 	preferredDefaultEnum: "grade",
 
-	optionalMetrics: FAST_SLOW_MAXCOMBO,
+	optionalMetrics: {
+		...FAST_SLOW_MAXCOMBO,
+		percentGraph: {
+			type: "NULLABLE_GRAPH",
+			validate: p.isBetween(0, 101),
+			description:
+				"The history of the projected achievement, queried in one-second intervals.",
+		},
+		lifeGraph: {
+			type: "NULLABLE_GRAPH",
+			validate: p.isBetween(0, 999),
+			description: "Life count history, queried in one-second intervals.",
+		},
+	},
 
 	scoreRatingAlgs: {
 		rate: { description: "Rating as it's implemented in game.", formatter: NoDecimalPlace },
@@ -150,11 +163,7 @@ export const MAIMAI_DX_SINGLE_CONF = {
 		naiveRate: {
 			description: "A naive rating algorithm that just sums your 50 best scores.",
 			formatter: NoDecimalPlace,
-		},
-		rate: {
-			description:
-				"Rating as it's implemented in game, taking 15 scores from the latest version and 35 from all old versions.",
-			formatter: NoDecimalPlace,
+			associatedScoreAlgs: ["rate"],
 		},
 	},
 
@@ -195,6 +204,7 @@ export const MAIMAI_DX_SINGLE_CONF = {
 		colour: {
 			type: "DERIVED",
 			values: MaimaiDXColours,
+			minimumRelevantValue: "BRONZE",
 		},
 		dan: {
 			type: "PROVIDED",
@@ -212,15 +222,24 @@ export const MAIMAI_DX_SINGLE_CONF = {
 		universeplus: "UNiVERSE PLUS",
 		festival: "FESTiVAL",
 		festivalplus: "FESTiVAL PLUS",
-		buddies: "BUDDiES"
+		buddies: "BUDDiES",
+		"buddies-omni": "BUDDiES Omnimix",
+		buddiesplus: "BUDDiES PLUS",
+		"buddiesplus-omni": "BUDDiES PLUS Omnimix",
+		prism: "PRiSM",
+		"prism-omni": "PRiSM Omnimix",
+		prismplus: "PRiSM PLUS",
+		"prismplus-omni": "PRiSM PLUS Omnimix",
+		circle: "CiRCLE",
 	},
 
 	chartData: z.strictObject({
-		isLatest: z.boolean(),
+		displayVersion: z.string(),
+		inGameID: z.number().int().nonnegative().nullable(),
 	}),
 
 	preferences: z.strictObject({}),
 	scoreMeta: z.strictObject({}),
 
-	supportedMatchTypes: ["songTitle", "tachiSongID"],
+	supportedMatchTypes: ["songTitle", "tachiSongID", "inGameID"],
 } as const satisfies INTERNAL_GAME_PT_CONFIG;

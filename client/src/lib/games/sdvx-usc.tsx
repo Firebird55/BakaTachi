@@ -2,14 +2,14 @@ import { NumericSOV } from "util/sorts";
 import { ChangeOpacity } from "util/color-opacity";
 import { FormatMillions } from "util/misc";
 import { GPTClientImplementation } from "lib/types";
-import { COLOUR_SET, GPTStrings } from "tachi-common";
+import { COLOUR_SET, GPTStrings, SDVX_GRADES, SDVX_LAMPS } from "tachi-common";
 import MillionsScoreCell from "components/tables/cells/MillionsScoreCell";
 import SDVXJudgementCell from "components/tables/cells/SDVXJudgementCell";
 import SDVXLampCell from "components/tables/cells/SDVXLampCell";
 import { GetEnumColour } from "lib/game-implementations";
 import React from "react";
 import VF6Cell from "components/tables/cells/VF6Cell";
-import { CreateRatingSys, bg, bgc } from "./_util";
+import { CreateRatingSys, bgc } from "./_util";
 
 type SDVXLikes = GPTStrings["usc" | "sdvx"];
 
@@ -31,6 +31,7 @@ const SDVXLIKE_ENUM_COLOURS: GPTClientImplementation<SDVXLikes>["enumColours"] =
 		FAILED: COLOUR_SET.red,
 		CLEAR: COLOUR_SET.green,
 		"EXCESSIVE CLEAR": COLOUR_SET.purple,
+		"MAXXIVE CLEAR": COLOUR_SET.white,
 		"ULTIMATE CHAIN": COLOUR_SET.teal,
 		"PERFECT ULTIMATE CHAIN": COLOUR_SET.gold,
 	},
@@ -75,6 +76,7 @@ const SDVXRatingCell: GPTClientImplementation<SDVXLikes>["ratingCell"] = ({ sc, 
 );
 
 export const SDVX_IMPL: GPTClientImplementation<"sdvx:Single"> = {
+	sessionImportantScoreCount: 50,
 	enumColours: SDVXLIKE_ENUM_COLOURS,
 	enumIcons: {
 		grade: "sort-alpha-up",
@@ -90,6 +92,7 @@ export const SDVX_IMPL: GPTClientImplementation<"sdvx:Single"> = {
 		VVD: COLOUR_SET.pink,
 		XCD: COLOUR_SET.blue,
 		MXM: COLOUR_SET.white,
+		ULT: COLOUR_SET.vibrantOrange,
 	},
 	classColours: {
 		dan: {
@@ -151,12 +154,34 @@ export const SDVX_IMPL: GPTClientImplementation<"sdvx:Single"> = {
 	},
 	ratingSystems: [
 		CreateRatingSys(
-			"Tierlist",
+			"Clear Tierlist",
 			"The unofficial SDVX clearing tierlist",
+			"lamp",
 			(c) => c.data.clearTier?.value,
 			(c) => c.data.clearTier?.text,
 			(c) => c.data.clearTier?.individualDifference,
 			(s) => [s.scoreData.lamp, s.scoreData.lamp !== "FAILED"]
+		),
+		CreateRatingSys(
+			"PUC Tierlist",
+			"Tierlist ratings for PUC lamp",
+			"lamp",
+			(c) => c.data.pucTier?.value,
+			(c) => c.data.pucTier?.text,
+			(c) => c.data.pucTier?.individualDifference,
+			(s) => [
+				s.scoreData.lamp,
+				s.scoreData.enumIndexes.lamp >= SDVX_LAMPS.PERFECT_ULTIMATE_CHAIN,
+			]
+		),
+		CreateRatingSys(
+			"S Tierlist",
+			"Tierlist ratings for S grade",
+			"grade",
+			(c) => c.data.sTier?.value,
+			(c) => c.data.sTier?.text,
+			(c) => c.data.sTier?.individualDifference,
+			(s) => [s.scoreData.grade, s.scoreData.enumIndexes.grade >= SDVX_GRADES.S]
 		),
 	],
 	scoreHeaders: [
@@ -168,6 +193,7 @@ export const SDVX_IMPL: GPTClientImplementation<"sdvx:Single"> = {
 	ratingCell: SDVXRatingCell,
 };
 export const USC_IMPL: GPTClientImplementation<GPTStrings["usc"]> = {
+	sessionImportantScoreCount: 50,
 	enumColours: SDVXLIKE_ENUM_COLOURS,
 	enumIcons: {
 		grade: "sort-alpha-up",

@@ -6,6 +6,12 @@
 		"plugin:cadence/recommended"
 	],
 	"root": true,
+	"ignorePatterns": [
+		"node_modules",
+		"js",
+		"package.json",
+		"*.d.ts"
+	],
 	"rules": {},
 	"overrides": [
 		{
@@ -15,7 +21,8 @@
 			"rules": {
 				// broken
 				"lines-around-comment": "off",
-
+				// no idea why this is on
+				"no-param-reassign": "off",
 				// TENPORARILY OFF AS THEY'RE BROKEN.
 				"@typescript-eslint/no-unsafe-assignment": "off",
 				"@typescript-eslint/no-unsafe-return": "off",
@@ -41,7 +48,7 @@
 				"@typescript-eslint/no-unsafe-argument": "off",
 				"@typescript-eslint/no-unsafe-call": "off",
 				// we abuse this one for faking data, but we really shouldn't.
-				"@typescript-eslint/consistent-type-assertions": "warn"
+				"@typescript-eslint/consistent-type-assertions": "off"
 			}
 		}
 	]

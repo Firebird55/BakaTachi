@@ -16,14 +16,21 @@ import PopnLampCell from "components/tables/cells/PopnLampCell";
 import RatingCell from "components/tables/cells/RatingCell";
 import ScoreCell from "components/tables/cells/ScoreCell";
 import WaccaJudgementCell from "components/tables/cells/WACCAJudgementCell";
+import OngekiJudgementCell from "components/tables/cells/OngekiJudgementCell";
 import React from "react";
-import { CreateRatingSys, bgc } from "./games/_util";
+import OngekiLampCell from "components/tables/cells/OngekiLampCell";
+import OngekiPlatinumCell from "components/tables/cells/OngekiPlatinumCell";
+import CHUNITHMLampCell from "components/tables/cells/CHUNITHMLampCell";
+import OngekiDamageCell from "components/tables/cells/OngekiDamageCell";
+import OngekiScoreRatingCell from "components/tables/cells/OngekiScoreRatingCell";
+import { bgc, RAINBOW_EX_GRADIENT, RAINBOW_GRADIENT } from "./games/_util";
 import { BMS_14K_IMPL, BMS_7K_IMPL, PMS_IMPL } from "./games/bms-pms";
 import { IIDX_DP_IMPL, IIDX_SP_IMPL } from "./games/iidx";
 import { GPTClientImplementation } from "./types";
 import { SDVX_IMPL, USC_IMPL } from "./games/sdvx-usc";
 import { GITADORA_DORA_IMPL, GITADORA_GITA_IMPL } from "./games/gitadora";
 import { ARCAEA_TOUCH_IMPL } from "./games/arcaea";
+import { DDR_DP_IMPL, DDR_SP_IMPL } from "./games/ddr";
 
 type GPTClientImplementations = {
 	[GPT in GPTString]: GPTClientImplementation<GPT>;
@@ -37,8 +44,15 @@ const defaultEnumIcons = {
 export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 	"iidx:SP": IIDX_SP_IMPL,
 	"iidx:DP": IIDX_DP_IMPL,
+	"ddr:SP": DDR_SP_IMPL,
+	"ddr:DP": DDR_DP_IMPL,
 	"chunithm:Single": {
-		enumIcons: defaultEnumIcons,
+		sessionImportantScoreCount: 50,
+		enumIcons: {
+			grade: "sort-alpha-up",
+			clearLamp: "lightbulb",
+			noteLamp: "lightbulb",
+		},
 		classColours: {
 			colour: {
 				BLUE: bgc("var(--bs-info)", "var(--bs-light)"),
@@ -50,27 +64,29 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 				SILVER: bgc("gray", "var(--bs-light)"),
 				GOLD: bgc("var(--bs-warning)", "var(--bs-dark)"),
 				PLATINUM: bgc("silver", "var(--bs-dark)"),
-				RAINBOW: {
-					background:
-						"linear-gradient(-45deg, #f0788a, #f48fb1, #9174c2, #79bcf2, #70a173, #f7ff99, #faca7d, #ff9d80, #f0788a)",
-					color: "var(--bs-dark)",
-				},
+				RAINBOW: RAINBOW_GRADIENT,
+				RAINBOW_II: RAINBOW_GRADIENT,
+				RAINBOW_III: RAINBOW_GRADIENT,
+				RAINBOW_IV: RAINBOW_GRADIENT,
+				RAINBOW_EX_I: RAINBOW_EX_GRADIENT,
+				RAINBOW_EX_II: RAINBOW_EX_GRADIENT,
+				RAINBOW_EX_III: RAINBOW_EX_GRADIENT,
 			},
 			dan: {
-				DAN_I: bgc("blue", "var(--bs-dark)"),
-				DAN_II: bgc("cyan", "var(--bs-dark)"),
-				DAN_III: bgc("var(--bs-warning)", "var(--bs-dark)"),
-				DAN_IV: bgc("red", "var(--bs-light)"),
-				DAN_V: bgc("purple", "var(--bs-light)"),
-				DAN_INFINITE: bgc("lightgoldenrodyellow", "var(--bs-dark)"),
+				DAN_I: bgc("#3b66f1", "var(--bs-light)"),
+				DAN_II: bgc("#0eb893", "var(--bs-light)"),
+				DAN_III: bgc("#f1aa00", "var(--bs-light)"),
+				DAN_IV: bgc("#e13a28", "var(--bs-light)"),
+				DAN_V: bgc("#4b0a72", "var(--bs-light)"),
+				DAN_INFINITE: bgc("#c1b8cd", "var(--bs-dark)"),
 			},
 			emblem: {
-				DAN_I: bgc("blue", "var(--bs-dark)"),
-				DAN_II: bgc("cyan", "var(--bs-dark)"),
-				DAN_III: bgc("var(--bs-warning)", "var(--bs-dark)"),
-				DAN_IV: bgc("red", "var(--bs-light)"),
-				DAN_V: bgc("purple", "var(--bs-light)"),
-				DAN_INFINITE: bgc("lightgoldenrodyellow", "var(--bs-dark)"),
+				DAN_I: bgc("#3b66f1", "var(--bs-light)"),
+				DAN_II: bgc("#0eb893", "var(--bs-light)"),
+				DAN_III: bgc("#f1aa00", "var(--bs-light)"),
+				DAN_IV: bgc("#e13a28", "var(--bs-light)"),
+				DAN_V: bgc("#4b0a72", "var(--bs-light)"),
+				DAN_INFINITE: bgc("#c1b8cd", "var(--bs-dark)"),
 			},
 		},
 		enumColours: {
@@ -90,10 +106,17 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 				SSS: COLOUR_SET.teal,
 				"SSS+": COLOUR_SET.white,
 			},
-			lamp: {
-				FAILED: COLOUR_SET.red,
-				CLEAR: COLOUR_SET.paleGreen,
-				"FULL COMBO": COLOUR_SET.paleBlue,
+			clearLamp: {
+				FAILED: COLOUR_SET.vibrantRed,
+				CLEAR: COLOUR_SET.green,
+				HARD: "#E12AFB",
+				BRAVE: "#A21CAF",
+				ABSOLUTE: "#701A75",
+				CATASTROPHY: "#4A044E",
+			},
+			noteLamp: {
+				NONE: COLOUR_SET.gray,
+				"FULL COMBO": COLOUR_SET.darkGreen,
 				"ALL JUSTICE": COLOUR_SET.gold,
 				"ALL JUSTICE CRITICAL": COLOUR_SET.white,
 			},
@@ -109,9 +132,16 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 		scoreHeaders: [
 			["Score", "Score", NumericSOV((x) => x.scoreData.score)],
 			["Judgements", "Hits", NumericSOV((x) => x.scoreData.score)],
-			["Lamp", "Lamp", NumericSOV((x) => x.scoreData.enumIndexes.lamp)],
+			[
+				"Lamp",
+				"Lamp",
+				NumericSOV(
+					(x) =>
+						(x.scoreData.enumIndexes.noteLamp << 3) + x.scoreData.enumIndexes.clearLamp
+				),
+			],
 		],
-		scoreCoreCells: ({ sc, chart }) => (
+		scoreCoreCells: ({ sc }) => (
 			<>
 				<MillionsScoreCell
 					score={sc.scoreData.score}
@@ -119,12 +149,18 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 					colour={GetEnumColour(sc, "grade")}
 				/>
 				<CHUNITHMJudgementCell score={sc} />
-				<LampCell lamp={sc.scoreData.lamp} colour={GetEnumColour(sc, "lamp")} />
+				<CHUNITHMLampCell
+					clearLamp={sc.scoreData.clearLamp}
+					noteLamp={sc.scoreData.noteLamp}
+					clearLampColour={GetEnumColour(sc, "clearLamp")}
+					noteLampColour={GetEnumColour(sc, "noteLamp")}
+				/>
 			</>
 		),
 		ratingCell: ({ sc, rating }) => <RatingCell score={sc} rating={rating} />,
 	},
 	"jubeat:Single": {
+		sessionImportantScoreCount: 30,
 		enumIcons: defaultEnumIcons,
 		enumColours: {
 			lamp: {
@@ -173,7 +209,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 			["Judgements", "Hits", NumericSOV((x) => x?.scoreData.musicRate ?? -Infinity)],
 			["Lamp", "Lamp", NumericSOV((x) => x?.scoreData.enumIndexes.lamp ?? -Infinity)],
 		],
-		scoreCoreCells: ({ sc, chart }) => (
+		scoreCoreCells: ({ sc }) => (
 			<>
 				<JubeatScoreCell sc={sc} />
 				<JubeatJudgementCell score={sc} />
@@ -183,6 +219,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 		ratingCell: ({ sc }) => <JubilityCell score={sc} />,
 	},
 	"maimai:Single": {
+		sessionImportantScoreCount: 30,
 		enumIcons: defaultEnumIcons,
 		enumColours: {
 			lamp: {
@@ -283,6 +320,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 		ratingCell: ({ sc, rating }) => <RatingCell score={sc} rating={rating} />,
 	},
 	"maimaidx:Single": {
+		sessionImportantScoreCount: 50,
 		enumIcons: defaultEnumIcons,
 		enumColours: {
 			lamp: {
@@ -406,6 +444,17 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 			"DX Re:Master": COLOUR_SET.white,
 		},
 		ratingSystems: [],
+		ratingAlgNameOverrides: {
+			score: {
+				rate: "Rating",
+			},
+			session: {
+				rate: "Rating",
+			},
+			profile: {
+				naiveRate: "NaiveRating",
+			},
+		},
 		scoreHeaders: [
 			["Percent", "%", NumericSOV((x) => x?.scoreData.percent)],
 			["Judgements", "Hits", NumericSOV((x) => x?.scoreData.percent)],
@@ -417,6 +466,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 					colour={GetEnumColour(sc, "grade")}
 					grade={sc.scoreData.grade}
 					percent={sc.scoreData.percent}
+					percentDp={4}
 				/>
 				<MaimaiDXJudgementCell score={sc} />
 				<LampCell lamp={sc.scoreData.lamp} colour={GetEnumColour(sc, "lamp")} />
@@ -425,6 +475,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 		ratingCell: ({ sc, rating }) => <RatingCell score={sc} rating={rating} />,
 	},
 	"museca:Single": {
+		sessionImportantScoreCount: 20,
 		enumIcons: defaultEnumIcons,
 		enumColours: {
 			grade: {
@@ -458,7 +509,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 			["Near - Miss", "Nr. Ms.", NumericSOV((x) => x?.scoreData.score)],
 			["Lamp", "Lamp", NumericSOV((x) => x?.scoreData.enumIndexes.lamp)],
 		],
-		scoreCoreCells: ({ sc, chart }) => (
+		scoreCoreCells: ({ sc }) => (
 			<>
 				<MillionsScoreCell
 					score={sc.scoreData.score}
@@ -472,6 +523,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 		ratingCell: ({ sc, rating }) => <RatingCell score={sc} rating={rating} />,
 	},
 	"popn:9B": {
+		sessionImportantScoreCount: 20,
 		enumIcons: {
 			grade: "sort-alpha-up",
 			lamp: "lightbulb",
@@ -547,6 +599,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 		ratingCell: ({ sc, rating }) => <RatingCell score={sc} rating={rating} />,
 	},
 	"wacca:Single": {
+		sessionImportantScoreCount: 50,
 		enumIcons: defaultEnumIcons,
 		enumColours: {
 			grade: {
@@ -631,6 +684,7 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 		ratingCell: ({ sc, rating }) => <RatingCell score={sc} rating={rating} />,
 	},
 	"itg:Stamina": {
+		sessionImportantScoreCount: 10,
 		enumIcons: defaultEnumIcons,
 		enumColours: {
 			grade: {
@@ -658,27 +712,13 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 			// this game has dynamic difficulties. Formatting is handled elsewhere.
 		},
 		classColours: {},
-		ratingSystems: [
-			CreateRatingSys(
-				"BPM",
-				"How fast are the streams in this chart?",
-				(c) => c.data.streamBPM,
-				(c) => c.data.streamBPM?.toString(),
-				(c) => undefined,
-				(s) => [
-					s.scoreData.lamp === "FAILED"
-						? `Failed ${s.scoreData.survivedPercent.toFixed(2)}%`
-						: s.scoreData.lamp,
-					s.scoreData.lamp !== "FAILED",
-				]
-			),
-		],
+		ratingSystems: [],
 		scoreHeaders: [
 			["Score", "Score", NumericSOV((x) => x.scoreData.finalPercent)],
 			["Judgements", "Hits", NumericSOV((x) => x.scoreData.scorePercent)],
 			["Lamp", "Lamp", NumericSOV((x) => x.scoreData.enumIndexes.lamp)],
 		],
-		scoreCoreCells: ({ sc, chart }) => (
+		scoreCoreCells: ({ sc }) => (
 			<>
 				<ScoreCell
 					colour={GetEnumColour(sc, "grade")}
@@ -711,6 +751,145 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 								: sc.calculatedData.blockRating}
 						</strong>
 					</td>
+				) : (
+					<RatingCell score={sc} rating={rating} />
+				)}
+			</>
+		),
+	},
+	"ongeki:Single": {
+		sessionImportantScoreCount: 45,
+		enumIcons: {
+			grade: "sort-alpha-up",
+			noteLamp: "lightbulb",
+			bellLamp: "lightbulb",
+		},
+		classColours: {
+			colour: {
+				BLUE: bgc("var(--bs-info)", "var(--bs-light)"),
+				GREEN: bgc("green", "var(--bs-light)"),
+				ORANGE: bgc("orange", "var(--bs-dark)"),
+				RED: bgc("red", "var(--bs-light)"),
+				PURPLE: bgc("purple", "var(--bs-light)"),
+				COPPER: bgc("sienna", "var(--bs-light)"),
+				SILVER: bgc("gray", "var(--bs-light)"),
+				GOLD: bgc("var(--bs-warning)", "var(--bs-dark)"),
+				PLATINUM: bgc("silver", "var(--bs-dark)"),
+				RAINBOW: {
+					background: "linear-gradient(-45deg, #ff73d6 20%, #00ffff 50%,  #ebfb2a 80%)",
+					color: "var(--bs-dark)",
+				},
+				RAINBOW_SHINY: {
+					background: "linear-gradient(-45deg, #ff73d6 20%, #00ffff 50%,  #ebfb2a 80%)",
+					color: "var(--bs-dark)",
+					shine: true,
+				},
+				RAINBOW_EX: {
+					background:
+						"linear-gradient(-45deg, #df7e85 20%, #efef51 40%, #4bee83 60%, #70bdd7 80%)",
+					color: "var(--bs-dark)",
+					shine: true,
+				},
+				RAINBOW_EX_TRUE: { ...RAINBOW_EX_GRADIENT, shine: true },
+			},
+		},
+		enumColours: {
+			grade: {
+				D: COLOUR_SET.red,
+				C: COLOUR_SET.purple,
+				B: COLOUR_SET.paleBlue,
+				BB: COLOUR_SET.blue,
+				BBB: COLOUR_SET.vibrantBlue,
+				A: COLOUR_SET.paleGreen,
+				AA: COLOUR_SET.green,
+				AAA: COLOUR_SET.vibrantGreen,
+				S: COLOUR_SET.teal,
+				SS: COLOUR_SET.paleOrange,
+				SSS: COLOUR_SET.gold,
+				"SSS+": COLOUR_SET.white,
+			},
+			noteLamp: {
+				LOSS: COLOUR_SET.red,
+				CLEAR: COLOUR_SET.green,
+				"FULL COMBO": COLOUR_SET.gold,
+				"ALL BREAK": COLOUR_SET.white,
+				"ALL BREAK+": COLOUR_SET.vibrantBlue,
+			},
+			bellLamp: {
+				NONE: COLOUR_SET.gray,
+				"FULL BELL": COLOUR_SET.gold,
+			},
+		},
+		difficultyColours: {
+			BASIC: COLOUR_SET.green,
+			ADVANCED: COLOUR_SET.orange,
+			EXPERT: COLOUR_SET.vibrantPink,
+			MASTER: COLOUR_SET.purple,
+			LUNATIC: COLOUR_SET.white,
+		},
+		ratingSystems: [],
+		ratingAlgNameOverrides: {
+			score: {
+				rating: "ClassicRating",
+			},
+			session: {
+				naiveRating: "NaiveClassicRating",
+			},
+			profile: {
+				naiveRating: "NaiveRatingClassic",
+			},
+		},
+		scoreHeaders: [
+			[
+				"Score",
+				"Score",
+				NumericSOV((x) => x.scoreData.score * 10000 + x.scoreData.platinumScore),
+			],
+			[
+				"Platinum Score",
+				"P-Score",
+				NumericSOV((x) => x.scoreData.platinumStars * 100000 + x.scoreData.platinumScore),
+			],
+			["Judgements", "Notes", NumericSOV((x) => x.scoreData.judgements.cbreak ?? 0)],
+			[
+				"Hits",
+				"Hits",
+				NumericSOV((x) => x.scoreData.optional.damage ?? Number.MAX_SAFE_INTEGER, true),
+			],
+			[
+				"Lamp",
+				"Lamp",
+				NumericSOV(
+					(x) =>
+						(x.scoreData.enumIndexes.noteLamp << 8) + x.scoreData.enumIndexes.bellLamp
+				),
+			],
+		],
+		scoreCoreCells: ({ sc, chart }) => (
+			<>
+				<MillionsScoreCell
+					score={sc.scoreData.score}
+					grade={sc.scoreData.grade}
+					colour={GetEnumColour(sc, "grade")}
+				/>
+				<OngekiPlatinumCell
+					platinumScore={sc.scoreData.platinumScore}
+					maxPlatScore={chart.data.maxPlatScore}
+					stars={sc.scoreData.platinumStars}
+				/>
+				<OngekiJudgementCell score={sc} />
+				<OngekiDamageCell damage={sc.scoreData.optional.damage} />
+				<OngekiLampCell
+					noteLamp={sc.scoreData.noteLamp}
+					bellLamp={sc.scoreData.bellLamp}
+					colour={GetEnumColour(sc, "noteLamp")}
+				/>
+			</>
+		),
+		ratingCell: ({ sc, rating }) => (
+			<>
+				{rating === "scoreRating" ? (
+					<OngekiScoreRatingCell score={sc} />
 				) : (
 					<RatingCell score={sc} rating={rating} />
 				)}

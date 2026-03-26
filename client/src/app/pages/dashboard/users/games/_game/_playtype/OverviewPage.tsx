@@ -1,5 +1,4 @@
-import { ClumpActivity } from "util/activity";
-import { ToFixedFloor, UppercaseFirst } from "util/misc";
+import { FormatGPTProfileRating, FormatGPTProfileRatingName, UppercaseFirst } from "util/misc";
 import { FormatDate, MillisToSince } from "util/time";
 import TimelineChart from "components/charts/TimelineChart";
 import useSetSubheader from "components/layout/header/useSetSubheader";
@@ -17,7 +16,14 @@ import SelectButton from "components/util/SelectButton";
 import { useProfileRatingAlg } from "components/util/useScoreRatingAlg";
 import { DateTime } from "luxon";
 import React, { useMemo, useState } from "react";
-import { FormatGame, GetGameConfig, GetGamePTConfig, UserGameStats } from "tachi-common";
+import {
+	FormatGame,
+	Game,
+	GetGameConfig,
+	GetGamePTConfig,
+	Playtype,
+	UserGameStats,
+} from "tachi-common";
 import { UGPTHistory } from "types/api-returns";
 import { GamePT, SetState, UGPT } from "types/react";
 import FormSelect from "react-bootstrap/FormSelect";
@@ -100,9 +106,9 @@ function UserHistory({
 
 	const propName = useMemo(() => {
 		if (mode === "rating" && rating) {
-			return UppercaseFirst(rating);
+			return FormatGPTProfileRatingName(game, playtype, rating);
 		} else if (mode === "ranking") {
-			return `${UppercaseFirst(rating)} Ranking`;
+			return `${FormatGPTProfileRatingName(game, playtype, rating)} Ranking`;
 		}
 
 		return UppercaseFirst(mode);
@@ -110,7 +116,13 @@ function UserHistory({
 
 	const currentPropValue = useMemo(() => {
 		if (mode === "rating" && rating) {
-			return data[0].ratings[rating] ? ToFixedFloor(data[0].ratings[rating]!, 2) : "N/A";
+			const ratingValue = data[0].ratings[rating];
+
+			if (!ratingValue) {
+				return "N/A";
+			}
+
+			return FormatGPTProfileRating(game, playtype, rating, ratingValue);
 		} else if (mode === "ranking") {
 			return (
 				<>
@@ -168,7 +180,7 @@ function UserHistory({
 							>
 								{Object.keys(gptConfig.profileRatingAlgs).map((e) => (
 									<option key={e} value={e}>
-										{UppercaseFirst(e)}
+										{FormatGPTProfileRatingName(game, playtype, e)}
 									</option>
 								))}
 							</FormSelect>
@@ -221,14 +233,14 @@ function UserHistory({
 							>
 								{Object.keys(gptConfig.profileRatingAlgs).map((e) => (
 									<option key={e} value={e}>
-										{UppercaseFirst(e)}
+										{FormatGPTProfileRatingName(game, playtype, e)}
 									</option>
 								))}
 							</FormSelect>
 						</div>
 					)}
 
-					<RatingTimeline {...{ data, rating }} />
+					<RatingTimeline {...{ game, playtype, data, rating }} />
 				</>
 			)}
 		</>
@@ -236,9 +248,13 @@ function UserHistory({
 }
 
 function RatingTimeline({
+	game,
+	playtype,
 	data,
 	rating,
 }: {
+	game: Game;
+	playtype: Playtype;
 	data: UGPTHistory;
 	rating: keyof UserGameStats["ratings"];
 }) {
@@ -259,13 +275,20 @@ function RatingTimeline({
 				tickSize: 5,
 				tickPadding: 5,
 				tickRotation: 0,
-				format: (y) => (y ? ToFixedFloor(y, 2) : "N/A"),
+				format: (y) => (y ? FormatGPTProfileRating(game, playtype, rating, y) : "N/A"),
 			}}
 			tooltip={(p) => (
 				<ChartTooltip>
 					<div>
-						{p.point.data.y ? ToFixedFloor(p.point.data.y as number, 2) : "N/A"}{" "}
-						{UppercaseFirst(rating)}
+						{p.point.data.y
+							? FormatGPTProfileRating(
+									game,
+									playtype,
+									rating,
+									p.point.data.y as number
+							  )
+							: "N/A"}{" "}
+						{FormatGPTProfileRatingName(game, playtype, rating)}
 					</div>
 					<small className="text-body-secondary">
 						{MillisToSince(+p.point.data.xFormatted)}

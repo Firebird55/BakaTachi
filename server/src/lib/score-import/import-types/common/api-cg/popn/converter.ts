@@ -2,6 +2,7 @@ import { FormatCGService } from "../util";
 import {
 	InternalFailure,
 	InvalidScoreFailure,
+	SkipScoreFailure,
 	SongOrChartNotFoundFailure,
 } from "lib/score-import/framework/common/converter-failures";
 import { ParseDateFromString } from "lib/score-import/framework/common/score-utils";
@@ -21,6 +22,10 @@ export const ConverterAPICGPopn: ConverterFunction<CGPopnScore, CGContext> = asy
 ) => {
 	const difficulty = ConvertDifficulty(data.difficulty);
 	const version = ConvertVersion(data.version);
+
+	if (data.score > 100_000) {
+		throw new InvalidScoreFailure(`Score is > 100_000 (got ${data.score})`);
+	}
 
 	const chart = await FindChartOnInGameIDVersion(
 		"popn",
@@ -83,6 +88,9 @@ function ConvertDifficulty(diff: number): Difficulties["popn:9B"] {
 			return "Hyper";
 		case 3:
 			return "EX";
+		case 4:
+		case 5:
+			throw new SkipScoreFailure("Battle Mode scores are not supported!");
 	}
 
 	throw new InvalidScoreFailure(`Invalid difficulty of ${diff} - Could not convert.`);
@@ -90,6 +98,8 @@ function ConvertDifficulty(diff: number): Difficulties["popn:9B"] {
 
 function ConvertVersion(ver: number): Versions["popn:9B"] {
 	switch (ver) {
+		case 27:
+			return "unilab";
 		case 26:
 			return "kaimei";
 		case 25:

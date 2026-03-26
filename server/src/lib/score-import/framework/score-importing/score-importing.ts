@@ -9,7 +9,11 @@ import { AppendLogCtx } from "lib/logger/logger";
 import { GetGPTString } from "tachi-common";
 import { ClassToObject } from "utils/misc";
 import type { ConverterFnSuccessReturn, ConverterFunction } from "../../import-types/common/types";
-import type { ConverterFailure, SongOrChartNotFoundFailure } from "../common/converter-failures";
+import type {
+	AmbiguousTitleFailure,
+	ConverterFailure,
+	SongOrChartNotFoundFailure,
+} from "../common/converter-failures";
 import type { DryScore } from "../common/types";
 import type { KtLogger } from "lib/logger/logger";
 import type { ScoreImportJob } from "lib/score-import/worker/types";
@@ -223,6 +227,21 @@ export async function ImportIterableDatapoint<D, C>(
 				};
 			}
 
+			case "AmbiguousTitle": {
+				const atErr = err as AmbiguousTitleFailure;
+
+				logger.info(`AmbiguousTitleFailure: ${err.message}`, { err: ClassToObject(err) });
+
+				return {
+					type: "AmbiguousTitle",
+					success: false,
+					message: err.message,
+					content: {
+						title: atErr.title,
+					},
+				};
+			}
+
 			case "SkipScore":
 				return null;
 
@@ -299,7 +318,7 @@ async function HydrateCheckAndInsertScore(
 ): Promise<ScoreDocument | null> {
 	const gptString = GetGPTString(dryScore.game, chart.playtype);
 
-	const scoreID = CreateScoreID(gptString, userID, dryScore, chart.chartID);
+	const scoreID = CreateScoreID(gptString, userID, dryScore, chart.chartID, importLogger);
 
 	// sub-context the logger so the below logs are more accurate
 	const logger = AppendLogCtx(scoreID, importLogger);

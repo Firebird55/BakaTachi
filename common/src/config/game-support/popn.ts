@@ -105,6 +105,7 @@ export const POPN_9B_CONF = {
 		naiveClassPoints: {
 			description:
 				"A naive average of your best 20 scores. This is different to in game class points, as that is affected by recent scores, and not just your best scores.",
+			associatedScoreAlgs: ["classPoints"],
 		},
 	},
 
@@ -128,6 +129,7 @@ export const POPN_9B_CONF = {
 		class: {
 			type: "DERIVED",
 			values: PopnClasses,
+			minimumRelevantValue: "GOD",
 		},
 	},
 
@@ -136,6 +138,7 @@ export const POPN_9B_CONF = {
 	versions: {
 		peace: "peace",
 		kaimei: "Kaimei Riddles",
+		unilab: "Unilab",
 	},
 
 	chartData: z.strictObject({

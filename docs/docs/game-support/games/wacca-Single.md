@@ -32,7 +32,7 @@ For more information on what metrics are and how they work, see [TODO]!
 
 ## Judgements
 
-The folowing judgements are defined:
+The following judgements are defined:
 
 - `marvelous`
 - `great`
@@ -55,12 +55,9 @@ The folowing judgements are defined:
 
 ### Profile Rating Algorithms
 
-The default rating algorithm is `naiveRate`.
-
 | Name | Description |
 | :: | :: |
 | `naiveRate` | A naive rating algorithm that just sums your 50 best scores. |
-| `rate` | Rating as it's implemented in game, taking 15 scores from the latest version and 35 from all old versions. |
 
 ## Difficulties
 
@@ -81,8 +78,10 @@ The default rating algorithm is `naiveRate`.
 | ID | Pretty Name |
 | :: | :: |
 | `reverse` | REVERSE |
+| `plus` | PLUS |
 
 ## Supported Match Types
 
 - `songTitle`
 - `tachiSongID`
+- `inGameID`

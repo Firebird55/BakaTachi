@@ -35,6 +35,7 @@ export function CreateDefaultScoreSearchParams<GPT extends GPTString = GPTString
 		difficulty: (x) => x.__related.chart.difficulty,
 		level: (x) => x.__related.chart.levelNum,
 		highlight: (x) => !!x.highlight,
+		service: (x) => x.service,
 		...GetMetricSearchParams(game, playtype),
 		...CreateCalcDataSearchFns(gptConfig),
 	};
@@ -62,8 +63,23 @@ export function GetMetricSearchParams(
 		switch (conf.type) {
 			case "ENUM":
 				searchFns[metric] = {
-					// @ts-expect-error lol this is fine pls
-					valueGetter: (x) => kMapper(x)?.scoreData[metric] ?? null,
+					valueGetter: (x) => {
+						// @ts-expect-error lol this is fine pls
+						const sv = kMapper(x)?.scoreData[metric];
+
+						if (sv === undefined) {
+							return null;
+						}
+
+						// @ts-expect-error lol this is fine pls
+						const dv = kMapper(x)?.scoreData.enumIndexes[metric];
+
+						if (dv === undefined) {
+							return null;
+						}
+
+						return [sv, dv];
+					},
 					strToNum: HumanFriendlyStrToEnumIndex(game, playtype, metric),
 				};
 				break;
