@@ -12,6 +12,7 @@ import { MAIMAI_CONF, MAIMAI_SINGLE_CONF } from "./game-support/maimai";
 import { MAIMAI_DX_CONF, MAIMAI_DX_SINGLE_CONF } from "./game-support/maimai-dx";
 import { MUSECA_CONF, MUSECA_SINGLE_CONF } from "./game-support/museca";
 import { ONGEKI_CONF, ONGEKI_SINGLE_CONF } from "./game-support/ongeki";
+import { PIU_CONF, PIU_DOUBLE_CONF, PIU_SINGLE_CONF } from "./game-support/piu";
 import { PMS_CONF, PMS_CONTROLLER_CONF, PMS_KEYBOARD_CONF } from "./game-support/pms";
 import { POPN_9B_CONF, POPN_CONF } from "./game-support/popn";
 import { SDVX_CONF, SDVX_SINGLE_CONF } from "./game-support/sdvx";
@@ -52,6 +53,7 @@ export const GAME_CONFIGS = {
 	arcaea: ARCAEA_CONF,
 	ongeki: ONGEKI_CONF,
 	ddr: DDR_CONF,
+	piu: PIU_CONF,
 } as const satisfies Record<string, INTERNAL_GAME_CONFIG>;
 
 /**
@@ -102,6 +104,8 @@ export const GAME_PT_CONFIGS = {
 	"ongeki:Single": ONGEKI_SINGLE_CONF,
 	"ddr:SP": DDR_SP_CONF,
 	"ddr:DP": DDR_DP_CONF,
+	"piu:Single": PIU_SINGLE_CONF,
+	"piu:Double": PIU_DOUBLE_CONF,
 } as const satisfies Record<GPTString, INTERNAL_GAME_PT_CONFIG>;
 
 /**

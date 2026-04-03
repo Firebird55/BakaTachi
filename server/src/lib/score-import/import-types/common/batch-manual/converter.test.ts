@@ -103,6 +103,198 @@ t.test("#ResolveSongAndChart", (t) => {
 		t.end();
 	});
 
+	t.test("Should resolve PIU rerates onto one canonical chart across versions.", async (t) => {
+		const xxRes = await ResolveSongAndChart(
+			{
+				matchType: "songTitle",
+				identifier: "Super Fantasy",
+				difficulty: "11",
+				game: "piu",
+				playtype: "Double",
+				version: "XX",
+			},
+			logger
+		);
+
+		t.hasStrict(xxRes, {
+			song: { id: 288, title: "Super Fantasy" },
+			chart: {
+				chartID: "2842951845e49a4ba4c2bf3d99f00bfcfe689b33",
+				songID: 288,
+				playtype: "Double",
+				level: "12",
+				versions: ["XX", "Phoenix"],
+			},
+		});
+
+		const phoenixRes = await ResolveSongAndChart(
+			{
+				matchType: "songTitle",
+				identifier: "Super Fantasy",
+				difficulty: "12",
+				game: "piu",
+				playtype: "Double",
+				version: "Phoenix",
+			},
+			logger
+		);
+
+		t.hasStrict(phoenixRes, {
+			song: { id: 288, title: "Super Fantasy" },
+			chart: {
+				chartID: "2842951845e49a4ba4c2bf3d99f00bfcfe689b33",
+				songID: 288,
+				playtype: "Double",
+				level: "12",
+				versions: ["XX", "Phoenix"],
+			},
+		});
+
+		t.end();
+	});
+
+	t.test("Should resolve PIU tachiSongID lookups with versioned levels.", async (t) => {
+		const xxRes = await ResolveSongAndChart(
+			{
+				matchType: "tachiSongID",
+				identifier: "8",
+				difficulty: "10",
+				game: "piu",
+				playtype: "Single",
+				version: "XX",
+			},
+			logger
+		);
+
+		t.hasStrict(xxRes, {
+			song: { id: 8, title: "Final Audition 2" },
+			chart: {
+				chartID: "d396e318d0221701583a3e5fec8e1dd18be9e951",
+				songID: 8,
+				playtype: "Single",
+				level: "12",
+				versions: ["XX", "Phoenix"],
+			},
+		});
+
+		const phoenixRes = await ResolveSongAndChart(
+			{
+				matchType: "tachiSongID",
+				identifier: "8",
+				difficulty: "12",
+				game: "piu",
+				playtype: "Single",
+				version: "Phoenix",
+			},
+			logger
+		);
+
+		t.hasStrict(phoenixRes, {
+			song: { id: 8, title: "Final Audition 2" },
+			chart: {
+				chartID: "d396e318d0221701583a3e5fec8e1dd18be9e951",
+				songID: 8,
+				playtype: "Single",
+				level: "12",
+				versions: ["XX", "Phoenix"],
+			},
+		});
+
+		t.end();
+	});
+
+	t.test("Should respect PIU cut suffix aliases when resolving titles.", async (t) => {
+		const shortCutRes = await ResolveSongAndChart(
+			{
+				matchType: "songTitle",
+				identifier: "BanYa / Final Audition 2 - SHORT CUT -",
+				difficulty: "17",
+				game: "piu",
+				playtype: "Single",
+				version: "Phoenix",
+			},
+			logger
+		);
+
+		t.hasStrict(shortCutRes, {
+			song: { id: 147, title: "Final Audition 2 - SHORT CUT -" },
+			chart: {
+				chartID: "440d5adc6a388828706b14532d6f5a8445ab9c77",
+				songID: 147,
+				playtype: "Single",
+				level: "17",
+			},
+		});
+
+		const workbookStyleShortCutRes = await ResolveSongAndChart(
+			{
+				matchType: "songTitle",
+				identifier: "Mismatched Artist / Final Audition 2 - SHORT CUT",
+				difficulty: "17",
+				game: "piu",
+				playtype: "Single",
+				version: "Phoenix",
+			},
+			logger
+		);
+
+		t.hasStrict(workbookStyleShortCutRes, {
+			song: { id: 147, title: "Final Audition 2 - SHORT CUT -" },
+			chart: {
+				chartID: "440d5adc6a388828706b14532d6f5a8445ab9c77",
+				songID: 147,
+				playtype: "Single",
+				level: "17",
+			},
+		});
+
+		const normalRes = await ResolveSongAndChart(
+			{
+				matchType: "songTitle",
+				identifier: "Gargoyle",
+				difficulty: "22",
+				game: "piu",
+				playtype: "Single",
+				version: "Phoenix",
+			},
+			logger
+		);
+
+		t.hasStrict(normalRes, {
+			song: { id: 201, title: "Gargoyle" },
+			chart: {
+				chartID: "0fe07d372e55feef427568e3d49e3876c522b98f",
+				songID: 201,
+				playtype: "Single",
+				level: "22",
+			},
+		});
+
+		const fullSongRes = await ResolveSongAndChart(
+			{
+				matchType: "songTitle",
+				identifier: "Gargoyle - FULL SONG -",
+				difficulty: "23",
+				game: "piu",
+				playtype: "Single",
+				version: "Phoenix",
+			},
+			logger
+		);
+
+		t.hasStrict(fullSongRes, {
+			song: { id: 596, title: "Gargoyle - FULL SONG -" },
+			chart: {
+				chartID: "bef0f2e69c26ff8c32e69707737a6f92991ddf3c",
+				songID: 596,
+				playtype: "Single",
+				level: "23",
+			},
+		});
+
+		t.end();
+	});
+
 	t.test("Should resolve for the sdvx inGameID if matchType is sdvxInGameID", async (t) => {
 		const res = await ResolveSongAndChart(
 			{

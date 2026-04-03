@@ -54,6 +54,7 @@ async function RunOnInit() {
 			logger.info("First time setup in LOCAL DEV: Creating an admin user for you.");
 			await AddNewUser("admin", "password", "admin@example.com", 1);
 			await db.users.update({ id: 1 }, { $set: { authLevel: UserAuthLevels.ADMIN } });
+			await db.counters.update({ counterName: "users" }, { $set: { value: 2 } });
 			logger.info("Done! You have an admin user with password 'password'");
 		}
 	}

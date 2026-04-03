@@ -19,6 +19,7 @@ import {
 	FindSDVXChartOnInGameIDVersion,
 } from "utils/queries/charts";
 import { FindSongOnID, FindSongOnTitleInsensitive } from "utils/queries/songs";
+import { FindPIUChartWithVersionedDifficulty, ResolvePIUSongAndChartOnTitle } from "../piu";
 import type { DryScore } from "../../../framework/common/types";
 import type { ConverterFunction } from "../types";
 import type { BatchManualContext } from "./types";
@@ -250,6 +251,16 @@ export async function ResolveSongAndChart(
 		}
 
 		case "songTitle": {
+			if (game === "piu") {
+				return ResolvePIUSongAndChartOnTitle(
+					resolver as MatchTypeResolverWithDifficulty & {
+						game: "piu";
+						playtype: "Single" | "Double";
+						version: Versions["piu:Single"] | null;
+					}
+				);
+			}
+
 			const song = await FindSongOnTitleInsensitive(
 				game,
 				resolver.identifier,
@@ -511,7 +522,14 @@ export async function ResolveChartFromSong(
 
 	let chart;
 
-	if (resolver.version) {
+	if (game === "piu") {
+		chart = await FindPIUChartWithVersionedDifficulty(
+			song.id,
+			resolver.playtype as "Single" | "Double",
+			difficulty,
+			resolver.version as Versions["piu:Single"] | null
+		);
+	} else if (resolver.version) {
 		chart = await FindChartWithPTDFVersion(
 			game,
 			song.id,

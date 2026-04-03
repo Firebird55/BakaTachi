@@ -51,7 +51,8 @@
 			"maimaidx",
 			"itg",
 			"ongeki",
-			"ddr"
+			"ddr",
+			"piu"
 		],
 		IMPORT_TYPES: [
 			"file/eamusement-iidx-csv",

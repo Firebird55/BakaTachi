@@ -50,3 +50,7 @@ failed-tests.log
 I_HAVE_BOOTSTRAPPED_OK
 # new bootstrap flag
 BOOTSTRAP_OK
+
+# Local-only PIU helper scripts
+/dev/windows/piu-gdpr-to-batch-manual.local.ps1
+/dev/windows/piu-recent-csv-to-batch-manual.local.ps1

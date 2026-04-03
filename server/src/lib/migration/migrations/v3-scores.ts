@@ -48,7 +48,7 @@ const IIDX_MV: ScoreMover<GPTStrings["iidx"]> = (old) => ({
 	},
 });
 
-type NeutralGames = GPTStrings["chunithm" | "museca" | "sdvx" | "usc" | "wacca"];
+type NeutralGames = GPTStrings["chunithm" | "museca" | "piu" | "sdvx" | "usc" | "wacca"];
 
 const _NEUTRAL_MV = (old: OldScoreData): DryScoreData<NeutralGames> => ({
 	judgements: old.judgements,
@@ -88,6 +88,8 @@ const scoreMovers: ScoreMovers = {
 	"sdvx:Single": NEUTRAL_MV,
 	"wacca:Single": NEUTRAL_MV,
 	"museca:Single": NEUTRAL_MV,
+	"piu:Single": NEUTRAL_MV,
+	"piu:Double": NEUTRAL_MV,
 	"ddr:SP": NEUTRAL_MV,
 	"ddr:DP": NEUTRAL_MV,
 	"maimai:Single": (old) => ({

@@ -10,6 +10,7 @@ import { MAIMAI_IMPL } from "./games/maimai";
 import { MAIMAIDX_IMPL } from "./games/maimaidx";
 import { MUSECA_IMPL } from "./games/museca";
 import { ONGEKI_IMPL } from "./games/ongeki";
+import { PIU_DOUBLE_IMPL, PIU_SINGLE_IMPL } from "./games/piu";
 import { POPN_9B_IMPL } from "./games/popn";
 import { SDVX_IMPL } from "./games/sdvx";
 import { USC_CONTROLLER_IMPL, USC_KEYBOARD_IMPL } from "./games/usc";
@@ -48,4 +49,6 @@ export const GPT_SERVER_IMPLEMENTATIONS: GPTImplementations = {
 	"ongeki:Single": ONGEKI_IMPL,
 	"ddr:SP": DDR_IMPL,
 	"ddr:DP": DDR_IMPL,
+	"piu:Single": PIU_SINGLE_IMPL,
+	"piu:Double": PIU_DOUBLE_IMPL,
 };

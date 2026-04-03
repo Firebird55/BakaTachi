@@ -413,6 +413,7 @@ function InputAlert({ game }: { game: Game }) {
 			case "wacca":
 			case "ongeki":
 			case "ddr":
+			case "piu":
 				return (
 					<>
 						<strong>Scores must be achieved on an arcade-size controller!</strong>

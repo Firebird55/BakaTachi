@@ -30,7 +30,9 @@ function DeriveMetrics<GPT extends GPTString>(
 
 	const gptConfig = GetGPTConfig(gpt);
 
-	for (const [key, fn] of Object.entries(deriverImplementation)) {
+	for (const [key, fn] of Object.entries(deriverImplementation) as Array<
+		[string, GPTDerivers<GPT>[keyof GPTDerivers<GPT>]]
+	>) {
 		const metricConfig = gptConfig.derivedMetrics[key];
 
 		if (!metricConfig) {

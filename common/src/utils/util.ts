@@ -4,6 +4,7 @@ import {
 	GetGamePTConfig,
 	GetSpecificGPTConfig,
 } from "../config/config";
+import { GetPIUPlaytypeShort } from "../lib/piu";
 import type { GradeBoundary } from "../constants/grade-boundaries";
 import type {
 	BMSCourseDocument,
@@ -60,6 +61,10 @@ export function FormatDifficulty(chart: ChartDocument, game: Game): string {
 		return `${shortDiff} ${chart.level}`;
 	}
 
+	if (game === "piu") {
+		return `${chart.playtype} ${chart.level}`;
+	}
+
 	const gameConfig = GetGameConfig(game);
 
 	if (gameConfig.playtypes.length > 1) {
@@ -81,6 +86,10 @@ export function FormatDifficultyShort(chart: ChartDocument, game: Game): string 
 		const itgChart = chart as ChartDocument<"itg:Stamina">;
 
 		return `S${itgChart.data.difficultyTag} ${chart.level}`;
+	}
+
+	if (game === "piu") {
+		return `${GetPIUPlaytypeShort(chart.playtype)}${chart.level}`;
 	}
 
 	if (gptConfig.difficulties.type === "DYNAMIC") {
@@ -133,6 +142,7 @@ export function FormatDifficultySearch(chart: ChartDocument, game: Game): string
 		case "chunithm":
 		case "ddr":
 		case "usc":
+		case "piu":
 			return chart.difficulty;
 		case "iidx":
 			return `${chart.playtype}${shortDiff}`;
@@ -213,6 +223,14 @@ export function FormatChart(
 		return `${itgSong.title}${itgSong.data.subtitle ? ` ${itgSong.data.subtitle}` : ""} ${
 			itgChart.data.difficultyTag
 		} ${level}`;
+	} else if (game === "piu") {
+		const diff = short ? GetPIUPlaytypeShort(chart.playtype) : chart.playtype;
+
+		if (!chart.isPrimary) {
+			return `${song.title} (${diff}${short ? "" : " "}${chart.level} ${chart.versions[0]})`;
+		}
+
+		return `${song.title} (${diff}${short ? "" : " "}${chart.level})`;
 	}
 
 	const gameConfig = GetGameConfig(game);

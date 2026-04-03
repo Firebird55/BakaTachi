@@ -31,6 +31,7 @@ import { SDVX_IMPL, USC_IMPL } from "./games/sdvx-usc";
 import { GITADORA_DORA_IMPL, GITADORA_GITA_IMPL } from "./games/gitadora";
 import { ARCAEA_TOUCH_IMPL } from "./games/arcaea";
 import { DDR_DP_IMPL, DDR_SP_IMPL } from "./games/ddr";
+import { PIU_DOUBLE_IMPL, PIU_SINGLE_IMPL } from "./games/piu";
 
 type GPTClientImplementations = {
 	[GPT in GPTString]: GPTClientImplementation<GPT>;
@@ -46,6 +47,8 @@ export const GPT_CLIENT_IMPLEMENTATIONS: GPTClientImplementations = {
 	"iidx:DP": IIDX_DP_IMPL,
 	"ddr:SP": DDR_SP_IMPL,
 	"ddr:DP": DDR_DP_IMPL,
+	"piu:Single": PIU_SINGLE_IMPL,
+	"piu:Double": PIU_DOUBLE_IMPL,
 	"chunithm:Single": {
 		sessionImportantScoreCount: 50,
 		enumIcons: {

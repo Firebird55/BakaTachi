@@ -48,6 +48,7 @@ function perToScore(goal: GoalDocument) {
 		case "maimai":
 		case "maimaidx":
 		case "pms":
+		case "piu":
 		case "itg":
 		case "arcaea":
 			throw new Error(`Cannot convert this percent to score for game ${goal.game}`);

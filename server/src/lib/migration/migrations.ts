@@ -13,6 +13,7 @@ import MarkFervidexAsWithoutIntent from "./migrations/mark-fervidex-as-without-i
 import MarkKsHookAsWithoutIntent from "./migrations/mark-kshook-as-without-intent";
 import NullLR2HookFailedBPs from "./migrations/null-lr2hook-failed-bps";
 import OngekiV2 from "./migrations/ongeki-v2";
+import PIUMergeRerates from "./migrations/piu-merge-rerates";
 import RemoveAbove100pc from "./migrations/remove-above-100pc";
 import RemoveIIDXBeginners from "./migrations/remove-iidx-beginners";
 import RemoveIIDX2dxtraBeginners from "./migrations/remove-iidx-extra-beginners";
@@ -59,6 +60,7 @@ const REGISTERED_MIGRATIONS: Array<Migration> =
 				SessionsToScoreIDs,
 				V3PropsMigration,
 				V3ScoresMigration,
+				PIUMergeRerates,
 				AddLockedAt,
 		  ];
 
