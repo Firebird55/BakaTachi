@@ -1,4 +1,4 @@
-export const PIU_VERSION_KEYS = ["XX", "Phoenix"] as const;
+export const PIU_VERSION_KEYS = ["Prime2", "XX", "Phoenix"] as const;
 
 export type PIUVersionKey = (typeof PIU_VERSION_KEYS)[number];
 

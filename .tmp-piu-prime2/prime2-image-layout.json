@@ -1,0 +1,417 @@
+{
+  "imagePath": "E:\\bemaniso\\Pump it Up\\PIU_PRIME2_INT_2.05.1-nodong-v2.img",
+  "partitions": [
+    {
+      "byteOffset": 1048576,
+      "index": 1,
+      "partitionTypeHex": "0x83",
+      "sectorCount": 6000640,
+      "sizeBytes": 3072327680,
+      "startLBA": 2048,
+      "volumeName": ""
+    },
+    {
+      "byteOffset": 3073376256,
+      "index": 2,
+      "partitionTypeHex": "0x83",
+      "sectorCount": 2097152,
+      "sizeBytes": 1073741824,
+      "startLBA": 6002688,
+      "volumeName": ""
+    },
+    {
+      "byteOffset": 4147118080,
+      "index": 3,
+      "partitionTypeHex": "0x83",
+      "sectorCount": 148897792,
+      "sizeBytes": 76235669504,
+      "startLBA": 8099840,
+      "volumeName": ""
+    }
+  ],
+  "runtimeLayout": {
+    "execContainsHFZipMarker": true,
+    "execContainsP500DbMarker": true,
+    "execContainsMountedGamePath": false,
+    "hasRootGameExec": true,
+    "hasRootXinitrc": true,
+    "hasSettingsPrime2Dat": false,
+    "hasSettingsPrime2RtDat": false,
+    "hasMountedGameDir": true,
+    "packageCount": 41,
+    "packageOrder": [
+      "cs_1565370424.bin",
+      "f2_1565372513.bin",
+      "f2_1578206887.bin",
+      "cs_1578207661.bin",
+      "cs_1582795238.bin",
+      "f2_1582800971.bin",
+      "f2_1584158577.bin",
+      "cs_1584240725.bin",
+      "f2_1587041989.bin",
+      "cs_1587104494.bin",
+      "f2_1588504872.bin",
+      "cs_1588561732.bin",
+      "f2_1590604629.bin",
+      "cs_1590860819.bin",
+      "f2_1590991299.bin",
+      "f2_1591434372.bin",
+      "cs_1591446902.bin",
+      "f2_1594653440.bin",
+      "cs_1594846411.bin",
+      "f2_1595036701.bin",
+      "cs_1595036724.bin",
+      "f2_1599438965.bin",
+      "cs_1599572628.bin",
+      "cs_1601330362.bin",
+      "cs_1601330437.bin",
+      "cs_1601336110.bin",
+      "f2_1601866562.bin",
+      "cs_1610782935.bin",
+      "f2_1614065207.bin",
+      "cs_1614172903.bin",
+      "f2_1614520073.bin",
+      "cs_1614583844.bin",
+      "f2_1618639334.bin",
+      "cs_1618639378.bin",
+      "f2_1619552733.bin",
+      "cs_1619553916.bin",
+      "f2_1622451221.bin",
+      "cs_1622451257.bin",
+      "f2_1622451737.bin",
+      "cs_1622451740.bin",
+      "f2_1649243844.bin"
+    ],
+    "xinitrc": "#!/bin/bash\nmkdir -p /SETTINGS/{DOWNLOAD,UPDATE}\nmkdir -p /SETTINGS/ucs/{0,1}\nfallocate -l 65536 /SETTINGS/hdd\n\nGLX=\"$(readlink /etc/alternatives/glx)\"\nRES=\"$(cat /root/.resolution)\"\n\nexport __GL_SYNC_TO_VBLANK=1\nexport force_s3tc_enable=true\nexport vblank_mode=2\n\n\nif [[ \"$(echo \"$GLX\" | grep 'mesa')\" ]];\nthen\n\tif [[ \"$RES\" == \"SD\" ]];\n\tthen\n\t\txrandr --current -s 640x480\n\telse\n\t\txrandr --current -s 1280x720\n\tfi\n\tCURRENT_RES=\"$(xrandr | grep '*')\"\n\tRES_60=\"$(echo \"$CURRENT_RES\" | grep -E '60\\...\\*')\"\n\tRES_59=\"$(echo \"$CURRENT_RES\" | grep -E '59\\...\\*')\"\n\tRES_AVAIL=\"$(echo \"$CURRENT_RES\" | grep -Eo '(60\\...|59\\...)' | head -n1)\"\n\tif [[ \"$CURRENT_RES\" ]] && [[ \"$RES_60\" == \"\" && \"$RES_59\" == \"\" ]];\n\tthen\n\t\txrandr -r 60.00 || xrandr -r 59.94 || xrandr -r \"$RES_AVAIL\"\n\tfi\nelse\n\tif [[ \"$RES\" == \"HD\" ]];\n\tthen\n\t\txrandr --current -s 1920x1080\n\telif [[ \"$RES\" == \"SD\" ]];\n\tthen\n\t\txrandr --current -s 640x480\n\tfi\nfi\n\ncd /root/game\nLD_PRELOAD=\"./libflh.so ./squeak_senselock_emu.so\" ./exec /mnt/hd/game/\n#xterm\n"
+  },
+  "packages": [
+    {
+      "fileType": 1,
+      "inode": 1538,
+      "mtime": 1393599600,
+      "name": "cs_1565370424.bin",
+      "size": 53121830912,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1559,
+      "mtime": 1393599600,
+      "name": "f2_1565372513.bin",
+      "size": 1354166272,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1560,
+      "mtime": 1393599600,
+      "name": "f2_1578206887.bin",
+      "size": 170364928,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1539,
+      "mtime": 1393599600,
+      "name": "cs_1578207661.bin",
+      "size": 1320361984,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1540,
+      "mtime": 1393599600,
+      "name": "cs_1582795238.bin",
+      "size": 1461141504,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1561,
+      "mtime": 1393599600,
+      "name": "f2_1582800971.bin",
+      "size": 4317184,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1562,
+      "mtime": 1393599600,
+      "name": "f2_1584158577.bin",
+      "size": 138747904,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1541,
+      "mtime": 1393599600,
+      "name": "cs_1584240725.bin",
+      "size": 1373462528,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1563,
+      "mtime": 1393599600,
+      "name": "f2_1587041989.bin",
+      "size": 3899392,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1542,
+      "mtime": 1393599600,
+      "name": "cs_1587104494.bin",
+      "size": 1248079872,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1564,
+      "mtime": 1393599600,
+      "name": "f2_1588504872.bin",
+      "size": 1646592,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1543,
+      "mtime": 1393599600,
+      "name": "cs_1588561732.bin",
+      "size": 1101307904,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1565,
+      "mtime": 1393599600,
+      "name": "f2_1590604629.bin",
+      "size": 9175040,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1544,
+      "mtime": 1393599600,
+      "name": "cs_1590860819.bin",
+      "size": 1195610112,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1566,
+      "mtime": 1393599600,
+      "name": "f2_1590991299.bin",
+      "size": 52879360,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1567,
+      "mtime": 1393599600,
+      "name": "f2_1591434372.bin",
+      "size": 1953792,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1545,
+      "mtime": 1393599600,
+      "name": "cs_1591446902.bin",
+      "size": 805347328,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1568,
+      "mtime": 1393599600,
+      "name": "f2_1594653440.bin",
+      "size": 17309696,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1546,
+      "mtime": 1393599600,
+      "name": "cs_1594846411.bin",
+      "size": 524894208,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1569,
+      "mtime": 1393599600,
+      "name": "f2_1595036701.bin",
+      "size": 1695744,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1547,
+      "mtime": 1393599600,
+      "name": "cs_1595036724.bin",
+      "size": 1030361088,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1570,
+      "mtime": 1393599600,
+      "name": "f2_1599438965.bin",
+      "size": 4636672,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1548,
+      "mtime": 1393599600,
+      "name": "cs_1599572628.bin",
+      "size": 1100292096,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1549,
+      "mtime": 1703735318,
+      "name": "cs_1601330362.bin",
+      "size": 1134194688,
+      "mtimeISO": "2023-12-28T03:48:38Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1550,
+      "mtime": 1393599600,
+      "name": "cs_1601330437.bin",
+      "size": 1372229632,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1551,
+      "mtime": 1393599600,
+      "name": "cs_1601336110.bin",
+      "size": 1470464,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1571,
+      "mtime": 1393599600,
+      "name": "f2_1601866562.bin",
+      "size": 839393280,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1552,
+      "mtime": 1393599600,
+      "name": "cs_1610782935.bin",
+      "size": 491520,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1572,
+      "mtime": 1393599600,
+      "name": "f2_1614065207.bin",
+      "size": 2625536,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1553,
+      "mtime": 1393599600,
+      "name": "cs_1614172903.bin",
+      "size": 1120120832,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1573,
+      "mtime": 1393599600,
+      "name": "f2_1614520073.bin",
+      "size": 2879488,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1554,
+      "mtime": 1393599600,
+      "name": "cs_1614583844.bin",
+      "size": 826863616,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1574,
+      "mtime": 1393599600,
+      "name": "f2_1618639334.bin",
+      "size": 184320,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1555,
+      "mtime": 1393599600,
+      "name": "cs_1618639378.bin",
+      "size": 1375322112,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1575,
+      "mtime": 1393599600,
+      "name": "f2_1619552733.bin",
+      "size": 2756608,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1556,
+      "mtime": 1393599600,
+      "name": "cs_1619553916.bin",
+      "size": 319488,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1576,
+      "mtime": 1393599600,
+      "name": "f2_1622451221.bin",
+      "size": 2752512,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1557,
+      "mtime": 1393599600,
+      "name": "cs_1622451257.bin",
+      "size": 1243230208,
+      "mtimeISO": "2014-02-28T15:00:00Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1577,
+      "mtime": 1535463734,
+      "name": "f2_1622451737.bin",
+      "size": 2834432,
+      "mtimeISO": "2018-08-28T13:42:14Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1558,
+      "mtime": 1535463734,
+      "name": "cs_1622451740.bin",
+      "size": 1272315904,
+      "mtimeISO": "2018-08-28T13:42:14Z"
+    },
+    {
+      "fileType": 1,
+      "inode": 1578,
+      "mtime": 1553637304,
+      "name": "f2_1649243844.bin",
+      "size": 179802112,
+      "mtimeISO": "2019-03-26T21:55:04Z"
+    }
+  ]
+}

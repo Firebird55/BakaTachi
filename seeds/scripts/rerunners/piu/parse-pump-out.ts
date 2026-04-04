@@ -2,25 +2,31 @@
 import crypto from "crypto";
 import fs from "fs";
 import path from "path";
-import { CreateLogger } from "mei-logger";
-import { ApplyPIUCutSuffix, NormalizePIUTitle, PIUVersionKey } from "tachi-common";
 import { WriteCollection } from "../../util";
+import { ApplyPIUCutSuffix, NormalizePIUTitle } from "../../../../common/src/lib/piu";
 import type { ChartDocument, SongDocument } from "tachi-common";
+import type { PIUVersionKey } from "../../../../common/src/lib/piu";
 
-const logger = CreateLogger("parse-pump-out");
+const logger = {
+	info: (message: string) => console.info(`[parse-pump-out] ${message}`),
+	warn: (message: string) => console.warn(`[parse-pump-out] ${message}`),
+};
 
 const DEFAULT_SOURCE_DIR =
 	process.env.PIU_DUMP_DIR ??
 	"C:/Users/Boazb/Google Drive/Arcade/Pump/Database export new Dec 23, 2025";
 
+// Pump Out's latest Prime 2 snapshot currently exposes v2.05.0 as version 143.
 const TARGET_VERSIONS = {
+	Prime2: 143,
 	XX: 176,
 	Phoenix: 199,
 } as const;
 
 const TARGET_VERSION_ORDER: Record<PIUVersionKey, number> = {
-	XX: 0,
-	Phoenix: 1,
+	Prime2: 0,
+	XX: 1,
+	Phoenix: 2,
 };
 
 interface VersionedLog {
@@ -179,6 +185,7 @@ interface EffectiveChartState {
 interface VersionedChartState {
 	level: string;
 	levelNum: number;
+	sourceChartID: number;
 	sourceChartRatingID: number;
 	sourceDifficultyID: number;
 	sourceModeID: number;
@@ -781,6 +788,7 @@ function main() {
 				{
 					level: chart.level,
 					levelNum: chart.levelNum,
+					sourceChartID: chart.sourceChartID,
 					sourceChartRatingID: chart.sourceChartRatingID,
 					sourceDifficultyID: chart.sourceDifficultyID,
 					sourceModeID: chart.sourceModeID,

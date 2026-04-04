@@ -54,6 +54,7 @@ const PIU_LAMP_VALUES = [
 const PIU_VERSIONED_CHART_DATA = z.strictObject({
 	level: z.string(),
 	levelNum: zodNonNegativeInt,
+	sourceChartID: zodNonNegativeInt,
 	sourceChartRatingID: zodNonNegativeInt,
 	sourceDifficultyID: zodNonNegativeInt,
 	sourceModeID: zodNonNegativeInt,
@@ -129,6 +130,7 @@ const PIU_GPT_CONF = {
 	orderedJudgements: ["perfect", "great", "good", "bad", "miss"],
 
 	versions: {
+		Prime2: "Prime2",
 		XX: "XX",
 		Phoenix: "Phoenix",
 	},
@@ -141,6 +143,7 @@ const PIU_GPT_CONF = {
 		sourceModeID: zodNonNegativeInt,
 		stepmaker: z.nullable(z.string()),
 		versionInfo: z.strictObject({
+			Prime2: PIU_VERSIONED_CHART_DATA.optional(),
 			XX: PIU_VERSIONED_CHART_DATA.optional(),
 			Phoenix: PIU_VERSIONED_CHART_DATA.optional(),
 		}),

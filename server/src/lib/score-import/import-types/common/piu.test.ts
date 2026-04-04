@@ -1,4 +1,4 @@
-import { GetPIUTitleSearchCandidates } from "./piu";
+import { GetPIUTitleSearchCandidates, ParsePIUVersion } from "./piu";
 import { CleanUpAfterTests } from "test-utils/cleanup";
 import fs from "fs";
 import path from "path";
@@ -70,8 +70,24 @@ t.test("GetPIUTitleSearchCandidates normalises GDPR workbook title quirks.", (t)
 	t.end();
 });
 
+t.test("ParsePIUVersion accepts Prime2 aliases.", (t) => {
+	t.equal(ParsePIUVersion("Prime2"), "Prime2");
+	t.equal(ParsePIUVersion("Prime 2"), "Prime2");
+	t.equal(ParsePIUVersion("XX"), "XX");
+	t.equal(ParsePIUVersion("Phoenix"), "Phoenix");
+	t.end();
+});
+
 t.test("PIU chart seeds should canonicalise XX/Phoenix rerates.", (t) => {
-	t.equal(PIU_CHART_FIXTURE.length, 4843, "Should collapse rerated PIU charts to 4843 docs.");
+	t.equal(PIU_CHART_FIXTURE.length, 5370, "Should emit 5370 PIU chart docs with Prime2 included.");
+
+	const prime2Charts = PIU_CHART_FIXTURE.filter((chart) => chart.versions.includes("Prime2"));
+	const prime2OnlyCharts = PIU_CHART_FIXTURE.filter(
+		(chart) => chart.versions.length === 1 && chart.versions[0] === "Prime2"
+	);
+
+	t.equal(prime2Charts.length, 2872, "Should backfill Prime2 metadata onto 2872 charts.");
+	t.equal(prime2OnlyCharts.length, 527, "Should keep 527 Prime2-only charts as main seed rows.");
 
 	const reratedCharts = PIU_CHART_FIXTURE.filter((chart) => {
 		const xx = chart.data.versionInfo.XX;
@@ -89,6 +105,11 @@ t.test("PIU chart seeds should canonicalise XX/Phoenix rerates.", (t) => {
 			const versionInfo = chart.data.versionInfo[version];
 
 			t.ok(versionInfo, `Chart ${chart.chartID} should have version info for ${version}.`);
+			t.type(
+				versionInfo?.sourceChartID,
+				"number",
+				`Chart ${chart.chartID} should carry a version-specific sourceChartID for ${version}.`
+			);
 
 			const key = `${version}|${chart.songID}|${chart.playtype}|${versionInfo!.level}`;
 			t.notOk(
@@ -106,12 +127,29 @@ t.test("PIU chart seeds should canonicalise XX/Phoenix rerates.", (t) => {
 		songID: 288,
 		playtype: "Double",
 		level: "12",
-		versions: ["XX", "Phoenix"],
+		versions: ["Prime2", "XX", "Phoenix"],
 		data: {
 			sourceChartID: 1699,
 			versionInfo: {
-				XX: { level: "11" },
-				Phoenix: { level: "12" },
+				Prime2: { level: "11", sourceChartID: 1699 },
+				XX: { level: "11", sourceChartID: 1699 },
+				Phoenix: { level: "12", sourceChartID: 1699 },
+			},
+		},
+	});
+
+	const ignitionStartsD10 = PIU_CHART_FIXTURE.find((chart) => chart.data.sourceChartID === 103);
+
+	t.hasStrict(ignitionStartsD10, {
+		chartID: "c3cf7ee98843f1b066f8ac546f69a31b0488d980",
+		songID: 15,
+		playtype: "Double",
+		level: "10",
+		versions: ["Prime2"],
+		data: {
+			sourceChartID: 103,
+			versionInfo: {
+				Prime2: { level: "10", sourceChartID: 103 },
 			},
 		},
 	});

@@ -234,13 +234,16 @@ export function ParsePIUVersion(rawVersion: string | null | undefined): Versions
 	const version = rawVersion?.trim().toUpperCase();
 
 	switch (version) {
+		case "PRIME2":
+		case "PRIME 2":
+			return "Prime2";
 		case "XX":
 			return "XX";
 		case "PHOENIX":
 			return "Phoenix";
 		default:
 			throw new InvalidScoreFailure(
-				`Unsupported PIU version '${rawVersion ?? ""}'. Expected XX or Phoenix.`
+				`Unsupported PIU version '${rawVersion ?? ""}'. Expected Prime2, XX or Phoenix.`
 			);
 	}
 }

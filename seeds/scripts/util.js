@@ -2,7 +2,20 @@ const fs = require("fs");
 const path = require("path");
 const DeterministicCollectionSort = require("./sort-seeds");
 const crypto = require("crypto");
-const fjsh = require("fast-json-stable-hash");
+
+let fjsh = null;
+
+try {
+	fjsh = require("fast-json-stable-hash");
+} catch (_err) {
+	fjsh = {
+		hash: (value, algorithm) =>
+			crypto
+				.createHash(String(algorithm || "sha256").toLowerCase())
+				.update(JSON.stringify(value))
+				.digest("hex"),
+	};
+}
 
 function IterateCollections(cb) {
 	for (const collection of fs.readdirSync(COLLECTIONS_DIR)) {

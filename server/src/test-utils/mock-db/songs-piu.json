@@ -274,6 +274,48 @@
 	},
 	{
 		"altTitles": [
+			"BanYa / Ignition Starts"
+		],
+		"artist": "BanYa",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Ignition Starts",
+			"gameIdentifier": "101",
+			"internalTitle": "Ignition Starts",
+			"labels": [],
+			"songCardPath": "/img/card/1.png",
+			"sourceSongID": 15
+		},
+		"id": 15,
+		"searchTerms": [
+			"BANYA / IGNITION STARTS",
+			"IGNITION STARTS"
+		],
+		"title": "Ignition Starts"
+	},
+	{
+		"altTitles": [
+			"BanYa / Hypnosis"
+		],
+		"artist": "BanYa",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Hypnosis",
+			"gameIdentifier": "102",
+			"internalTitle": "Hypnosis",
+			"labels": [],
+			"songCardPath": "/img/card/2.png",
+			"sourceSongID": 16
+		},
+		"id": 16,
+		"searchTerms": [
+			"BANYA / HYPNOSIS",
+			"HYPNOSIS"
+		],
+		"title": "Hypnosis"
+	},
+	{
+		"altTitles": [
 			"Novasonic / Slam"
 		],
 		"artist": "Novasonic",
@@ -292,6 +334,90 @@
 			"SLAM"
 		],
 		"title": "Slam"
+	},
+	{
+		"altTitles": [
+			"Tashannie / Don't Bother Me"
+		],
+		"artist": "Tashannie",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Don't Bother Me",
+			"gameIdentifier": "312",
+			"internalTitle": "Don't Bother Me",
+			"labels": [],
+			"songCardPath": "/img/card/14.png",
+			"sourceSongID": 19
+		},
+		"id": 19,
+		"searchTerms": [
+			"DON'T BOTHER ME",
+			"TASHANNIE / DON'T BOTHER ME"
+		],
+		"title": "Don't Bother Me"
+	},
+	{
+		"altTitles": [
+			"Sechs Kies / Com'Back"
+		],
+		"artist": "Sechs Kies",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Com'Back",
+			"gameIdentifier": "212",
+			"internalTitle": "Com'Back",
+			"labels": [],
+			"songCardPath": "/img/card/7.png",
+			"sourceSongID": 21
+		},
+		"id": 21,
+		"searchTerms": [
+			"COM'BACK",
+			"SECHS KIES / COM'BACK"
+		],
+		"title": "Com'Back"
+	},
+	{
+		"altTitles": [
+			"Sechs Kies / Mobius Strip"
+		],
+		"artist": "Sechs Kies",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Mobius Strip",
+			"gameIdentifier": "213",
+			"internalTitle": "Mobius Strip",
+			"labels": [],
+			"songCardPath": "/img/card/8.png",
+			"sourceSongID": 22
+		},
+		"id": 22,
+		"searchTerms": [
+			"MOBIUS STRIP",
+			"SECHS KIES / MOBIUS STRIP"
+		],
+		"title": "Mobius Strip"
+	},
+	{
+		"altTitles": [
+			"CLON / Funky Tonight"
+		],
+		"artist": "CLON",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Funky Tonight",
+			"gameIdentifier": "109",
+			"internalTitle": "Funky Tonight",
+			"labels": [],
+			"songCardPath": "/img/card/3.png",
+			"sourceSongID": 23
+		},
+		"id": 23,
+		"searchTerms": [
+			"CLON / FUNKY TONIGHT",
+			"FUNKY TONIGHT"
+		],
+		"title": "Funky Tonight"
 	},
 	{
 		"altTitles": [
@@ -1223,6 +1349,69 @@
 	},
 	{
 		"altTitles": [
+			"Louis / Chung Hwa Ban Jeom"
+		],
+		"artist": "Louis",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Chung Hwa Ban Jeom",
+			"gameIdentifier": "C14",
+			"internalTitle": "Chung Hwa Ban Jeom",
+			"labels": [],
+			"songCardPath": "/img/card/263.png",
+			"sourceSongID": 70
+		},
+		"id": 70,
+		"searchTerms": [
+			"CHUNG HWA BAN JEOM",
+			"LOUIS / CHUNG HWA BAN JEOM"
+		],
+		"title": "Chung Hwa Ban Jeom"
+	},
+	{
+		"altTitles": [
+			"SOM2 / Deja Vu"
+		],
+		"artist": "SOM2",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Deja Vu",
+			"gameIdentifier": "B06",
+			"internalTitle": "Deja Vu",
+			"labels": [],
+			"songCardPath": "/img/card/245.png",
+			"sourceSongID": 72
+		},
+		"id": 72,
+		"searchTerms": [
+			"DEJA VU",
+			"SOM2 / DEJA VU"
+		],
+		"title": "Deja Vu"
+	},
+	{
+		"altTitles": [
+			"Wax / I'll Give You All My Love"
+		],
+		"artist": "Wax",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "I'll Give You All My Love",
+			"gameIdentifier": "B13",
+			"internalTitle": "I'll Give You All My Love",
+			"labels": [],
+			"songCardPath": "/img/card/247.png",
+			"sourceSongID": 74
+		},
+		"id": 74,
+		"searchTerms": [
+			"I'LL GIVE YOU ALL MY LOVE",
+			"WAX / I'LL GIVE YOU ALL MY LOVE"
+		],
+		"title": "I'll Give You All My Love"
+	},
+	{
+		"altTitles": [
 			"Crash / DIGNITY - FULL SONG -"
 		],
 		"artist": "Crash",
@@ -2004,6 +2193,279 @@
 	},
 	{
 		"altTitles": [
+			"Vassline / Dawn of the Apocalypse"
+		],
+		"artist": "Vassline",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Dawn of the Apocalypse",
+			"gameIdentifier": "F28",
+			"internalTitle": "Dawn of the Apocalypse",
+			"labels": [],
+			"songCardPath": "/img/card/F28-160-210.png",
+			"sourceSongID": 113
+		},
+		"id": 113,
+		"searchTerms": [
+			"DAWN OF THE APOCALYPSE",
+			"VASSLINE / DAWN OF THE APOCALYPSE"
+		],
+		"title": "Dawn of the Apocalypse"
+	},
+	{
+		"altTitles": [
+			"Big metra / Panuelito Rojo"
+		],
+		"artist": "Big metra",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Panuelito Rojo",
+			"gameIdentifier": "F13",
+			"internalTitle": "Panuelito Rojo",
+			"labels": [],
+			"songCardPath": "/img/card/341.png",
+			"sourceSongID": 117
+		},
+		"id": 117,
+		"searchTerms": [
+			"BIG METRA / PANUELITO ROJO",
+			"PANUELITO ROJO"
+		],
+		"title": "Panuelito Rojo"
+	},
+	{
+		"altTitles": [
+			"PXNDX / Procedimientos Para Llegar A Un Comun Acuerdo"
+		],
+		"artist": "PXNDX",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Procedimientos Para Llegar A Un Comun Acuerdo",
+			"gameIdentifier": "F14",
+			"internalTitle": "Procedimientos Para Llegar A Un Comun Acuerdo",
+			"labels": [],
+			"songCardPath": "/img/card/342.png",
+			"sourceSongID": 118
+		},
+		"id": 118,
+		"searchTerms": [
+			"PROCEDIMIENTOS PARA LLEGAR A UN COMUN ACUERDO",
+			"PXNDX / PROCEDIMIENTOS PARA LLEGAR A UN COMUN ACUERDO"
+		],
+		"title": "Procedimientos Para Llegar A Un Comun Acuerdo"
+	},
+	{
+		"altTitles": [
+			"Nina Pilots / Digan Lo Que Digan"
+		],
+		"artist": "Nina Pilots",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Digan Lo Que Digan",
+			"gameIdentifier": "F15",
+			"internalTitle": "Digan Lo Que Digan",
+			"labels": [],
+			"songCardPath": "/img/card/343.png",
+			"sourceSongID": 119
+		},
+		"id": 119,
+		"searchTerms": [
+			"DIGAN LO QUE DIGAN",
+			"NINA PILOTS / DIGAN LO QUE DIGAN"
+		],
+		"title": "Digan Lo Que Digan"
+	},
+	{
+		"altTitles": [
+			"Nina Pilots, PXNDX / Nina PXNDX Mix"
+		],
+		"artist": "Nina Pilots, PXNDX",
+		"data": {
+			"cut": "Remix",
+			"englishTitle": "Nina PXNDX Mix",
+			"gameIdentifier": "F37",
+			"internalTitle": "Nina PXNDX Mix",
+			"labels": [],
+			"songCardPath": "/img/card/354.png",
+			"sourceSongID": 120
+		},
+		"id": 120,
+		"searchTerms": [
+			"NINA PILOTS, PXNDX / NINA PXNDX MIX",
+			"NINA PXNDX MIX"
+		],
+		"title": "Nina PXNDX Mix"
+	},
+	{
+		"altTitles": [
+			"Big metra / Big metra Remix"
+		],
+		"artist": "Big metra",
+		"data": {
+			"cut": "Remix",
+			"englishTitle": "Big metra Remix",
+			"gameIdentifier": "F38",
+			"internalTitle": "Big metra Remix",
+			"labels": [],
+			"songCardPath": "/img/card/355.png",
+			"sourceSongID": 121
+		},
+		"id": 121,
+		"searchTerms": [
+			"BIG METRA / BIG METRA REMIX",
+			"BIG METRA REMIX"
+		],
+		"title": "Big metra Remix"
+	},
+	{
+		"altTitles": [
+			"Big metra / Panuelito Rojo - FULL SONG -"
+		],
+		"artist": "Big metra",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Panuelito Rojo",
+			"gameIdentifier": "F53",
+			"internalTitle": "Panuelito Rojo",
+			"labels": [],
+			"songCardPath": "/img/card/357.png",
+			"sourceSongID": 122
+		},
+		"id": 122,
+		"searchTerms": [
+			"BIG METRA / PANUELITO ROJO - FULL SONG -",
+			"PANUELITO ROJO - FULL SONG -"
+		],
+		"title": "Panuelito Rojo - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"PXNDX / Procedimientos Para Llegar A Un Comun Acuerdo - FULL SONG -"
+		],
+		"artist": "PXNDX",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Procedimientos Para Llegar A Un Comun Acuerdo",
+			"gameIdentifier": "F54",
+			"internalTitle": "Procedimientos Para Llegar A Un Comun Acuerdo",
+			"labels": [],
+			"songCardPath": "/img/card/358.png",
+			"sourceSongID": 123
+		},
+		"id": 123,
+		"searchTerms": [
+			"PROCEDIMIENTOS PARA LLEGAR A UN COMUN ACUERDO - FULL SONG -",
+			"PXNDX / PROCEDIMIENTOS PARA LLEGAR A UN COMUN ACUERDO - FULL SONG -"
+		],
+		"title": "Procedimientos Para Llegar A Un Comun Acuerdo - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"Nina Pilots / Digan Lo Que Digan - FULL SONG -"
+		],
+		"artist": "Nina Pilots",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Digan Lo Que Digan",
+			"gameIdentifier": "F59",
+			"internalTitle": "Digan Lo Que Digan",
+			"labels": [],
+			"songCardPath": "/img/card/359.png",
+			"sourceSongID": 124
+		},
+		"id": 124,
+		"searchTerms": [
+			"DIGAN LO QUE DIGAN - FULL SONG -",
+			"NINA PILOTS / DIGAN LO QUE DIGAN - FULL SONG -"
+		],
+		"title": "Digan Lo Que Digan - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"Big metra / Trato De No Trabarme - FULL SONG -"
+		],
+		"artist": "Big metra",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Trato De No Trabarme",
+			"gameIdentifier": "F60",
+			"internalTitle": "Trato De No Trabarme",
+			"labels": [],
+			"songCardPath": "/img/card/360.png",
+			"sourceSongID": 125
+		},
+		"id": 125,
+		"searchTerms": [
+			"BIG METRA / TRATO DE NO TRABARME - FULL SONG -",
+			"TRATO DE NO TRABARME - FULL SONG -"
+		],
+		"title": "Trato De No Trabarme - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"OscillatorX / Dance All Night"
+		],
+		"artist": "OscillatorX",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Dance All Night",
+			"gameIdentifier": "E27",
+			"internalTitle": "Dance All Night",
+			"labels": [],
+			"songCardPath": "/img/card/333.png",
+			"sourceSongID": 126
+		},
+		"id": 126,
+		"searchTerms": [
+			"DANCE ALL NIGHT",
+			"OSCILLATORX / DANCE ALL NIGHT"
+		],
+		"title": "Dance All Night"
+	},
+	{
+		"altTitles": [
+			"Elpis / Dance Vibrations"
+		],
+		"artist": "Elpis",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Dance Vibrations",
+			"gameIdentifier": "E28",
+			"internalTitle": "Dance Vibrations",
+			"labels": [],
+			"songCardPath": "/img/card/334.png",
+			"sourceSongID": 127
+		},
+		"id": 127,
+		"searchTerms": [
+			"DANCE VIBRATIONS",
+			"ELPIS / DANCE VIBRATIONS"
+		],
+		"title": "Dance Vibrations"
+	},
+	{
+		"altTitles": [
+			"Zig Zag / Energizer"
+		],
+		"artist": "Zig Zag",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Energizer",
+			"gameIdentifier": "E29",
+			"internalTitle": "Energizer",
+			"labels": [],
+			"songCardPath": "/img/card/335.png",
+			"sourceSongID": 128
+		},
+		"id": 128,
+		"searchTerms": [
+			"ENERGIZER",
+			"ZIG ZAG / ENERGIZER"
+		],
+		"title": "Energizer"
+	},
+	{
+		"altTitles": [
 			"Yahpp / XTREE"
 		],
 		"artist": "Yahpp",
@@ -2316,6 +2778,27 @@
 			"BANYA PRODUCTION / B.P CLASSIC REMIX 2"
 		],
 		"title": "B.P Classic Remix 2"
+	},
+	{
+		"altTitles": [
+			"BanYa Production / Hard Core Rock Mix"
+		],
+		"artist": "BanYa Production",
+		"data": {
+			"cut": "Remix",
+			"englishTitle": "Hard Core Rock Mix",
+			"gameIdentifier": "1035",
+			"internalTitle": "Hard Core Rock Mix",
+			"labels": [],
+			"songCardPath": "/img/card/60.png",
+			"sourceSongID": 144
+		},
+		"id": 144,
+		"searchTerms": [
+			"BANYA PRODUCTION / HARD CORE ROCK MIX",
+			"HARD CORE ROCK MIX"
+		],
+		"title": "Hard Core Rock Mix"
 	},
 	{
 		"altTitles": [
@@ -2764,6 +3247,132 @@
 	},
 	{
 		"altTitles": [
+			"SOM2 / Deja Vu - FULL SONG -"
+		],
+		"artist": "SOM2",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Deja Vu",
+			"gameIdentifier": "1042",
+			"internalTitle": "Deja Vu",
+			"labels": [],
+			"songCardPath": "/img/card/63.png",
+			"sourceSongID": 166
+		},
+		"id": 166,
+		"searchTerms": [
+			"DEJA VU - FULL SONG -",
+			"SOM2 / DEJA VU - FULL SONG -"
+		],
+		"title": "Deja Vu - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"Vassline / Dawn of the Apocalypse - FULL SONG -"
+		],
+		"artist": "Vassline",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Dawn of the Apocalypse",
+			"gameIdentifier": "1044",
+			"internalTitle": "Dawn of the Apocalypse",
+			"labels": [],
+			"songCardPath": "/img/card/65.png",
+			"sourceSongID": 167
+		},
+		"id": 167,
+		"searchTerms": [
+			"DAWN OF THE APOCALYPSE - FULL SONG -",
+			"VASSLINE / DAWN OF THE APOCALYPSE - FULL SONG -"
+		],
+		"title": "Dawn of the Apocalypse - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"PXNDX / NARCISISTA POR EXCELENCIA"
+		],
+		"artist": "PXNDX",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "NARCISISTA POR EXCELENCIA",
+			"gameIdentifier": "1018",
+			"internalTitle": "NARCISISTA POR EXCELENCIA",
+			"labels": [],
+			"songCardPath": "/img/card/49.png",
+			"sourceSongID": 168
+		},
+		"id": 168,
+		"searchTerms": [
+			"NARCISISTA POR EXCELENCIA",
+			"PXNDX / NARCISISTA POR EXCELENCIA"
+		],
+		"title": "NARCISISTA POR EXCELENCIA"
+	},
+	{
+		"altTitles": [
+			"PXNDX / NARCISISTA POR EXCELENCIA - FULL SONG -"
+		],
+		"artist": "PXNDX",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "NARCISISTA POR EXCELENCIA",
+			"gameIdentifier": "1043",
+			"internalTitle": "NARCISISTA POR EXCELENCIA",
+			"labels": [],
+			"songCardPath": "/img/card/64.png",
+			"sourceSongID": 169
+		},
+		"id": 169,
+		"searchTerms": [
+			"NARCISISTA POR EXCELENCIA - FULL SONG -",
+			"PXNDX / NARCISISTA POR EXCELENCIA - FULL SONG -"
+		],
+		"title": "NARCISISTA POR EXCELENCIA - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"PXNDX / Procedimientos Para Llegar A Un Comun Acuerdo - SHORT CUT -"
+		],
+		"artist": "PXNDX",
+		"data": {
+			"cut": "Short Cut",
+			"englishTitle": "Procedimientos Para Llegar A Un Comun Acuerdo",
+			"gameIdentifier": "1065",
+			"internalTitle": "Procedimientos Para Llegar A Un Comun Acuerdo",
+			"labels": [],
+			"songCardPath": "/img/card/83.png",
+			"sourceSongID": 170
+		},
+		"id": 170,
+		"searchTerms": [
+			"PROCEDIMIENTOS PARA LLEGAR A UN COMUN ACUERDO - SHORT CUT -",
+			"PXNDX / PROCEDIMIENTOS PARA LLEGAR A UN COMUN ACUERDO - SHORT CUT -"
+		],
+		"title": "Procedimientos Para Llegar A Un Comun Acuerdo - SHORT CUT -"
+	},
+	{
+		"altTitles": [
+			"Nina Pilots / Dieciseis"
+		],
+		"artist": "Nina Pilots",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Dieciseis",
+			"gameIdentifier": "1096",
+			"internalTitle": "Dieciseis",
+			"labels": [],
+			"songCardPath": "/img/card/86.png",
+			"sourceSongID": 171
+		},
+		"id": 171,
+		"searchTerms": [
+			"DIECISEIS",
+			"NINA PILOTS / DIECISEIS"
+		],
+		"title": "Dieciseis"
+	},
+	{
+		"altTitles": [
 			"Doin / Cleaner"
 		],
 		"artist": "Doin",
@@ -3205,6 +3814,48 @@
 	},
 	{
 		"altTitles": [
+			"Crash / Crashday"
+		],
+		"artist": "Crash",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Crashday",
+			"gameIdentifier": "1119",
+			"internalTitle": "Crashday",
+			"labels": [],
+			"songCardPath": "/img/card/97.png",
+			"sourceSongID": 196
+		},
+		"id": 196,
+		"searchTerms": [
+			"CRASH / CRASHDAY",
+			"CRASHDAY"
+		],
+		"title": "Crashday"
+	},
+	{
+		"altTitles": [
+			"Crash / Crashday - FULL SONG -"
+		],
+		"artist": "Crash",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Crashday",
+			"gameIdentifier": "1142",
+			"internalTitle": "Crashday",
+			"labels": [],
+			"songCardPath": "/img/card/112.png",
+			"sourceSongID": 199
+		},
+		"id": 199,
+		"searchTerms": [
+			"CRASH / CRASHDAY - FULL SONG -",
+			"CRASHDAY - FULL SONG -"
+		],
+		"title": "Crashday - FULL SONG -"
+	},
+	{
+		"altTitles": [
 			"Throwdown / What Happened"
 		],
 		"artist": "Throwdown",
@@ -3349,6 +4000,27 @@
 			"X-RAVE - SHORT CUT -"
 		],
 		"title": "X-Rave - SHORT CUT -"
+	},
+	{
+		"altTitles": [
+			"DM Ashura feat. MC Jay, Veronica / Rave Until The Night Is Over"
+		],
+		"artist": "DM Ashura feat. MC Jay, Veronica",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Rave Until The Night Is Over",
+			"gameIdentifier": "1159",
+			"internalTitle": "Rave Until The Night Is Over",
+			"labels": [],
+			"songCardPath": "/img/card/121.png",
+			"sourceSongID": 207
+		},
+		"id": 207,
+		"searchTerms": [
+			"DM ASHURA FEAT. MC JAY, VERONICA / RAVE UNTIL THE NIGHT IS OVER",
+			"RAVE UNTIL THE NIGHT IS OVER"
+		],
+		"title": "Rave Until The Night Is Over"
 	},
 	{
 		"altTitles": [
@@ -3667,6 +4339,90 @@
 	},
 	{
 		"altTitles": [
+			"Ayu Ting Ting / Sik Asik"
+		],
+		"artist": "Ayu Ting Ting",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Sik Asik",
+			"gameIdentifier": "1334",
+			"internalTitle": "Sik Asik",
+			"labels": [],
+			"songCardPath": "/img/card/174.png",
+			"sourceSongID": 239
+		},
+		"id": 239,
+		"searchTerms": [
+			"AYU TING TING / SIK ASIK",
+			"SIK ASIK"
+		],
+		"title": "Sik Asik"
+	},
+	{
+		"altTitles": [
+			"Saykoji / Online"
+		],
+		"artist": "Saykoji",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Online",
+			"gameIdentifier": "1335",
+			"internalTitle": "Online",
+			"labels": [],
+			"songCardPath": "/img/card/175.png",
+			"sourceSongID": 240
+		},
+		"id": 240,
+		"searchTerms": [
+			"ONLINE",
+			"SAYKOJI / ONLINE"
+		],
+		"title": "Online"
+	},
+	{
+		"altTitles": [
+			"Ben Chalatit / Dam"
+		],
+		"artist": "Ben Chalatit",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Dam",
+			"gameIdentifier": "1336",
+			"internalTitle": "Dam",
+			"labels": [],
+			"songCardPath": "/img/card/176.png",
+			"sourceSongID": 241
+		},
+		"id": 241,
+		"searchTerms": [
+			"BEN CHALATIT / DAM",
+			"DAM"
+		],
+		"title": "Dam"
+	},
+	{
+		"altTitles": [
+			"Sugar Eyes / Sugar Eyes"
+		],
+		"artist": "Sugar Eyes",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Sugar Eyes",
+			"gameIdentifier": "1337",
+			"internalTitle": "Sugar Eyes",
+			"labels": [],
+			"songCardPath": "/img/card/177.png",
+			"sourceSongID": 242
+		},
+		"id": 242,
+		"searchTerms": [
+			"SUGAR EYES",
+			"SUGAR EYES / SUGAR EYES"
+		],
+		"title": "Sugar Eyes"
+	},
+	{
+		"altTitles": [
 			"SHK / Log In"
 		],
 		"artist": "SHK",
@@ -3961,6 +4717,69 @@
 	},
 	{
 		"altTitles": [
+			"Affinity / Y2Z"
+		],
+		"artist": "Affinity",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Y2Z",
+			"gameIdentifier": null,
+			"internalTitle": "Y2Z",
+			"labels": [],
+			"songCardPath": "/img/card/124.png",
+			"sourceSongID": 265
+		},
+		"id": 265,
+		"searchTerms": [
+			"AFFINITY / Y2Z",
+			"Y2Z"
+		],
+		"title": "Y2Z"
+	},
+	{
+		"altTitles": [
+			"Beltaine / Rockhill"
+		],
+		"artist": "Beltaine",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Rockhill",
+			"gameIdentifier": null,
+			"internalTitle": "Rockhill",
+			"labels": [],
+			"songCardPath": "/img/card/125.png",
+			"sourceSongID": 266
+		},
+		"id": 266,
+		"searchTerms": [
+			"BELTAINE / ROCKHILL",
+			"ROCKHILL"
+		],
+		"title": "Rockhill"
+	},
+	{
+		"altTitles": [
+			"Celldweller / Switchback"
+		],
+		"artist": "Celldweller",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Switchback",
+			"gameIdentifier": "1208",
+			"internalTitle": "Switchback",
+			"labels": [],
+			"songCardPath": "/img/card/126.png",
+			"sourceSongID": 267
+		},
+		"id": 267,
+		"searchTerms": [
+			"CELLDWELLER / SWITCHBACK",
+			"SWITCHBACK"
+		],
+		"title": "Switchback"
+	},
+	{
+		"altTitles": [
 			"Coconut / Ladybug"
 		],
 		"artist": "Coconut",
@@ -4003,6 +4822,27 @@
 	},
 	{
 		"altTitles": [
+			"Future Funk Squad / Rippin' It Up"
+		],
+		"artist": "Future Funk Squad",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Rippin' It Up",
+			"gameIdentifier": "1218",
+			"internalTitle": "Rippin' It Up",
+			"labels": [],
+			"songCardPath": "/img/card/129.png",
+			"sourceSongID": 270
+		},
+		"id": 270,
+		"searchTerms": [
+			"FUTURE FUNK SQUAD / RIPPIN' IT UP",
+			"RIPPIN' IT UP"
+		],
+		"title": "Rippin' It Up"
+	},
+	{
+		"altTitles": [
 			"Hi-G / Tribe Attacker"
 		],
 		"artist": "Hi-G",
@@ -4021,6 +4861,111 @@
 			"TRIBE ATTACKER"
 		],
 		"title": "Tribe Attacker"
+	},
+	{
+		"altTitles": [
+			"Inspector K / Virtual Emotion"
+		],
+		"artist": "Inspector K",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Virtual Emotion",
+			"gameIdentifier": "1221",
+			"internalTitle": "Virtual Emotion",
+			"labels": [],
+			"songCardPath": "/img/card/131.png",
+			"sourceSongID": 272
+		},
+		"id": 272,
+		"searchTerms": [
+			"INSPECTOR K / VIRTUAL EMOTION",
+			"VIRTUAL EMOTION"
+		],
+		"title": "Virtual Emotion"
+	},
+	{
+		"altTitles": [
+			"KaW / Take Me Back"
+		],
+		"artist": "KaW",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Take Me Back",
+			"gameIdentifier": null,
+			"internalTitle": "Take Me Back",
+			"labels": [],
+			"songCardPath": "/img/card/132.png",
+			"sourceSongID": 273
+		},
+		"id": 273,
+		"searchTerms": [
+			"KAW / TAKE ME BACK",
+			"TAKE ME BACK"
+		],
+		"title": "Take Me Back"
+	},
+	{
+		"altTitles": [
+			"KURi-ZiLL / RE-RAVE"
+		],
+		"artist": "KURi-ZiLL",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "RE-RAVE",
+			"gameIdentifier": null,
+			"internalTitle": "RE-RAVE",
+			"labels": [],
+			"songCardPath": "/img/card/133.png",
+			"sourceSongID": 274
+		},
+		"id": 274,
+		"searchTerms": [
+			"KURI-ZILL / RE-RAVE",
+			"RE-RAVE"
+		],
+		"title": "RE-RAVE"
+	},
+	{
+		"altTitles": [
+			"KURi-ZiLL / Heel and Toe"
+		],
+		"artist": "KURi-ZiLL",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Heel and Toe",
+			"gameIdentifier": "1226",
+			"internalTitle": "Heel and Toe",
+			"labels": [],
+			"songCardPath": "/img/card/134.png",
+			"sourceSongID": 275
+		},
+		"id": 275,
+		"searchTerms": [
+			"HEEL AND TOE",
+			"KURI-ZILL / HEEL AND TOE"
+		],
+		"title": "Heel and Toe"
+	},
+	{
+		"altTitles": [
+			"Sanxion7 / Rainspark"
+		],
+		"artist": "Sanxion7",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Rainspark",
+			"gameIdentifier": "1230",
+			"internalTitle": "Rainspark",
+			"labels": [],
+			"songCardPath": "/img/card/136.png",
+			"sourceSongID": 276
+		},
+		"id": 276,
+		"searchTerms": [
+			"RAINSPARK",
+			"SANXION7 / RAINSPARK"
+		],
+		"title": "Rainspark"
 	},
 	{
 		"altTitles": [
@@ -4063,6 +5008,27 @@
 			"XUXA"
 		],
 		"title": "Xuxa"
+	},
+	{
+		"altTitles": [
+			"Stian K / Be Alive (Raaban Inc. Mix)"
+		],
+		"artist": "Stian K",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Be Alive (Raaban Inc. Mix)",
+			"gameIdentifier": "1237",
+			"internalTitle": "Be Alive (Raaban Inc. Mix)",
+			"labels": [],
+			"songCardPath": "/img/card/139.png",
+			"sourceSongID": 279
+		},
+		"id": 279,
+		"searchTerms": [
+			"BE ALIVE (RAABAN INC. MIX)",
+			"STIAN K / BE ALIVE (RAABAN INC. MIX)"
+		],
+		"title": "Be Alive (Raaban Inc. Mix)"
 	},
 	{
 		"altTitles": [
@@ -4339,6 +5305,279 @@
 	},
 	{
 		"altTitles": [
+			"Crayon Pop / Bar Bar Bar"
+		],
+		"artist": "Crayon Pop",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Bar Bar Bar",
+			"gameIdentifier": "1437",
+			"internalTitle": "Bar Bar Bar",
+			"labels": [],
+			"songCardPath": "/img/card/195.png",
+			"sourceSongID": 293
+		},
+		"id": 293,
+		"searchTerms": [
+			"BAR BAR BAR",
+			"CRAYON POP / BAR BAR BAR"
+		],
+		"title": "Bar Bar Bar"
+	},
+	{
+		"altTitles": [
+			"AOA / ELVIS"
+		],
+		"artist": "AOA",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "ELVIS",
+			"gameIdentifier": "1439",
+			"internalTitle": "ELVIS",
+			"labels": [],
+			"songCardPath": "/img/card/196.png",
+			"sourceSongID": 294
+		},
+		"id": 294,
+		"searchTerms": [
+			"AOA / ELVIS",
+			"ELVIS"
+		],
+		"title": "ELVIS"
+	},
+	{
+		"altTitles": [
+			"CNBLUE / I'm Sorry"
+		],
+		"artist": "CNBLUE",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "I'm Sorry",
+			"gameIdentifier": "1441",
+			"internalTitle": "I'm Sorry",
+			"labels": [],
+			"songCardPath": "/img/card/197.png",
+			"sourceSongID": 295
+		},
+		"id": 295,
+		"searchTerms": [
+			"CNBLUE / I'M SORRY",
+			"I'M SORRY"
+		],
+		"title": "I'm Sorry"
+	},
+	{
+		"altTitles": [
+			"KARA / Pandora"
+		],
+		"artist": "KARA",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Pandora",
+			"gameIdentifier": "1442",
+			"internalTitle": "Pandora",
+			"labels": [],
+			"songCardPath": "/img/card/198.png",
+			"sourceSongID": 296
+		},
+		"id": 296,
+		"searchTerms": [
+			"KARA / PANDORA",
+			"PANDORA"
+		],
+		"title": "Pandora"
+	},
+	{
+		"altTitles": [
+			"Dal shabet / Hate, Don't Hate!"
+		],
+		"artist": "Dal shabet",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Hate, Don't Hate!",
+			"gameIdentifier": "1444",
+			"internalTitle": "Hate, Don't Hate!",
+			"labels": [],
+			"songCardPath": "/img/card/199.png",
+			"sourceSongID": 297
+		},
+		"id": 297,
+		"searchTerms": [
+			"DAL SHABET / HATE, DON'T HATE!",
+			"HATE, DON'T HATE!"
+		],
+		"title": "Hate, Don't Hate!"
+	},
+	{
+		"altTitles": [
+			"Supreme Team / Supermagic"
+		],
+		"artist": "Supreme Team",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Supermagic",
+			"gameIdentifier": "1445",
+			"internalTitle": "Supermagic",
+			"labels": [],
+			"songCardPath": "/img/card/200.png",
+			"sourceSongID": 298
+		},
+		"id": 298,
+		"searchTerms": [
+			"SUPERMAGIC",
+			"SUPREME TEAM / SUPERMAGIC"
+		],
+		"title": "Supermagic"
+	},
+	{
+		"altTitles": [
+			"T-ara / Sugar Free"
+		],
+		"artist": "T-ara",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Sugar Free",
+			"gameIdentifier": "1446",
+			"internalTitle": "Sugar Free",
+			"labels": [],
+			"songCardPath": "/img/card/201.png",
+			"sourceSongID": 299
+		},
+		"id": 299,
+		"searchTerms": [
+			"SUGAR FREE",
+			"T-ARA / SUGAR FREE"
+		],
+		"title": "Sugar Free"
+	},
+	{
+		"altTitles": [
+			"Block B / HER"
+		],
+		"artist": "Block B",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "HER",
+			"gameIdentifier": "1447",
+			"internalTitle": "HER",
+			"labels": [],
+			"songCardPath": "/img/card/202.png",
+			"sourceSongID": 300
+		},
+		"id": 300,
+		"searchTerms": [
+			"BLOCK B / HER",
+			"HER"
+		],
+		"title": "HER"
+	},
+	{
+		"altTitles": [
+			"Apink / NoNoNo"
+		],
+		"artist": "Apink",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "NoNoNo",
+			"gameIdentifier": "1448",
+			"internalTitle": "NoNoNo",
+			"labels": [],
+			"songCardPath": "/img/card/203.png",
+			"sourceSongID": 301
+		},
+		"id": 301,
+		"searchTerms": [
+			"APINK / NONONO",
+			"NONONO"
+		],
+		"title": "NoNoNo"
+	},
+	{
+		"altTitles": [
+			"Outsider / Loner"
+		],
+		"artist": "Outsider",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Loner",
+			"gameIdentifier": "1449",
+			"internalTitle": "Loner",
+			"labels": [],
+			"songCardPath": "/img/card/204.png",
+			"sourceSongID": 302
+		},
+		"id": 302,
+		"searchTerms": [
+			"LONER",
+			"OUTSIDER / LONER"
+		],
+		"title": "Loner"
+	},
+	{
+		"altTitles": [
+			"Cherry Filter / Flying duck"
+		],
+		"artist": "Cherry Filter",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Flying duck",
+			"gameIdentifier": "1450",
+			"internalTitle": "Flying duck",
+			"labels": [],
+			"songCardPath": "/img/card/205.png",
+			"sourceSongID": 303
+		},
+		"id": 303,
+		"searchTerms": [
+			"CHERRY FILTER / FLYING DUCK",
+			"FLYING DUCK"
+		],
+		"title": "Flying duck"
+	},
+	{
+		"altTitles": [
+			"Norazo / Ineffective Boss Without Power"
+		],
+		"artist": "Norazo",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Ineffective Boss Without Power",
+			"gameIdentifier": "1451",
+			"internalTitle": "Ineffective Boss Without Power",
+			"labels": [],
+			"songCardPath": "/img/card/365.png",
+			"sourceSongID": 304
+		},
+		"id": 304,
+		"searchTerms": [
+			"INEFFECTIVE BOSS WITHOUT POWER",
+			"NORAZO / INEFFECTIVE BOSS WITHOUT POWER"
+		],
+		"title": "Ineffective Boss Without Power"
+	},
+	{
+		"altTitles": [
+			"Epik High / One"
+		],
+		"artist": "Epik High",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "One",
+			"gameIdentifier": "1452",
+			"internalTitle": "One",
+			"labels": [],
+			"songCardPath": "/img/card/206.png",
+			"sourceSongID": 305
+		},
+		"id": 305,
+		"searchTerms": [
+			"EPIK HIGH / ONE",
+			"ONE"
+		],
+		"title": "One"
+	},
+	{
+		"altTitles": [
 			"SID-Sound / Cosmical Rhythm"
 		],
 		"artist": "SID-Sound",
@@ -4444,6 +5683,48 @@
 	},
 	{
 		"altTitles": [
+			"Crayon Pop / Bar Bar Bar - FULL SONG -"
+		],
+		"artist": "Crayon Pop",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Bar Bar Bar",
+			"gameIdentifier": "14C0",
+			"internalTitle": "Bar Bar Bar",
+			"labels": [],
+			"songCardPath": "/img/card/231.png",
+			"sourceSongID": 311
+		},
+		"id": 311,
+		"searchTerms": [
+			"BAR BAR BAR - FULL SONG -",
+			"CRAYON POP / BAR BAR BAR - FULL SONG -"
+		],
+		"title": "Bar Bar Bar - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"T-ara / Sugar Free - FULL SONG -"
+		],
+		"artist": "T-ara",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Sugar Free",
+			"gameIdentifier": "14C1",
+			"internalTitle": "Sugar Free",
+			"labels": [],
+			"songCardPath": "/img/card/232.png",
+			"sourceSongID": 312
+		},
+		"id": 312,
+		"searchTerms": [
+			"SUGAR FREE - FULL SONG -",
+			"T-ARA / SUGAR FREE - FULL SONG -"
+		],
+		"title": "Sugar Free - FULL SONG -"
+	},
+	{
+		"altTitles": [
 			"Nato / Yog-Sothoth - SHORT CUT -"
 		],
 		"artist": "Nato",
@@ -4483,6 +5764,90 @@
 			"ROCK THE HOUSE - SHORT CUT -"
 		],
 		"title": "Rock the house - SHORT CUT -"
+	},
+	{
+		"altTitles": [
+			"Daddy Yankee / Limbo"
+		],
+		"artist": "Daddy Yankee",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Limbo",
+			"gameIdentifier": "1467",
+			"internalTitle": "Limbo",
+			"labels": [],
+			"songCardPath": "/img/card/211.png",
+			"sourceSongID": 318
+		},
+		"id": 318,
+		"searchTerms": [
+			"DADDY YANKEE / LIMBO",
+			"LIMBO"
+		],
+		"title": "Limbo"
+	},
+	{
+		"altTitles": [
+			"Lylloo feat. Egas / Melodia"
+		],
+		"artist": "Lylloo feat. Egas",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Melodia",
+			"gameIdentifier": "1468",
+			"internalTitle": "Melodia",
+			"labels": [],
+			"songCardPath": "/img/card/212.png",
+			"sourceSongID": 319
+		},
+		"id": 319,
+		"searchTerms": [
+			"LYLLOO FEAT. EGAS / MELODIA",
+			"MELODIA"
+		],
+		"title": "Melodia"
+	},
+	{
+		"altTitles": [
+			"Wisin ft. Michel Telo / Que Viva La Vida"
+		],
+		"artist": "Wisin ft. Michel Telo",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Que Viva La Vida",
+			"gameIdentifier": "1469",
+			"internalTitle": "Que Viva La Vida",
+			"labels": [],
+			"songCardPath": "/img/card/213.png",
+			"sourceSongID": 320
+		},
+		"id": 320,
+		"searchTerms": [
+			"QUE VIVA LA VIDA",
+			"WISIN FT. MICHEL TELO / QUE VIVA LA VIDA"
+		],
+		"title": "Que Viva La Vida"
+	},
+	{
+		"altTitles": [
+			"VIXX / On and On"
+		],
+		"artist": "VIXX",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "On and On",
+			"gameIdentifier": "1438",
+			"internalTitle": "On and On",
+			"labels": [],
+			"songCardPath": "/img/card/366.png",
+			"sourceSongID": 321
+		},
+		"id": 321,
+		"searchTerms": [
+			"ON AND ON",
+			"VIXX / ON AND ON"
+		],
+		"title": "On and On"
 	},
 	{
 		"altTitles": [
@@ -4612,6 +5977,27 @@
 	},
 	{
 		"altTitles": [
+			"Block B / Very good"
+		],
+		"artist": "Block B",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Very good",
+			"gameIdentifier": "1440",
+			"internalTitle": "Very good",
+			"labels": [],
+			"songCardPath": "/img/card/375.png",
+			"sourceSongID": 328
+		},
+		"id": 328,
+		"searchTerms": [
+			"BLOCK B / VERY GOOD",
+			"VERY GOOD"
+		],
+		"title": "Very good"
+	},
+	{
+		"altTitles": [
 			"MAX, Memme / Avalanquiem"
 		],
 		"artist": "MAX, Memme",
@@ -4651,6 +6037,27 @@
 			"YOU GOT ME CRAZY"
 		],
 		"title": "You Got Me Crazy"
+	},
+	{
+		"altTitles": [
+			"Shinhwa / Venus"
+		],
+		"artist": "Shinhwa",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Venus",
+			"gameIdentifier": "1443",
+			"internalTitle": "Venus",
+			"labels": [],
+			"songCardPath": "/img/card/378.png",
+			"sourceSongID": 331
+		},
+		"id": 331,
+		"searchTerms": [
+			"SHINHWA / VENUS",
+			"VENUS"
+		],
+		"title": "Venus"
 	},
 	{
 		"altTitles": [
@@ -5078,6 +6485,48 @@
 	},
 	{
 		"altTitles": [
+			"msgoon / msgoon RMX pt.5"
+		],
+		"artist": "msgoon",
+		"data": {
+			"cut": "Remix",
+			"englishTitle": "msgoon RMX pt.5",
+			"gameIdentifier": "1038",
+			"internalTitle": "msgoon RMX pt.5",
+			"labels": [],
+			"songCardPath": "/img/card/1038.png",
+			"sourceSongID": 382
+		},
+		"id": 382,
+		"searchTerms": [
+			"MSGOON / MSGOON RMX PT.5",
+			"MSGOON RMX PT.5"
+		],
+		"title": "msgoon RMX pt.5"
+	},
+	{
+		"altTitles": [
+			"BanYa Production / Pro POP Mix"
+		],
+		"artist": "BanYa Production",
+		"data": {
+			"cut": "Remix",
+			"englishTitle": "Pro POP Mix",
+			"gameIdentifier": "1036",
+			"internalTitle": "Pro POP Mix",
+			"labels": [],
+			"songCardPath": "/img/card/1036.png",
+			"sourceSongID": 385
+		},
+		"id": 385,
+		"searchTerms": [
+			"BANYA PRODUCTION / PRO POP MIX",
+			"PRO POP MIX"
+		],
+		"title": "Pro POP Mix"
+	},
+	{
+		"altTitles": [
 			"BanYa Production / Pumping Jumping"
 		],
 		"artist": "BanYa Production",
@@ -5201,6 +6650,48 @@
 			"MONEY FINGERS"
 		],
 		"title": "Money Fingers"
+	},
+	{
+		"altTitles": [
+			"msgoon / msgoon RMX pt.3"
+		],
+		"artist": "msgoon",
+		"data": {
+			"cut": "Remix",
+			"englishTitle": "msgoon RMX pt.3",
+			"gameIdentifier": "F46",
+			"internalTitle": "msgoon RMX pt.3",
+			"labels": [],
+			"songCardPath": "/img/card/F46.png",
+			"sourceSongID": 413
+		},
+		"id": 413,
+		"searchTerms": [
+			"MSGOON / MSGOON RMX PT.3",
+			"MSGOON RMX PT.3"
+		],
+		"title": "msgoon RMX pt.3"
+	},
+	{
+		"altTitles": [
+			"msgoon / msgoon RMX pt.1"
+		],
+		"artist": "msgoon",
+		"data": {
+			"cut": "Remix",
+			"englishTitle": "msgoon RMX pt.1",
+			"gameIdentifier": "F44",
+			"internalTitle": "msgoon RMX pt.1",
+			"labels": [],
+			"songCardPath": "/img/card/F44.png",
+			"sourceSongID": 414
+		},
+		"id": 414,
+		"searchTerms": [
+			"MSGOON / MSGOON RMX PT.1",
+			"MSGOON RMX PT.1"
+		],
+		"title": "msgoon RMX pt.1"
 	},
 	{
 		"altTitles": [
@@ -6064,6 +7555,27 @@
 	},
 	{
 		"altTitles": [
+			"Apink / NoNoNo - FULL SONG -"
+		],
+		"artist": "Apink",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "NoNoNo",
+			"gameIdentifier": null,
+			"internalTitle": "NoNoNo",
+			"labels": [],
+			"songCardPath": "/img/card/476.png",
+			"sourceSongID": 473
+		},
+		"id": 473,
+		"searchTerms": [
+			"APINK / NONONO - FULL SONG -",
+			"NONONO - FULL SONG -"
+		],
+		"title": "NoNoNo - FULL SONG -"
+	},
+	{
+		"altTitles": [
 			"void / Idealized Romance"
 		],
 		"artist": "void",
@@ -6169,6 +7681,52 @@
 	},
 	{
 		"altTitles": [
+			"Enhance Reality",
+			"Matduke / Enhance Reality",
+			"Matduke / Enhanced Reality"
+		],
+		"artist": "Matduke",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Enhanced Reality",
+			"gameIdentifier": null,
+			"internalTitle": "Enhance Reality",
+			"labels": [],
+			"songCardPath": "/img/card/416.png",
+			"sourceSongID": 479
+		},
+		"id": 479,
+		"searchTerms": [
+			"ENHANCE REALITY",
+			"ENHANCED REALITY",
+			"MATDUKE / ENHANCE REALITY",
+			"MATDUKE / ENHANCED REALITY"
+		],
+		"title": "Enhanced Reality"
+	},
+	{
+		"altTitles": [
+			"KARA / Pandora - FULL SONG -"
+		],
+		"artist": "KARA",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Pandora",
+			"gameIdentifier": null,
+			"internalTitle": "Pandora",
+			"labels": [],
+			"songCardPath": "/img/card/483.png",
+			"sourceSongID": 480
+		},
+		"id": 480,
+		"searchTerms": [
+			"KARA / PANDORA - FULL SONG -",
+			"PANDORA - FULL SONG -"
+		],
+		"title": "Pandora - FULL SONG -"
+	},
+	{
+		"altTitles": [
 			"Paul Bazooka / Mad5cience"
 		],
 		"artist": "Paul Bazooka",
@@ -6229,6 +7787,48 @@
 			"MAZO / BREAK IT DOWN"
 		],
 		"title": "Break it Down"
+	},
+	{
+		"altTitles": [
+			"AKB48 (Cover) / Heavy Rotation"
+		],
+		"artist": "AKB48 (Cover)",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Heavy Rotation",
+			"gameIdentifier": null,
+			"internalTitle": "Heavy Rotation",
+			"labels": [],
+			"songCardPath": "/img/card/487.png",
+			"sourceSongID": 484
+		},
+		"id": 484,
+		"searchTerms": [
+			"AKB48 (COVER) / HEAVY ROTATION",
+			"HEAVY ROTATION"
+		],
+		"title": "Heavy Rotation"
+	},
+	{
+		"altTitles": [
+			"Miura Daichi (Cover) / Unlock"
+		],
+		"artist": "Miura Daichi (Cover)",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Unlock",
+			"gameIdentifier": null,
+			"internalTitle": "Unlock",
+			"labels": [],
+			"songCardPath": "/img/card/486.png",
+			"sourceSongID": 485
+		},
+		"id": 485,
+		"searchTerms": [
+			"MIURA DAICHI (COVER) / UNLOCK",
+			"UNLOCK"
+		],
+		"title": "Unlock"
 	},
 	{
 		"altTitles": [
@@ -6362,6 +7962,27 @@
 	},
 	{
 		"altTitles": [
+			"AKB48 (Cover) / Heavy Rotation - SHORT CUT -"
+		],
+		"artist": "AKB48 (Cover)",
+		"data": {
+			"cut": "Short Cut",
+			"englishTitle": "Heavy Rotation",
+			"gameIdentifier": null,
+			"internalTitle": "Heavy Rotation",
+			"labels": [],
+			"songCardPath": "/img/card/491.png",
+			"sourceSongID": 503
+		},
+		"id": 503,
+		"searchTerms": [
+			"AKB48 (COVER) / HEAVY ROTATION - SHORT CUT -",
+			"HEAVY ROTATION - SHORT CUT -"
+		],
+		"title": "Heavy Rotation - SHORT CUT -"
+	},
+	{
+		"altTitles": [
 			"Gentle Stick / Amphitryon"
 		],
 		"artist": "Gentle Stick",
@@ -6488,6 +8109,27 @@
 	},
 	{
 		"altTitles": [
+			"Zircon / Across the Ocean"
+		],
+		"artist": "Zircon",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Across the Ocean",
+			"gameIdentifier": "1470",
+			"internalTitle": "Across the Ocean",
+			"labels": [],
+			"songCardPath": "/img/card/412.png",
+			"sourceSongID": 510
+		},
+		"id": 510,
+		"searchTerms": [
+			"ACROSS THE OCEAN",
+			"ZIRCON / ACROSS THE OCEAN"
+		],
+		"title": "Across the Ocean"
+	},
+	{
+		"altTitles": [
 			"SHK / Like Me"
 		],
 		"artist": "SHK",
@@ -6527,6 +8169,27 @@
 			"YOU AGAIN MY LOVE"
 		],
 		"title": "You again my love"
+	},
+	{
+		"altTitles": [
+			"Outsider / Acquaintance"
+		],
+		"artist": "Outsider",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Acquaintance",
+			"gameIdentifier": "1557",
+			"internalTitle": "Acquaintance",
+			"labels": [],
+			"songCardPath": "/img/card/1557.png",
+			"sourceSongID": 513
+		},
+		"id": 513,
+		"searchTerms": [
+			"ACQUAINTANCE",
+			"OUTSIDER / ACQUAINTANCE"
+		],
+		"title": "Acquaintance"
 	},
 	{
 		"altTitles": [
@@ -6702,6 +8365,195 @@
 	},
 	{
 		"altTitles": [
+			"Bigbang / BANG BANG BANG"
+		],
+		"artist": "Bigbang",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "BANG BANG BANG",
+			"gameIdentifier": "1544",
+			"internalTitle": "BANG BANG BANG",
+			"labels": [],
+			"songCardPath": "/img/card/1544.png",
+			"sourceSongID": 522
+		},
+		"id": 522,
+		"searchTerms": [
+			"BANG BANG BANG",
+			"BIGBANG / BANG BANG BANG"
+		],
+		"title": "BANG BANG BANG"
+	},
+	{
+		"altTitles": [
+			"GFriend / Me Gustas Tu"
+		],
+		"artist": "GFriend",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Me Gustas Tu",
+			"gameIdentifier": "1545",
+			"internalTitle": "Me Gustas Tu",
+			"labels": [],
+			"songCardPath": "/img/card/1545.png",
+			"sourceSongID": 523
+		},
+		"id": 523,
+		"searchTerms": [
+			"GFRIEND / ME GUSTAS TU",
+			"ME GUSTAS TU"
+		],
+		"title": "Me Gustas Tu"
+	},
+	{
+		"altTitles": [
+			"iKON / RHYTHM TA"
+		],
+		"artist": "iKON",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "RHYTHM TA",
+			"gameIdentifier": "1546",
+			"internalTitle": "RHYTHM TA",
+			"labels": [],
+			"songCardPath": "/img/card/1546.png",
+			"sourceSongID": 524
+		},
+		"id": 524,
+		"searchTerms": [
+			"IKON / RHYTHM TA",
+			"RHYTHM TA"
+		],
+		"title": "RHYTHM TA"
+	},
+	{
+		"altTitles": [
+			"PRODUCE 101 / PICK ME"
+		],
+		"artist": "PRODUCE 101",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "PICK ME",
+			"gameIdentifier": "1548",
+			"internalTitle": "PICK ME",
+			"labels": [],
+			"songCardPath": "/img/card/1548.png",
+			"sourceSongID": 525
+		},
+		"id": 525,
+		"searchTerms": [
+			"PICK ME",
+			"PRODUCE 101 / PICK ME"
+		],
+		"title": "PICK ME"
+	},
+	{
+		"altTitles": [
+			"Block B / Jackpot"
+		],
+		"artist": "Block B",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Jackpot",
+			"gameIdentifier": "1549",
+			"internalTitle": "Jackpot",
+			"labels": [],
+			"songCardPath": "/img/card/1549.png",
+			"sourceSongID": 526
+		},
+		"id": 526,
+		"searchTerms": [
+			"BLOCK B / JACKPOT",
+			"JACKPOT"
+		],
+		"title": "Jackpot"
+	},
+	{
+		"altTitles": [
+			"BLACKPINK / BOOMBAYAH"
+		],
+		"artist": "BLACKPINK",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "BOOMBAYAH",
+			"gameIdentifier": "1551",
+			"internalTitle": "BOOMBAYAH",
+			"labels": [],
+			"songCardPath": "/img/card/1551.png",
+			"sourceSongID": 527
+		},
+		"id": 527,
+		"searchTerms": [
+			"BLACKPINK / BOOMBAYAH",
+			"BOOMBAYAH"
+		],
+		"title": "BOOMBAYAH"
+	},
+	{
+		"altTitles": [
+			"EXID / Up & Down"
+		],
+		"artist": "EXID",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Up & Down",
+			"gameIdentifier": "1553",
+			"internalTitle": "Up & Down",
+			"labels": [],
+			"songCardPath": "/img/card/1553.png",
+			"sourceSongID": 528
+		},
+		"id": 528,
+		"searchTerms": [
+			"EXID / UP & DOWN",
+			"UP & DOWN"
+		],
+		"title": "Up & Down"
+	},
+	{
+		"altTitles": [
+			"MAMAMOO / You're the best"
+		],
+		"artist": "MAMAMOO",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "You're the best",
+			"gameIdentifier": "1555",
+			"internalTitle": "You're the best",
+			"labels": [],
+			"songCardPath": "/img/card/1555.png",
+			"sourceSongID": 529
+		},
+		"id": 529,
+		"searchTerms": [
+			"MAMAMOO / YOU'RE THE BEST",
+			"YOU'RE THE BEST"
+		],
+		"title": "You're the best"
+	},
+	{
+		"altTitles": [
+			"T-ara / NUMBER NINE"
+		],
+		"artist": "T-ara",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "NUMBER NINE",
+			"gameIdentifier": "1556",
+			"internalTitle": "NUMBER NINE",
+			"labels": [],
+			"songCardPath": "/img/card/1556.png",
+			"sourceSongID": 530
+		},
+		"id": 530,
+		"searchTerms": [
+			"NUMBER NINE",
+			"T-ARA / NUMBER NINE"
+		],
+		"title": "NUMBER NINE"
+	},
+	{
+		"altTitles": [
 			"TatshMusicCircle / Moon Light Dance"
 		],
 		"artist": "TatshMusicCircle",
@@ -6804,6 +8656,27 @@
 			"VULCAN"
 		],
 		"title": "Vulcan"
+	},
+	{
+		"altTitles": [
+			"Bigbang / BANG BANG BANG - FULL SONG -"
+		],
+		"artist": "Bigbang",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "BANG BANG BANG",
+			"gameIdentifier": "15E1",
+			"internalTitle": "BANG BANG BANG",
+			"labels": [],
+			"songCardPath": "/img/card/15E1.png",
+			"sourceSongID": 536
+		},
+		"id": 536,
+		"searchTerms": [
+			"BANG BANG BANG - FULL SONG -",
+			"BIGBANG / BANG BANG BANG - FULL SONG -"
+		],
+		"title": "BANG BANG BANG - FULL SONG -"
 	},
 	{
 		"altTitles": [
@@ -6933,6 +8806,27 @@
 	},
 	{
 		"altTitles": [
+			"GFriend / Me Gustas Tu - FULL SONG -"
+		],
+		"artist": "GFriend",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Me Gustas Tu",
+			"gameIdentifier": "15E0",
+			"internalTitle": "Me Gustas Tu",
+			"labels": [],
+			"songCardPath": "/img/card/15E0.png",
+			"sourceSongID": 622
+		},
+		"id": 622,
+		"searchTerms": [
+			"GFRIEND / ME GUSTAS TU - FULL SONG -",
+			"ME GUSTAS TU - FULL SONG -"
+		],
+		"title": "Me Gustas Tu - FULL SONG -"
+	},
+	{
+		"altTitles": [
 			"Dreamcatcher / Chase Me"
 		],
 		"artist": "Dreamcatcher",
@@ -6993,6 +8887,27 @@
 			"STEP"
 		],
 		"title": "STEP"
+	},
+	{
+		"altTitles": [
+			"BLACKPINK / BOOMBAYAH - FULL SONG -"
+		],
+		"artist": "BLACKPINK",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "BOOMBAYAH",
+			"gameIdentifier": "15E2",
+			"internalTitle": "BOOMBAYAH",
+			"labels": [],
+			"songCardPath": "/img/card/15E2.png",
+			"sourceSongID": 626
+		},
+		"id": 626,
+		"searchTerms": [
+			"BLACKPINK / BOOMBAYAH - FULL SONG -",
+			"BOOMBAYAH - FULL SONG -"
+		],
+		"title": "BOOMBAYAH - FULL SONG -"
 	},
 	{
 		"altTitles": [
@@ -7252,6 +9167,48 @@
 	},
 	{
 		"altTitles": [
+			"EXID / Up & Down - FULL SONG -"
+		],
+		"artist": "EXID",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Up & Down",
+			"gameIdentifier": "15E3",
+			"internalTitle": "Up & Down",
+			"labels": [],
+			"songCardPath": "/img/card/15E3.png",
+			"sourceSongID": 639
+		},
+		"id": 639,
+		"searchTerms": [
+			"EXID / UP & DOWN - FULL SONG -",
+			"UP & DOWN - FULL SONG -"
+		],
+		"title": "Up & Down - FULL SONG -"
+	},
+	{
+		"altTitles": [
+			"Bigbang / SOBER"
+		],
+		"artist": "Bigbang",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "SOBER",
+			"gameIdentifier": "1552",
+			"internalTitle": "SOBER",
+			"labels": [],
+			"songCardPath": "/img/card/1552.png",
+			"sourceSongID": 640
+		},
+		"id": 640,
+		"searchTerms": [
+			"BIGBANG / SOBER",
+			"SOBER"
+		],
+		"title": "SOBER"
+	},
+	{
+		"altTitles": [
 			"Nato / Shub Niggurath"
 		],
 		"artist": "Nato",
@@ -7291,6 +9248,27 @@
 			"SID-SOUND / MAGICAL VACATION"
 		],
 		"title": "Magical Vacation"
+	},
+	{
+		"altTitles": [
+			"Outsider / Acquaintance - FULL SONG -"
+		],
+		"artist": "Outsider",
+		"data": {
+			"cut": "Full Song",
+			"englishTitle": "Acquaintance",
+			"gameIdentifier": "15E4",
+			"internalTitle": "Acquaintance",
+			"labels": [],
+			"songCardPath": "/img/card/15E4.png",
+			"sourceSongID": 643
+		},
+		"id": 643,
+		"searchTerms": [
+			"ACQUAINTANCE - FULL SONG -",
+			"OUTSIDER / ACQUAINTANCE - FULL SONG -"
+		],
+		"title": "Acquaintance - FULL SONG -"
 	},
 	{
 		"altTitles": [
@@ -7375,6 +9353,27 @@
 			"LEATHER"
 		],
 		"title": "Leather"
+	},
+	{
+		"altTitles": [
+			"2NE1 / Gotta Be You"
+		],
+		"artist": "2NE1",
+		"data": {
+			"cut": "Arcade",
+			"englishTitle": "Gotta Be You",
+			"gameIdentifier": "1550",
+			"internalTitle": "Gotta Be You",
+			"labels": [],
+			"songCardPath": "/img/card/1550.png",
+			"sourceSongID": 648
+		},
+		"id": 648,
+		"searchTerms": [
+			"2NE1 / GOTTA BE YOU",
+			"GOTTA BE YOU"
+		],
+		"title": "Gotta Be You"
 	},
 	{
 		"altTitles": [
